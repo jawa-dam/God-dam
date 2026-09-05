@@ -1,50 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 6 · Coming Soon | Genesis Engineered Interpretations</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 6 — Stomp, Stalk & Soul · Genesis Engineered Interpretations</title>
+<meta name="description" content="Read it, map it, build it, beat it: four ways to play with every word of Genesis Day 6 (KJV) — the land animals, the image-bearers, the crown of dominion, and the upgrade to VERY good.">
 <link rel="icon" type="image/png" href="assets/logo.png">
-<link rel="stylesheet" href="assets/app.css">
+<style>
+/* ============ GENESIS ENGINEERED INTERPRETATIONS · DAY 1 · 4-MODE LAB ============ */
+:root{
+  --bg:#0a0f24; --panel:#121b3d; --panel2:#182450;
+  --ink:#eef2ff; --dim:#9aa7d4; --line:#28356b;
+  --blue:#5b8dee; --cyan:#17b0d8; --pink:#ea4fa8; --gold:#ffd166; --green:#39d98a;
+  --grad:linear-gradient(90deg,var(--blue),var(--cyan) 45%,var(--pink));
+  --shadow:0 10px 30px rgba(0,0,0,.45); --radius:16px;
+}
+body.light{--bg:#f3efe4; --panel:#fffdf6; --panel2:#f6efdd; --ink:#20264a; --dim:#6a7194; --line:#d9d0b6; --shadow:0 10px 26px rgba(90,80,40,.18)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:"Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:radial-gradient(1200px 700px at 75% -10%, #16224d 0%, var(--bg) 55%) fixed;
+  color:var(--ink); transition:background .5s,color .5s}
+body.light{background:radial-gradient(1200px 700px at 75% -10%, #fff8e2 0%, var(--bg) 55%) fixed}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none;transition:opacity .6s}
+body.light #stars{opacity:0}
+#confetti{position:fixed;inset:0;z-index:90;pointer-events:none}
+#app{position:relative;z-index:1;height:100vh;display:grid;grid-template-rows:auto 1fr auto;gap:10px;padding:10px 14px 8px}
+.hidden{display:none !important}
+
+/* header */
+header{display:flex;align-items:center;gap:14px;padding:4px 8px}
+.logo{height:36px;filter:drop-shadow(0 2px 6px rgba(234,79,168,.35));animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.titles h1{font-size:clamp(12px,1.2vw,16px);letter-spacing:.14em;font-weight:800;text-transform:uppercase}
+.titles h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.titles p{font-size:clamp(9.5px,.8vw,11.5px);color:var(--dim);letter-spacing:.06em}
+nav{margin-left:auto;display:flex;gap:6px;align-items:center}
+.pill{font-size:clamp(9.5px,.8vw,11.5px);font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--dim);text-decoration:none;background:var(--panel);transition:.2s;white-space:nowrap}
+.pill:hover{transform:translateY(-2px);color:var(--ink);border-color:var(--cyan)}
+.pill.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(23,176,216,.4)}
+.pill.soon{opacity:.55;font-style:italic}.pill.soon:hover{opacity:.85}
+#progWrap{display:flex;align-items:center;gap:7px}
+#ring{width:40px;height:40px;transform:rotate(-90deg)}
+#ringBg{stroke:var(--line)}#ringFg{stroke:url(#ringGrad);stroke-linecap:round;transition:stroke-dashoffset .6s}
+#progTxt{font-size:10px;font-weight:800;color:var(--dim);line-height:1.15}
+#progTxt b{display:block;font-size:12.5px;color:var(--ink)}
+
+/* main grid */
+main{display:grid;grid-template-columns:minmax(180px,17%) minmax(0,1fr) minmax(270px,28%);gap:12px;min-height:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.card>h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:9px 13px 7px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.card>h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.pad{padding:9px 11px;overflow-y:auto;scrollbar-width:thin;flex:1;min-height:0}
+.pad::-webkit-scrollbar,#verses::-webkit-scrollbar,.mbody::-webkit-scrollbar,#dossBody::-webkit-scrollbar,#mapWrap::-webkit-scrollbar{width:6px;height:6px}
+.pad::-webkit-scrollbar-thumb,#verses::-webkit-scrollbar-thumb,.mbody::-webkit-scrollbar-thumb,#dossBody::-webkit-scrollbar-thumb,#mapWrap::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.toolbtn{display:flex;align-items:center;gap:8px;width:100%;text-align:left;font:inherit;font-size:12px;font-weight:700;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:7px 9px;margin-bottom:6px;cursor:pointer;transition:.18s}
+.toolbtn:hover{transform:translateX(3px);border-color:var(--cyan)}
+.toolbtn .ico{font-size:15px}
+.toolbtn small{margin-left:auto;color:var(--dim);font-weight:600}
+.sect{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:9px 2px 5px}
+.devbtn{display:flex;gap:7px;align-items:center;width:100%;font:inherit;font-size:11px;color:var(--dim);background:transparent;border:1px solid transparent;border-radius:9px;padding:5px 7px;margin-bottom:2px;cursor:pointer;text-align:left;transition:.18s}
+.devbtn:hover{color:var(--ink);background:var(--panel2)}
+.devbtn.on{color:var(--ink);border-color:var(--gold);background:rgba(255,209,102,.08)}
+#statBar{height:7px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);overflow:hidden;margin:5px 2px}
+#statFill{height:100%;width:0%;background:var(--grad);transition:width .6s}
+
+/* center stage + view switcher */
+#viewBar{display:flex;gap:6px;padding:8px 12px 0;flex-wrap:wrap}
+.vbtn{font:inherit;font-size:11.5px;font-weight:800;letter-spacing:.04em;color:var(--dim);background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;cursor:pointer;transition:.2s}
+.vbtn:hover{color:var(--ink);transform:translateY(-2px)}
+.vbtn.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(23,176,216,.35)}
+.view{flex:1;min-height:0;display:flex;flex-direction:column}
+#devBanner{display:none;align-items:center;gap:9px;margin:8px 14px 0;padding:7px 11px;border-radius:11px;background:rgba(255,209,102,.1);border:1px dashed var(--gold);font-size:11.5px}
+#devBanner.show{display:flex;animation:slideDown .3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+#devBanner b{color:var(--gold)}
+#devBanner button{margin-left:auto;background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px}
+
+/* READ view */
+#verses{flex:1;min-height:0;padding:12px 18px 10px;overflow-y:auto;scrollbar-width:thin;line-height:2.05;font-family:Georgia,"Times New Roman",serif;font-size:clamp(13.5px,1.3vw,18px)}
+.verse{margin-bottom:11px}
+.vnum{font-family:"Segoe UI",system-ui,sans-serif;font-size:.62em;font-weight:800;color:var(--cyan);vertical-align:super;margin-right:6px;user-select:none}
+.tok{cursor:pointer;border-radius:6px;padding:1px 3px;margin:0 1px;transition:background .15s,color .15s,transform .15s,box-shadow .15s;outline:none}
+.tok:hover,.tok:focus-visible{background:var(--panel2);color:var(--cyan);transform:translateY(-2px) scale(1.06);box-shadow:0 3px 10px rgba(23,176,216,.3)}
+.tok.punct{color:var(--pink);font-weight:700;border-radius:50%;padding:1px 4px}
+.tok.punct:hover{color:#fff;background:var(--pink)}
+.tok.sel{background:var(--grad);color:#fff !important;box-shadow:0 4px 16px rgba(234,79,168,.45)}
+.tok.seen{border-bottom:2px dotted var(--cyan)}
+.tok.hl{animation:goldPulse 1.1s ease-in-out infinite;background:rgba(255,209,102,.14)}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,209,102,.55)}50%{box-shadow:0 0 0 7px rgba(255,209,102,0)}}
+.tok.pop{animation:popIn .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes popIn{0%{transform:scale(1)}40%{transform:scale(1.35) rotate(-3deg)}100%{transform:scale(1)}}
+.tok.reveal{opacity:0;animation:riseIn .5s ease forwards}
+@keyframes riseIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.tok.glowburst{animation:burst 1s ease}
+@keyframes burst{0%{box-shadow:0 0 0 0 rgba(255,209,102,.9)}45%{box-shadow:0 0 34px 14px rgba(255,209,102,.55);background:rgba(255,209,102,.35)}100%{box-shadow:0 0 0 0 rgba(255,209,102,0)}}
+#hint{padding:7px 18px 10px;font-size:11px;color:var(--dim);border-top:1px dashed var(--line)}
+#hint b{color:var(--gold)}
+
+/* MAP view */
+#mapLegend{display:flex;gap:5px;flex-wrap:wrap;padding:8px 12px 4px}
+.lchip{font:inherit;font-size:10px;font-weight:800;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);color:var(--dim);cursor:pointer;transition:.15s}
+.lchip:hover{transform:scale(1.07);color:var(--ink)}
+#mapCtl{margin-left:auto;display:flex;gap:4px}
+#mapCtl button{font:inherit;font-size:11px;font-weight:800;width:24px;height:24px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
+#mapCtl button:hover{border-color:var(--cyan)}
+#mapWrap{flex:1;min-height:0;margin:4px 12px 10px;overflow:auto;scrollbar-width:thin;border:1px solid var(--line);border-radius:14px;background:radial-gradient(900px 500px at 50% 0%, rgba(91,141,238,.07), transparent),var(--panel2);cursor:grab;position:relative}
+#mapWrap.drag{cursor:grabbing}
+#mapInner{position:relative;width:2400px;height:1400px;transform-origin:0 0}
+.zone{position:absolute;border-radius:50%;pointer-events:none;filter:blur(6px)}
+.zlabel{position:absolute;font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--dim);opacity:.8;pointer-events:none;text-transform:uppercase}
+.mtok{position:absolute;transform:translate(-50%,-50%);cursor:pointer;font-weight:800;border-radius:10px;padding:4px 9px;white-space:nowrap;transition:transform .15s,box-shadow .15s;outline:none;border:1.5px solid transparent}
+.mtok:hover,.mtok:focus-visible{transform:translate(-50%,-50%) scale(1.18);z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.mtok.sel{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.25),0 6px 18px rgba(0,0,0,.4)}
+.mtok.seen{border-style:dotted;border-color:var(--cyan)}
+.mtok.hl{animation:goldPulse 1.1s ease-in-out infinite}
+.mtok .ct{font-size:9px;opacity:.75;vertical-align:super}
+#mapLines{position:absolute;inset:0;pointer-events:none}
+#mapHint{padding:0 14px 9px;font-size:10.5px;color:var(--dim)}
+
+/* BUILD view */
+#buildBox{flex:1;min-height:0;display:flex;flex-direction:column;padding:10px 14px}
+#buildGoal{font-size:12px;color:var(--dim);margin-bottom:8px}
+#buildGoal b{color:var(--ink)}
+#buildSeq{min-height:64px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;padding:9px;border:2px dashed var(--line);border-radius:14px;background:var(--panel2);margin-bottom:9px}
+#buildSeq:empty::before{content:"Drop your words here… click chips below ↓";color:var(--dim);font-size:11.5px;padding:8px}
+.bslot{font:inherit;font-size:13px;font-weight:800;font-family:Georgia,serif;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:9px;padding:5px 9px;cursor:pointer;position:relative;transition:.15s}
+.bslot:hover{border-color:var(--pink)}
+.bslot.ok{border-color:var(--green);background:rgba(57,217,138,.14)}
+.bslot.bad{border-color:var(--pink);background:rgba(234,79,168,.12);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+#buildBtns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+#buildBtns button{font:inherit;font-size:11.5px;font-weight:800;border-radius:999px;padding:7px 14px;cursor:pointer;transition:.2s;border:1px solid var(--line);background:var(--panel2);color:var(--ink)}
+#buildBtns button:hover{transform:translateY(-2px);border-color:var(--cyan)}
+#buildBtns .go{background:var(--grad);border-color:transparent;color:#fff}
+#buildPalette{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;border-top:1px dashed var(--line);padding-top:8px}
+.pcat{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:6px 0 4px}
+.pchip{font:inherit;font-size:12px;font-weight:700;font-family:Georgia,serif;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:4px 9px;margin:0 4px 5px 0;cursor:pointer;transition:.15s}
+.pchip:hover{transform:translateY(-2px) scale(1.06);border-color:var(--gold);box-shadow:0 4px 10px rgba(255,209,102,.25)}
+#buildMsg{min-height:20px;font-size:12px;font-weight:700;color:var(--gold);margin-top:6px}
+
+/* QUIZ view */
+#quizBox{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;padding:14px 18px}
+#quizBox h3{font-size:17px;margin-bottom:4px}
+#quizBox .sub{font-size:12px;color:var(--dim);margin-bottom:12px}
+.qdots{display:flex;gap:5px;margin-bottom:12px}
+.qdots span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.qdots span.ok{background:var(--green)}.qdots span.no{background:var(--pink)}
+#qText{font-size:15.5px;font-weight:700;line-height:1.45;margin-bottom:12px}
+.qopt{display:block;width:100%;text-align:left;font:inherit;font-size:13px;color:var(--ink);background:var(--panel2);border:1.5px solid var(--line);border-radius:11px;padding:9px 11px;margin-bottom:7px;cursor:pointer;transition:.15s}
+.qopt:hover{border-color:var(--cyan);transform:translateX(4px)}
+.qopt.right{border-color:var(--green);background:rgba(57,217,138,.15);animation:popIn .4s}
+.qopt.wrong{border-color:var(--pink);background:rgba(234,79,168,.12);animation:shake .4s}
+.btn{font:inherit;font-weight:800;font-size:13px;padding:10px 20px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;transition:.2s;display:inline-block}
+.btn.grad{background:var(--grad);color:#fff;box-shadow:0 6px 20px rgba(23,176,216,.4)}
+.btn.grad:hover{transform:translateY(-3px) scale(1.03)}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--dim)}
+.btn.ghost:hover{border-color:var(--cyan);color:var(--ink)}
+
+/* dossier */
+#dossHead{padding:11px 13px 9px;border-bottom:1px solid var(--line)}
+#dWord{font-size:clamp(20px,2vw,28px);font-weight:800;font-family:Georgia,serif;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#dWord .saybtn{font-size:14px;background:var(--panel2);border:1px solid var(--line);border-radius:50%;width:28px;height:28px;cursor:pointer;transition:.2s}
+#dWord .saybtn:hover{transform:scale(1.15) rotate(12deg);border-color:var(--cyan)}
+#dHeb{font-size:clamp(19px,1.8vw,25px);color:var(--gold);direction:rtl;font-family:"SBL Hebrew","Times New Roman",serif}
+#dMeta{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--dim)}
+.tag.tr{color:var(--cyan);border-color:var(--cyan)}
+.tag.st{color:var(--pink);border-color:var(--pink)}
+a.tag{text-decoration:none}
+.tag.fg{color:var(--gold);border-color:var(--gold);cursor:pointer}
+#dMean{padding:9px 13px 3px;font-size:12.5px;line-height:1.5}
+#dossBody{flex:1;min-height:0;padding:3px 9px 11px;overflow-y:auto;scrollbar-width:thin}
+.acc{border:1px solid var(--line);border-radius:11px;margin:5px 2px;overflow:hidden;background:var(--panel2)}
+.acc>button{width:100%;display:flex;align-items:center;gap:7px;font:inherit;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);background:transparent;border:none;padding:8px 11px;cursor:pointer;transition:.2s}
+.acc>button:hover{color:var(--ink)}
+.acc>button .chev{margin-left:auto;transition:transform .3s}
+.acc.open>button .chev{transform:rotate(90deg);color:var(--cyan)}
+.acc .body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.acc .inner{padding:2px 11px 10px;font-size:12px;line-height:1.55}
+.acc .inner .lbl{color:var(--dim);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;display:block;margin:6px 0 3px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.chip{font:inherit;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid var(--cyan);color:var(--cyan);background:transparent;cursor:pointer;transition:.15s}
+.chip:hover{background:var(--cyan);color:#04121f;transform:scale(1.07)}
+.chip.ant{border-color:var(--pink);color:var(--pink)}.chip.ant:hover{background:var(--pink);color:#fff}
+.chip.homo{border-color:var(--gold);color:var(--gold)}.chip.homo:hover{background:var(--gold);color:#241a02}
+.chip.rel{border-color:var(--blue);color:var(--blue)}.chip.rel:hover{background:var(--blue);color:#fff}
+.funbox{margin:7px 11px 10px;padding:8px 10px;border-radius:11px;background:linear-gradient(135deg,rgba(91,141,238,.14),rgba(234,79,168,.14));border:1px solid var(--line);font-size:11.5px;line-height:1.5}
+.funbox .star{font-size:13px;margin-right:4px;display:inline-block;animation:spinStar 3.4s linear infinite}
+@keyframes spinStar{0%{transform:rotate(0)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg)}}
+#popBtn{margin:0 11px 11px;font:inherit;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--grad);border:none;border-radius:10px;padding:8px;cursor:pointer;transition:.2s;box-shadow:0 4px 14px rgba(23,176,216,.35)}
+#popBtn:hover{transform:translateY(-2px)}
+
+/* footer, tooltip, modals */
+footer{display:flex;align-items:center;gap:9px;font-size:10px;color:var(--dim);padding:0 8px}
+footer .sep{opacity:.5}
+footer a{color:var(--cyan);text-decoration:none}footer a:hover{text-decoration:underline}
+#dayDots{margin-left:auto;display:flex;gap:5px}
+#dayDots span{width:9px;height:9px;border-radius:50%;background:var(--line);transition:.3s}
+#dayDots span.done{background:var(--grad)}
+#tip{position:fixed;z-index:60;max-width:230px;background:var(--panel2);border:1px solid var(--cyan);border-radius:10px;padding:7px 10px;font-size:11px;line-height:1.4;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .18s,transform .18s;box-shadow:var(--shadow)}
+#tip.show{opacity:1;transform:none}
+#tip .th{color:var(--gold);direction:rtl;font-size:13.5px}
+#tip .tt{color:var(--cyan);font-weight:800}
+#modalWrap{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(4,7,20,.66);backdrop-filter:blur(4px)}
+#modalWrap.show{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{width:min(560px,92vw);max-height:84vh;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:zoomIn .3s cubic-bezier(.2,1.4,.4,1)}
+@keyframes zoomIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal header{padding:13px 17px;border-bottom:1px solid var(--line)}
+.modal header h3{font-size:15px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.modal header .x{margin-left:auto;background:none;border:none;color:var(--dim);font-size:17px;cursor:pointer}
+.modal header .x:hover{color:var(--pink);transform:rotate(90deg)}
+.modal .mbody{padding:13px 17px;overflow-y:auto;font-size:12.5px;line-height:1.6;scrollbar-width:thin}
+.alphaGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:7px}
+.alphaCell{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:7px 5px;text-align:center;transition:.2s}
+.alphaCell:hover{transform:translateY(-3px) scale(1.05);border-color:var(--gold)}
+.alphaCell .L{font-size:24px;color:var(--gold);direction:rtl}
+.alphaCell .N{font-size:10.5px;font-weight:800}
+.alphaCell .S{font-size:9.5px;color:var(--dim)}
+.alphaCell .V{font-size:9px;color:var(--cyan)}
+@media (max-width:900px){main{grid-template-columns:1fr}html,body{overflow:auto}#app{height:auto;min-height:100vh}}
+</style>
 </head>
 <body>
 <canvas id="stars"></canvas>
-<div id="app" style="grid-template-rows:auto 1fr auto">
+<canvas id="confetti"></canvas>
+<div id="app">
   <header>
     <img class="logo" src="assets/logo.png" alt="yallToo logo">
-    <div class="titles"><h1>Genesis <b>Engineered</b> Interpretations</h1><p>The Day-by-Day clickable word lab</p></div>
+    <div class="titles">
+      <h1>Genesis <b>Engineered</b> Interpretations</h1>
+      <p>DAY 6 · read it · map it · build it · beat it</p>
+    </div>
     <nav>
       <a class="pill" href="index.html">Day 1</a>
-      <a class="pill soon" href="day2.html">Day 2</a><a class="pill soon" href="day3.html">Day 3</a><a class="pill soon" href="day4.html">Day 4</a><a class="pill soon" href="day5.html">Day 5</a><a class="pill active" href="day6.html">Day 6</a>
+      <a class="pill" href="day2.html">Day 2</a>
+      <a class="pill" href="day3.html">Day 3</a>
+      <a class="pill" href="day4.html">Day 4</a>
+      <a class="pill" href="day5.html">Day 5</a>
+      <a class="pill active" href="day6.html">Day 6</a>
       <a class="pill" href="about.html">About</a>
+      <div id="progWrap">
+        <svg id="ring" viewBox="0 0 44 44" aria-hidden="true">
+          <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5b8dee"/><stop offset=".5" stop-color="#17b0d8"/><stop offset="1" stop-color="#ea4fa8"/>
+          </linearGradient></defs>
+          <circle id="ringBg" cx="22" cy="22" r="18" fill="none" stroke-width="5"/>
+          <circle id="ringFg" cx="22" cy="22" r="18" fill="none" stroke-width="5"/>
+        </svg>
+        <span id="progTxt"><b>0/0</b>explored</span>
+      </div>
     </nav>
   </header>
-  <div class="hero" style="overflow-y:auto;padding-bottom:30px">
-    <div style="font-size:64px">🦁</div>
-    <div class="big">DAY 6</div>
-    <p><b style="color:var(--ink)">Stomp, Stalk & Soul</b> — Genesis 1:24–31<br>
-    This chamber of the engine is still under construction. Words being engineered:</p>
-    <div class="featGrid" style="margin-top:0">
-      <div class="feat"><div class="fi">🔩</div><h4>image (tselem) &amp; likeness (demuth)</h4><p>the mirror words</p></div><div class="feat"><div class="fi">🔩</div><h4>let US make</h4><p>the plural puzzle of verse 26</p></div><div class="feat"><div class="fi">🔩</div><h4>VERY good (tov meod)</h4><p>the review gets an upgrade</p></div>
-    </div>
-    <div class="cta">
-      <button class="btn grad" id="notify">🔔 Ping me when it opens</button>
-      <a class="btn ghost" href="index.html">⬅ Back to Day 1</a>
-    </div>
-    <p id="msg" style="min-height:22px;color:var(--gold);font-weight:700"></p>
-  </div>
-  <footer><span>Text: King James Version (public domain)</span><span class="sep">•</span><span>yallToo · Genesis Engineered Interpretations</span></footer>
+
+  <main>
+    <section class="card">
+      <h2><span class="dot"></span>Explorer Tools</h2>
+      <div class="pad">
+        <button class="toolbtn" id="alphaBtn"><span class="ico">🔤</span>Hebrew Alphabet<small>pop-out</small></button>
+        <button class="toolbtn" id="themeBtn"><span class="ico">🌗</span>Theme<small>Night</small></button>
+        <button class="toolbtn" id="soundBtn"><span class="ico">🔊</span>Sound FX<small>Off</small></button>
+        <button class="toolbtn" id="resetBtn"><span class="ico">♻️</span>Reset progress<small></small></button>
+        <div class="sect">Figurative-language radar</div>
+        <div id="devList"></div>
+        <div class="sect">Discovery meter</div>
+        <div id="statBar"><div id="statFill"></div></div>
+        <p style="font-size:10px;color:var(--dim);line-height:1.5;padding:0 2px">Explore all <b id="totalN"></b> words &amp; marks across the four modes. Dotted = explored.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="dot"></span>Genesis 1:24–31 (KJV) · the playground</h2>
+      <div id="viewBar">
+        <button class="vbtn on" data-view="read">📖 Read</button>
+        <button class="vbtn" data-view="map">🗺 Word Map</button>
+        <button class="vbtn" data-view="build">🧱 Build-a-Verse</button>
+        <button class="vbtn" data-view="quiz">🕹 Quiz</button>
+      </div>
+      <div id="devBanner"></div>
+
+      <div class="view" id="viewRead">
+        <div id="verses" aria-label="Genesis 1 verses 24 to 31, clickable words"></div>
+        <div id="hint">👆 <b>Hover</b> for a peek · <b>click</b> any word or mark for its dossier · blue chips hop between <b>linked words</b>.</div>
+      </div>
+
+      <div class="view hidden" id="viewMap">
+        <div id="mapLegend"></div>
+        <div id="mapWrap"><div id="mapInner"></div></div>
+        <div id="mapHint">🖱 Drag to pan · scroll or +/− to zoom · click a node to open its dossier · lines = relationships (roots, contrasts, commands).</div>
+      </div>
+
+      <div class="view hidden" id="viewBuild">
+        <div id="buildBox">
+          <div id="buildGoal"> <b>Build-a-Verse challenge:</b> reconstruct <b>Genesis 1:27</b> — “So God created man in his own image, in the image of God created he him; male and female created he them.” — word for word, mark for mark. Click chips to lay them; click a laid chip to remove it.</div>
+          <div id="buildSeq"></div>
+          <div id="buildBtns">
+            <button class="go" id="bCheck">▶ Check my verse</button>
+            <button id="bHint">💡 Hint</button>
+            <button id="bShow">👀 Show me</button>
+            <button id="bClear">♻ Clear</button>
+          </div>
+          <div id="buildMsg"></div>
+          <div id="buildPalette"></div>
+        </div>
+      </div>
+
+      <div class="view hidden" id="viewQuiz">
+        <div id="quizBox"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="dot"></span>Word Dossier</h2>
+      <div id="dossHead"></div>
+      <div id="dMean"></div>
+      <div id="dossBody"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Text: King James Version (public domain)</span><span class="sep">•</span>
+    <span>Built with ❤️ by <a href="about.html">yallToo</a></span><span class="sep">•</span>
+    <span>Hebrew: Strong’s refs</span>
+    <div id="dayDots" title="Days explored"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </footer>
 </div>
+<div id="tip"></div>
+<div id="modalWrap"></div>
+
 <script>
-(function(){
-  var c=document.getElementById('stars'),x=c.getContext('2d'),W,H,P=[];
-  function s(){W=c.width=innerWidth;H=c.height=innerHeight;P=[];for(var i=0;i<80;i++)P.push([Math.random()*W,Math.random()*H,Math.random()*1.4+.3,Math.random()*6.28]);}
-  s();addEventListener('resize',s);
-  (function t(k){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){var p=P[i],a=.25+.6*Math.abs(Math.sin(k/1300+p[3]));x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fillStyle='rgba(210,225,255,'+a+')';x.fill();}requestAnimationFrame(t);})(0);
-  document.getElementById('notify').addEventListener('click',function(){
-    document.getElementById('msg').textContent='Noted! Day 6 is on the build bench — meanwhile, Day 1 has ' + 43 + ' clickable secrets waiting. 🔧';
-  });
-})();
+/* ================= DATA (DAY 6 — Genesis 1:24–31 KJV) ================= */
+const DAY_INDEX=5, SUF="-d6", GLOW_ID="image", DEFAULT_ID="image", DAY_TITLE="Day 6";
+const BUILD_QUOTE="So God created man in his own image, in the image of God created he him; male and female created he them.";
+const BUILD_WINNOTE="You just engineered Genesis 1:27 — the crown verse, bara three times in one verse. Every slot green!";
+const BUILD_REWARD="image";
+const ALPHA_NOTE='Day 6 cameos: <b style="color:var(--gold)">אָדָם</b> (adam, human) starts with aleph — the silent whisper — and hides <b style="color:var(--gold)">אֲדָמָה</b> (adamah, soil) inside it · <b style="color:var(--gold)">צֶלֶם</b> (tselem, image) starts with tsadi — the righteousness-letter!';
+const XLINKS=[
+ {home:"index.html",label:"also on Day 1",ids:["and","god","said","comma","let","the","earth","of","it","was","so","period","in","be","there","upon","face","colon","semicolon","created","saw","good","evening","morning","were","day"]},
+ {home:"day2.html",label:"also on Day 2",ids:["and","god","said","let","the","in","of","it","was","so","period","made","he","which","comma","colon"]},
+ {home:"day3.html",label:"also on Day 3",ids:["and","god","said","let","the","of","in","upon","face","bring","forth","after","his","their","kind","herb","seed","tree","fruit","yielding","earth","good","saw","that","which","is","comma","colon","period","it","was","so","be","evening","morning","were","day"]},
+ {home:"day4.html",label:"also on Day 4",ids:["and","god","said","comma","let","the","in","of","to","for","was","so","it","period","colon","semicolon","saw","that","good","evening","morning","were","day","made","over"]},
+ {home:"day5.html",label:"also on Day 5",ids:["and","god","said","comma","let","the","creature","living","kind","after","his","their","fowl","blessed","them","be","fruitful","multiply","moveth","life","evening","morning","were","day","colon","period","comma","saw","good","that","it","was"]}];
+
+const DEVICES=[
+ {id:"metaphor",icon:"🗿",name:"Metaphor",desc:"Tselem (‘image’) is statue-language: ancient kings set carved images in their territories — humanity is God’s statue placed in the world."},
+ {id:"plural",icon:"👥",name:"The Divine Plural",desc:"‘Let US make… in OUR image’ — Elohim’s plural echoes again: majesty, heavenly court, or Trinitarian hint. The most discussed pronoun in Scripture."},
+ {id:"merism",icon:"🪞",name:"Merism",desc:"‘MALE and FEMALE’ = all of humanity in two ends; plus the sixth encore of ‘evening and morning’."},
+ {id:"refrain",icon:"🔁",name:"Refrain",desc:"‘After his/their kind’ drums four times in two verses — the boundary chorus’s final run."},
+ {id:"anthropomorphism",icon:"🧍",name:"Anthropomorphism",desc:"God says, makes, sees, blesses, and speaks in first person: ‘I have given.’"},
+ {id:"idiom",icon:"💬",name:"Idiom",desc:"‘The FACE of all the earth’ — panim’s surface-idiom, sixth appearance; and KJV ‘meat’ = food, an old-English idiom of its own."}];
+
+const VERSES=[
+ {n:24,tokens:[["and","And"],["god","God"],["said","said"],["comma",","],["let","Let"],["the","the"],["earth","earth"],["bring","bring"],["forth","forth"],["the","the"],["living","living"],["creature","creature"],["after","after"],["his","his"],["kind","kind"],["comma",","],["cattle","cattle"],["comma",","],["and","and"],["creeping","creeping"],["thing","thing"],["comma",","],["and","and"],["beast","beast"],["of","of"],["the","the"],["earth","earth"],["after","after"],["his","his"],["kind","kind"],["colon",":"],["and","and"],["it","it"],["was","was"],["so","so"],["period","."]]},
+ {n:25,tokens:[["and","And"],["god","God"],["made","made"],["beast","beast"],["of","of"],["the","the"],["earth","earth"],["after","after"],["his","his"],["kind","kind"],["comma",","],["and","and"],["cattle","cattle"],["after","after"],["their","their"],["kind","kind"],["comma",","],["and","and"],["every","every"],["thing","thing"],["that","that"],["creepeth","creepeth"],["upon","upon"],["the","the"],["earth","earth"],["after","after"],["his","his"],["kind","kind"],["colon",":"],["and","and"],["god","God"],["saw","saw"],["that","that"],["it","it"],["was","was"],["good","good"],["period","."]]},
+ {n:26,tokens:[["and","And"],["god","God"],["said","said"],["comma",","],["let","Let"],["us","us"],["make","make"],["man","man"],["in","in"],["our","our"],["image","image"],["comma",","],["after","after"],["our","our"],["likeness","likeness"],["colon",":"],["and","and"],["let","let"],["them","them"],["have","have"],["dominion","dominion"],["over","over"],["the","the"],["fish","fish"],["of","of"],["the","the"],["sea","sea"],["comma",","],["and","and"],["over","over"],["the","the"],["fowl","fowl"],["of","of"],["the","the"],["air","air"],["comma",","],["and","and"],["over","over"],["the","the"],["cattle","cattle"],["comma",","],["and","and"],["over","over"],["all","all"],["the","the"],["earth","earth"],["comma",","],["and","and"],["over","over"],["every","every"],["creeping","creeping"],["thing","thing"],["that","that"],["creepeth","creepeth"],["upon","upon"],["the","the"],["earth","earth"],["period","."]]},
+ {n:27,tokens:[["so","So"],["god","God"],["created","created"],["man","man"],["in","in"],["his","his"],["own","own"],["image","image"],["comma",","],["in","in"],["the","the"],["image","image"],["of","of"],["god","God"],["created","created"],["he","he"],["him","him"],["semicolon",";"],["male","male"],["and","and"],["female","female"],["created","created"],["he","he"],["them","them"],["period","."]]},
+ {n:28,tokens:[["and","And"],["god","God"],["blessed","blessed"],["them","them"],["comma",","],["and","and"],["god","God"],["said","said"],["unto","unto"],["them","them"],["comma",","],["be","Be"],["fruitful","fruitful"],["comma",","],["and","and"],["multiply","multiply"],["comma",","],["and","and"],["replenish","replenish"],["the","the"],["earth","earth"],["comma",","],["and","and"],["subdue","subdue"],["it","it"],["colon",":"],["and","and"],["have","have"],["dominion","dominion"],["over","over"],["the","the"],["fish","fish"],["of","of"],["the","the"],["sea","sea"],["comma",","],["and","and"],["over","over"],["the","the"],["fowl","fowl"],["of","of"],["the","the"],["air","air"],["comma",","],["and","and"],["over","over"],["every","every"],["living","living"],["thing","thing"],["that","that"],["moveth","moveth"],["upon","upon"],["the","the"],["earth","earth"],["period","."]]},
+ {n:29,tokens:[["and","And"],["god","God"],["said","said"],["comma",","],["behold","Behold"],["comma",","],["i","I"],["have","have"],["given","given"],["you","you"],["every","every"],["herb","herb"],["bearing","bearing"],["seed","seed"],["comma",","],["which","which"],["is","is"],["upon","upon"],["the","the"],["face","face"],["of","of"],["all","all"],["the","the"],["earth","earth"],["comma",","],["and","and"],["every","every"],["tree","tree"],["comma",","],["in","in"],["the","the"],["which","which"],["is","is"],["the","the"],["fruit","fruit"],["of","of"],["a","a"],["tree","tree"],["yielding","yielding"],["seed","seed"],["semicolon",";"],["to","to"],["you","you"],["it","it"],["shall","shall"],["be","be"],["for","for"],["meat","meat"],["period","."]]},
+ {n:30,tokens:[["and","And"],["to","to"],["every","every"],["beast","beast"],["of","of"],["the","the"],["earth","earth"],["comma",","],["and","and"],["to","to"],["every","every"],["fowl","fowl"],["of","of"],["the","the"],["air","air"],["comma",","],["and","and"],["to","to"],["every","every"],["thing","thing"],["that","that"],["creepeth","creepeth"],["upon","upon"],["the","the"],["earth","earth"],["comma",","],["wherein","wherein"],["there","there"],["is","is"],["life","life"],["comma",","],["i","I"],["have","have"],["given","given"],["every","every"],["green","green"],["herb","herb"],["for","for"],["meat","meat"],["colon",":"],["and","and"],["it","it"],["was","was"],["so","so"],["period","."]]},
+ {n:31,tokens:[["and","And"],["god","God"],["saw","saw"],["every","every"],["thing","thing"],["that","that"],["he","he"],["had","had"],["made","made"],["comma",","],["and","and"],["comma",","],["behold","behold"],["comma",","],["it","it"],["was","was"],["very","very"],["good","good"],["period","."],["and","And"],["the","the"],["evening","evening"],["and","and"],["the","the"],["morning","morning"],["were","were"],["the","the"],["sixth","sixth"],["day","day"],["period","."]]}];
+
+const CATCOL={god:"#ffd166",speech:"#ea4fa8",light:"#fff3c4",dark:"#8a63d2",water:"#17b0d8",earth:"#7ac74f",time:"#ff9f43",order:"#5b8dee",chaos:"#c0392b",func:"#8892b8",punct:"#ff6b9d"};
+
+const W={
+and:{t:"and",cat:"func",m:"The glue word — 30+ of them hold Day 6’s eight verses together.",en:"Old English ‘and/ond’.",syn:["plus","also"],rel:["said"],fun:"The vav river reaches the sea: creation’s last day is its longest sentence-chain."},
+god:{t:"God",cat:"god",heb:"אֱלֹהִים",tr:"Elohim",say:"eh-lo-HEEM",st:"H430",lit:"God, gods (plural form)",m:"The Creator — and today, the speaker of ‘US’: Elohim’s plural shape echoes in the crown verse.",org:"Plural of eloah.",en:"Old English ‘god’.",syn:["Creator","Almighty","Maker"],hg:["god vs God"],fig:["anthropomorphism","plural"],fn:"God deliberates in plural and blesses in person: ‘I have given.’",rel:["said","created","blessed","us","image"],fun:"Eleven times God speaks in Genesis 1; the last speeches include the only ‘US’ — the chapter saves its plural for humanity."},
+said:{t:"said",cat:"speech",heb:"אָמַר",tr:"amar",say:"ah-MAR",st:"H559",lit:"to say, speak, command",m:"Speeches #7–#9 of the ten: the animal order, the US-decision, the menu announcement.",org:"Root ’-m-r.",en:"Old English secgan.",syn:["spoke","declared"],fig:["anthropomorphism"],rel:["let","us","behold","god"],fun:"Three of the ten ‘And God said’ fall on Day 6 — the busiest speech day of creation."},
+comma:{t:",",k:"p",cat:"punct",name:"Comma ( , )",m:"Day 6 is comma country: animal lists, dominion lists, menu lists — commas herd them all.",en:"Greek komma — ‘a piece cut off’.",rel:["cattle","dominion"],fun:"Verse 31 even doubles the comma: ‘and, behold,’ — attention gets its own punctuation parking spot."},
+let:{t:"Let",cat:"speech",heb:"יְהִי",tr:"yehi / jussive",say:"YEH-hee",st:"H1961",lit:"let it be!",m:"The command verb opens the animal order AND the US-decision: ‘LET us make…’",org:"Jussive forms of hayah/asah gears.",en:"Old English lætan.",hg:["let (tennis 🎾)"],syn:["command","may"],rel:["us","make","earth","bring"],fun:"‘Let us make’ is the only ‘let’ God includes Himself in plural — the command becomes a consultation."},
+the:{t:"the",cat:"func",m:"The spotlight word across beasts, seas, faces and trees.",en:"Old English þē.",hp:["thee 🎭"],syn:["that particular"],rel:["earth","image","sea"],fun:"Over 40 ‘the’s today — the final day points at everything it made."},
+earth:{t:"earth",cat:"earth",heb:"אֶרֶץ",tr:"erets",say:"EH-rets",st:"H776",lit:"land, the earth",m:"The named Earth — today: animal-launchpad, humanity’s home, and the table’s address.",org:"Kin to Akkadian erṣetu.",en:"Old English eorþe.",syn:["land","ground","world"],ant:["heaven"],rel:["bring","man","replenish","subdue"],fun:"Earth: Day 1 merism-half, Day 3 name, Day 6 address — and adam (human) is made from adamah (its soil)."},
+bring:{t:"bring",cat:"earth",heb:"יוֹצֵא",tr:"yotse (yatsa)",say:"yoh-TSEH",st:"H3318",lit:"bring out, send out",m:"Day 3’s send-out verb returns: ‘let the earth bring forth the living creature’ — the land hosts again.",org:"Yatsa = go out (Exodus verb).",en:"Old English bringan.",syn:["produce","send out"],ant:["withhold"],rel:["forth","earth","living","creature"],fun:"The earth’s second hosting gig: garden on Day 3, menagerie on Day 6."},
+forth:{t:"forth",cat:"func",m:"Out-and-forward, sixth day running.",en:"Old English forþ.",hp:["fourth ⛳"],syn:["out","forward"],ant:["back"],rel:["bring"],fun:"Forth/fourth: the homophone that survived all six days."},
+living:{t:"living",cat:"earth",heb:"חַיָּה",tr:"chayyah",say:"khah-YAH",st:"H2416",lit:"living, alive",m:"The alive-word — today it doubles as ‘beast’ (chayyah): the living ones.",org:"Root ch-y-h (l’chaim!).",en:"Old English lifian.",syn:["alive","animate"],ant:["dead"],rel:["creature","beast","life"],fun:"Chayyah is both adjective (living) and noun (beast): aliveness itself becomes the animal word."},
+creature:{t:"creature",cat:"earth",heb:"נֶפֶשׁ",tr:"nephesh",say:"NEH-fesh",st:"H5315",lit:"throat, soul, being",m:"Day 5’s throat-word returns for land-life: ‘the living creature’ = nephesh chayyah — a living throat.",org:"Nephesh = throat → being.",en:"Latin creatura.",syn:["being","soul"],fig:["metaphor"],fn:"Creature-as-throat: breath and appetite pictured as one word.",rel:["life","living","beast"],fun:"Same phrase as Day 5’s swimmers: nephesh chayyah — the ocean’s phrase walks ashore."},
+after:{t:"after",cat:"func",m:"The refrain preposition, four drums today.",en:"Old English æfter.",syn:["per","according to"],ant:["before"],rel:["kind","his","their"],fun:"Le-mino’s final concert: four encores in two verses."},
+his:{t:"his",cat:"func",m:"The kind-owner: each family owns its boundary.",en:"Old English his.",rel:["kind","own"],fun:"‘His’ also hides in ‘in HIS own image’ — possession at both animal and human scale."},
+kind:{t:"kind",cat:"order",heb:"מִין",tr:"min",say:"MEEN",st:"H4327",lit:"kind, species",m:"The species-box word’s final run: cattle, creepers, beasts — each after its kind.",org:"Rare boundary word.",en:"Old English (ge)cynd — kin.",syn:["species","type","family"],ant:["mixture"],fig:["refrain"],fn:"The refrain closes its tour: garden, sea, sky, and now the land animals.",rel:["after","his","their","cattle","beast"],fun:"Min’s last roll-call. From here on, kinds mix only in the story — not in the lists."},
+cattle:{t:"cattle",cat:"earth",heb:"בְּהֵמָה",tr:"behemah",say:"beh-heh-MAH",st:"H929",lit:"beast, (domestic) cattle",m:"Behemah: the barn-yard class — domesticated beasts, four legs, hooves in the mud.",org:"Behemah = beast; its monumental plural: BEHEMOTH (Job 40)!",en:"From Anglo-Norman catel — ‘property, goods’ (cousin of ‘chattel’ and ‘capital’!).",syn:["livestock","herd-beasts"],ant:[],rel:["beast","creeping","kind"],fun:"Your word ‘cattle’ is cousin to ‘capital’ and ‘chattel’ — livestock was wealth on four legs. And Hebrew’s behemoth is the beast-word blown up to monster size."},
+creeping:{t:"creeping",cat:"earth",heb:"רֶמֶשׂ",tr:"remesh",say:"REH-mesh",st:"H7431",lit:"creeping thing, creaper",m:"Remesh: the creaper-class — small things that move low and quick.",org:"From ramas (Day 5’s moveth).",en:"Old English creopan — to creep.",syn:["creepers","skitterers"],ant:[],rel:["creepeth","thing","kind"],fun:"Remesh and ramas are the wiggle-family: Day 5 owned the water-wiggle, Day 6 the land-wiggle."},
+thing:{t:"thing",cat:"func",m:"The any-object word: creeping thing, every thing — English’s widest net.",en:"Old English þing — originally an ASSEMBLY, a court-case! (Iceland’s parliament = Al-thing.)",syn:["object","item","entity"],rel:["creeping","every","creepeth"],fun:"‘Thing’ began as a meeting: you went to the ‘thing’ to settle matters. Every ‘thing’ is a tiny parliament."},
+beast:{t:"beast",cat:"earth",heb:"חַיָּה",tr:"chayyah",say:"khah-YAH",st:"H2416",lit:"living one, wild beast",m:"Chayyah again — as NOUN: the wild living-ones, ‘beast of the earth’.",org:"Same root as living/life.",en:"Old French beste, Latin bestia.",syn:["animal","wild-one"],ant:[],rel:["living","creature","cattle"],fun:"One root, three jobs: living (adj), beast (noun), life (idea). Ch-y-h is Day 6’s heartbeat."},
+of:{t:"of",cat:"func",m:"Belonging: beast OF the earth, fish OF the sea, image OF God.",en:"Cousin of ‘off’.",syn:["belonging to"],rel:["beast","sea","image"],fun:"‘Image OF God’ — the most important ‘of’ in the Bible."},
+made:{t:"made",cat:"order",heb:"עָשָׂה",tr:"asah",say:"ah-SAH",st:"H6213",lit:"to make, fashion",m:"The craftsman verb — and in v26 it’s the US-verb: ‘Let us MAKE (asah) man…’",org:"Workbench verb (Days 2–4).",en:"Old English macian.",syn:["fashioned","crafted"],ant:["destroyed"],fig:["anthropomorphism"],rel:["us","man","beast","had"],fun:"Asah for the animals and the first human verb; then v27 upgrades to BARA. Humanity gets both verbs in two verses."},
+every:{t:"every",cat:"func",m:"The all-includer at full stretch: every thing, every tree, every green herb.",en:"‘ever-each’ fossilized.",syn:["each","all"],ant:["some"],rel:["all","thing","tree"],fun:"Every + all + kol: Day 6 stacks inclusivity-words like plates at a feast."},
+that:{t:"that",cat:"func",m:"Connector: ‘thing THAT creepeth’, ‘that he had made’.",en:"Old English þæt.",rel:["creepeth","made"],fun:"The pointer word points at creepers and masterpieces alike."},
+creepeth:{t:"creepeth",cat:"earth",heb:"רָמַשׂ",tr:"ramas",say:"rah-MAHS",st:"H7430",lit:"creeps, moves low",m:"Day 5’s stir-verb, land edition: everything that creepeth upon the earth.",org:"Ramas = creep/stir.",en:"Old English creopan + -eth ending.",syn:["crawls","skitters"],ant:[],rel:["creeping","upon","thing"],fun:"-eth endings and wiggle-roots: KJV grammar meets Hebrew zoology."},
+upon:{t:"upon",cat:"func",m:"On-top-of: creepers upon the earth, faces upon all the earth.",en:"up + on.",syn:["on","over"],ant:["under"],rel:["earth","face"],fun:"The stacked preposition, still stacking."},
+colon:{t:":",k:"p",cat:"punct",name:"Colon ( : )",m:"Drumrolls: after the animal order, after ‘subdue it’, after ‘for meat’.",en:"Greek kolon.",rel:["so","meat"],fun:"Day 6’s colons introduce results and menus — the colon as maître d’."},
+it:{t:"it",cat:"func",m:"Stand-in: ‘it was so’, ‘subdue IT’, ‘it was very good’.",en:"Old English hit.",rel:["was","subdue"],fun:"The stunt double’s biggest week: six days of standing in."},
+was:{t:"was",cat:"time",heb:"הָיָה",tr:"hayah",say:"hah-YAH",st:"H1961",lit:"to be (past)",m:"The being-verb stamps ‘so’ and ‘very good’.",syn:["happened"],rel:["be","were","so"],fun:"Hayah’s sixth shift — and the verb under ‘VERY good’."},
+so:{t:"so",cat:"order",heb:"כֵּן",tr:"ken",say:"KANE",st:"H3651",lit:"thus; YES",m:"The done-deal word — and in v27 it opens as ‘SO God created…’: ken as consequence.",org:"Ken = thus/yes.",en:"Old English swā.",syn:["thus","done","so then"],fig:["idiom"],rel:["was","created"],fun:"Ken wears two hats today: ‘and it was SO’ (receipt) and ‘SO God created’ (therefore!). One word, two logical gears."},
+period:{t:".",k:"p",cat:"punct",name:"Period ( . )",m:"Full stops — including the chapter’s last: ‘…were the sixth day.’",en:"Greek periodos.",rel:[],fun:"The final period of Genesis 1 closes the whole workshop. After it: silence, and Day 7."},
+us:{t:"us",cat:"god",m:"THE DIVINE PLURAL: ‘Let US make…’ Traditional readings: plural of majesty; address to the heavenly court; or a Trinitarian hint. Grammar echoes Elohim’s plural shape.",org:"Hebrew verb/noun plurals surround this pronoun.",en:"Old English ūs.",syn:["we"],ant:[],fig:["plural"],fn:"The plural device: majesty, court, or Trinity — the text keeps its deliberation room door ajar.",rel:["our","make","man","god"],fun:"The most debated pronoun in Scripture: two letters in English, centuries of commentary in Hebrew."},
+make:{t:"make",cat:"order",heb:"עָשָׂה",tr:"asah",say:"ah-SAH",st:"H6213",lit:"make, fashion",m:"‘Let us MAKE man’ — asah, the craftsman verb, in the US-sentence.",org:"Workbench verb.",en:"Old English macian.",syn:["fashion","form"],ant:[],rel:["us","man","created"],fun:"Verse 26 says MAKE (asah); verse 27 says CREATED (bara). The crown gets crafted AND created."},
+man:{t:"man",cat:"god",heb:"אָדָם",tr:"adam",say:"ah-DAHM",st:"H120",lit:"human, humankind, ‘earthling’",m:"ADAM: not a username — a species-word: humankind. And a soil-pun: adam from ADAMAH (ground, Day 3’s dirt).",org:"Adam ↔ adamah: human ↔ humus. Earthling from earth.",en:"Old English man — originally gender-neutral ‘human’!",syn:["human","humankind","earthling"],ant:[],fig:["metaphor"],fn:"Humanity named by its material: the soil-word wearing a soul.",rel:["earth","image","male","female"],fun:"Say adam and adamah back to back: AH-dam, ah-dah-MAH — humanity is earth that learned to breathe. (And Old English ‘man’ meant human, not male: male was ‘wer’, as in werewolf!)",glow:false},
+in:{t:"in",cat:"func",m:"Inside: IN our image, IN the which is the fruit…",en:"Old English in.",syn:["within"],ant:["out"],hp:["inn 🏨"],rel:["image","own"],fun:"The inn checks in for the final day."},
+our:{t:"our",cat:"god",m:"The plural’s possessive: ‘in OUR image, after OUR likeness’.",en:"Old English ūre.",syn:["our own"],rel:["us","image","likeness"],fig:["plural"],fn:"The deliberation-room pronoun, possessive case.",fun:"Our/us: the only first-person-plural God-words in Genesis 1 — the chapter’s single committee meeting."},
+image:{t:"image",cat:"god",heb:"צֶלֶם",tr:"tselem",say:"TSEH-lem",st:"H6754",lit:"image, carved statue, representative",m:"TSELEM: statue-language. Ancient kings planted carved images in their lands to mark rule — humanity is God’s statue placed in the world: representative, not resemblance alone.",org:"Tselem = carved figure (Num 33:52’s idols; 1 Sam 6’s golden tumors!).",en:"Latin imago — likeness, portrait.",syn:["likeness","statue","representative"],ant:[],fig:["metaphor","plural"],fn:"Statue-metaphor: humans are the placed-markers of divine kingship.",rel:["likeness","man","god","our"],fun:"Tselem is what kings set up in conquered provinces: a sign of WHO rules here. Genesis plants that sign in every human face.",glow:true},
+likeness:{t:"likeness",cat:"god",heb:"דְּמוּת",tr:"demuth",say:"deh-MOOT",st:"H1823",lit:"likeness, resemblance",m:"Demuth: resemblance — from damah, ‘to be like’. Tselem’s partner: statue + similarity, marker + mirror.",org:"Damah = compare, be like.",en:"Old English gelīcnes — ‘like-ness’.",syn:["similarity","semblance"],ant:["contrast"],fig:["metaphor"],rel:["image","our","man"],fun:"Image says ‘placed representative’; likeness says ‘really like Him’. The pair blocks both errors: statues that aren’t like, and likes that aren’t sent."},
+them:{t:"them",cat:"func",m:"The humans, pronouned: bless THEM, rule THEM…",en:"Old English hem→them.",rel:["blessed","male","female"],fun:"‘Them’ in v27 is the merism’s target: male and female = THEM = all of us."},
+have:{t:"have",cat:"func",m:"Possession-and-duty: ‘let them HAVE dominion’; ‘I HAVE given’.",en:"Old English habban.",syn:["hold","possess"],ant:["lack"],rel:["dominion","given"],fun:"Have does double duty: humanity HAS dominion; God HAS given. Duty and gift in one verb."},
+dominion:{t:"dominion",cat:"order",heb:"רָדָה",tr:"radah",say:"rah-DAH",st:"H7287",lit:"rule, tread, have dominion",m:"Radah: rule — delegated stewardship under God, pictured later as shepherd-kingship (Ps 72).",org:"Radah = rule/tread; used of kings AND of harsh masters (Lev 25:43 warns against it).",en:"Latin dominium — ‘lordship’ (cousin of ‘domain’, ‘dominion’, ‘dungeon’?!).",syn:["stewardship","rule","charge"],ant:["tyranny"],fig:["anthropomorphism"],fn:"Rule-language for image-bearers: office, not ownership.",rel:["have","over","fish","fowl","subdue"],fun:"Radah can mean tread-down — so Scripture hedges it: Leviticus forbids radah-with-rigor. Dominion arrives with a manual: shepherd, not stampede."},
+over:{t:"over",cat:"func",heb:"עַל",tr:"al",say:"AHL",st:"H5921",lit:"over, upon",m:"Day 2/4’s al again — now jurisdiction: dominion OVER fish, fowl, cattle…",org:"Same al.",en:"Old English ofer.",syn:["above","across"],ant:["under"],rel:["dominion","fish","fowl"],fun:"Al’s final promotion: waters above → rule over → dominion over. One preposition climbs the whole creation."},
+fish:{t:"fish",cat:"water",heb:"דָּג",tr:"dag",say:"DAHG",st:"H1710",lit:"fish (collective)",m:"Dag: the fish-class, collective — the sea’s swimmers under human stewardship.",org:"Dag = fish; Dagon, the Philistine deity, wears the fish-name!",en:"Old English fisc.",syn:["fishes","swimmers"],ant:[],rel:["sea","dominion","over"],fun:"The Philistine god Dagon is probably ‘little fish’ (dagon) — neighbor-gods wear fish-names; Genesis makes fish a food-category instead."},
+sea:{t:"sea",cat:"water",heb:"יָם",tr:"yam",say:"YAHM",st:"H3220",lit:"sea",m:"Day 3’s named Sea — now the fish’s address in the dominion list.",org:"Yam = sea/west.",en:"Old English sǣ.",syn:["ocean","deep"],ant:["land"],rel:["fish","of","dominion"],fun:"Yam: named on Day 3, stocked on Day 5, listed on Day 6."},
+fowl:{t:"fowl",cat:"light",heb:"עוֹף",tr:"owph",say:"OHF",st:"H5775",lit:"flyer, bird",m:"Day 5’s flyer — now ‘fowl of the AIR’, where air = Hebrew HEAVENS (shamayim)!",org:"Owph = flyer.",en:"Old English fugol.",syn:["bird"],rel:["air","dominion","over"],fun:"KJV says ‘air’; Hebrew says ‘heavens’: the birds fly in Day 2’s vault, named on Day 2."},
+air:{t:"air",cat:"earth",heb:"שָׁמַיִם",tr:"shamayim",say:"shah-MY-im",st:"H8064",lit:"heavens, sky",m:"Translation spotlight: ‘fowl of the AIR’ = Hebrew ‘bird of the HEAVENS’ (shamayim) — Day 1/2’s word in KJV clothes.",org:"Shamayim = heavens.",en:"Old French air, Latin aer, Greek aer.",syn:["sky","heavens"],ant:[],rel:["fowl","air","over"],fun:"The KJV’s ‘air’ is the Bible’s ‘heavens’ — same vault, two wardrobes."},
+all:{t:"all",cat:"func",heb:"כֹּל",tr:"kol",say:"KOHL",st:"H3605",lit:"all, every, whole",m:"Kol: the whole — ALL the earth, EVERY thing. Inclusivity at maximum.",org:"Kol = all; also ‘voice’ is qol (different root, same sound!).",en:"Old English eall.",syn:["every","whole","entire"],ant:["part","some"],rel:["every","earth","thing"],fun:"Kol (all) and qol (voice) sound identical in Hebrew — when v31 says God saw ALL, ears hear a whisper: the whole is a voice."},
+created:{t:"created",cat:"order",heb:"בָּרָא",tr:"bara",say:"bah-RAH",st:"H1254",lit:"to create (God’s VIP verb)",m:"BARA’s grand finale — and in v27 it fires THREE times in one verse: created… created… created. The VIP verb saves its volley for humanity.",org:"Root b-r-a (Day 1).",en:"Latin creare.",syn:["made","formed"],ant:["destroyed"],rel:["man","image","male","female","god"],fun:"Bara appears 5× in Genesis 1: v1 (cosmos), v21 (monsters), v27 ×3 (human). The verb’s ammunition is spent on the unmakeable: everything, monsters, us."},
+own:{t:"own",cat:"func",m:"English emphasis: ‘in his OWN image’ — Hebrew just says ‘in his image’; the KJV adds ‘own’ for warmth.",en:"Old English āgen — possessed.",syn:["very own","personal"],rel:["image","his"],fun:"‘Own’ is the translator’s hug: Hebrew betsalmo (in-his-image) gets an English embrace."},
+him:{t:"him",cat:"func",m:"‘Created he HIM’ — the first human, pronouned singular inside the plural merism.",en:"Old English him.",rel:["created","man","male"],fun:"Him, then them: singular and plural dance in v27 — the individual inside the species."},
+semicolon:{t:";",k:"p",cat:"punct",name:"Semicolon ( ; )",m:"The crown hinge: ‘…created he him ; male and female created he them.’ One verse, two lenses.",en:"Aldus Manutius, 1494.",rel:["male","female","him"],fun:"The semicolon splits the crown verse into portrait and panorama: him; them."},
+male:{t:"male",cat:"god",heb:"זָכָר",tr:"zakhar",say:"zah-KHAHR",st:"H2145",lit:"male",m:"Zakhar: male — and the SAME root means REMEMBER (zakhar). Masculinity and memory share letters.",org:"Zakhar = male / remember (Ex 20:8 ‘zakhor’ = remember!).",en:"Latin masculus.",syn:["man-side","he-side"],ant:["female"],fig:["merism"],fn:"Male-and-female is the merism: two ends naming the whole species.",rel:["female","them","created"],fun:"Zakhar/zakhor: male and remember. Hebrew hears them as one family — perhaps because remembering is how a people stays male-and-female across generations."},
+female:{t:"female",cat:"god",heb:"נְקֵבָה",tr:"neqevah",say:"neh-keh-VAH",st:"H5347",lit:"female",m:"Neqevah: female — from naqav, ‘to pierce/open’. The pair completes the species-merism.",org:"Naqav = pierce, open.",en:"Latin femina + -ella.",syn:["woman-side","she-side"],ant:["male"],fig:["merism"],rel:["male","them","image"],fun:"Male and female: the last merism of Genesis 1 — and the only one made of people. Two halves, one image."},
+blessed:{t:"blessed",cat:"speech",heb:"בָּרַךְ",tr:"barakh",say:"bah-RAHKH",st:"H1288",lit:"to bless, kneel",m:"The second blessing: humanity receives the knee-bent goodwill — with extra verbs attached.",org:"B-r-k: knee/bless (Day 5).",en:"Old English blētsian.",syn:["consecrated","favored"],ant:["cursed"],fig:["anthropomorphism"],rel:["them","be","fruitful","multiply","replenish","subdue"],fun:"Blessing #2 stacks five commissions: fruit, multiply, fill, subdue, rule — the bent knee carries a job list."},
+unto:{t:"unto",cat:"func",m:"‘Said UNTO them’ — direction with a dress coat, final appearance.",en:"un + to.",syn:["to"],ant:["from"],rel:["said","them"],fun:"Unto retires after Day 6: the KJV’s formal courier bows out with the chapter."},
+be:{t:"be",cat:"speech",heb:"פְּרוּ",tr:"peru (parah)",say:"peh-ROO",st:"H6500",lit:"be fruitful!",m:"The blessing’s first verb, repeated from Day 5: peru — BE fruitful.",org:"Parah = be fruitful.",en:"Old English bēon.",hp:["bee 🐝"],rel:["fruitful","multiply"],fun:"The bee-homophone buzzes into the second blessing."},
+fruitful:{t:"fruitful",cat:"earth",heb:"פָּרָה",tr:"parah",say:"pah-RAH",st:"H6500",lit:"fruitful, increasing",m:"Parah again — fruitfulness for humanity now, not just fish.",org:"Parah; sound-twin of peri (fruit).",en:"fruit + -ful.",syn:["fertile","productive"],ant:["barren"],rel:["be","multiply","replenish"],fun:"The garden-word (peri) and the growth-word (parah) keep rhyming across days."},
+multiply:{t:"multiply",cat:"order",heb:"רָבָה",tr:"ravah",say:"rah-VAH",st:"H7235",lit:"be many",m:"Ravah again: BE-MANY — for humans now.",org:"Rav = many; rabbi = my master.",en:"Latin multiplicare — many folds.",syn:["increase","abound"],ant:["dwindle"],rel:["be","fruitful","replenish"],fun:"The many-fold verb, promoted from ocean to species."},
+replenish:{t:"replenish",cat:"order",heb:"מָלָא",tr:"mala",say:"mah-LAH",st:"H4390",lit:"FILL (not re-fill!)",m:"KJV trap: ‘REPLENISH’ here = FILL (mala, Day 5’s fill-verb). The re- is an old intensifier, not ‘again’ — the earth isn’t being restocked.",org:"Mala = fill (Day 5).",en:"Latin replere — ‘fill again/intensively’ (re + plere, to fill — cousin of ‘plus’, ‘full’, ‘plural’!).",syn:["fill","stock"],ant:["empty"],rel:["earth","multiply","subdue"],fun:"‘Replenish’ fooled generations into imagining a pre-Adamic world to re-fill. Hebrew says mala: FILL. Same verb, Day 5 and Day 6."},
+subdue:{t:"subdue",cat:"order",heb:"כָּבַשׁ",tr:"kavash",say:"kah-VAHSH",st:"H3533",lit:"subdue, bring under, tread",m:"Kavash: bring-into-subjection — the land itself gets a steward-task: curb thorns? tend soil? The verb is strong; the context is garden-keeping.",org:"Kavash = subdue (used of lands and peoples, Num 32).",en:"From Latin sub + ducere — ‘to lead from below’ (the duce family: duke, conduct, induce!)",syn:["tend","master","bring under"],ant:["neglect","abandon"],fig:["anthropomorphism"],fn:"Subduing as gardening at planetary scale: strong verb, tender office.",rel:["earth","it","dominion"],fun:"Kavash is conquest-language handed to gardeners: the only conquest Day 6 authorizes is over soil and seed."},
+i:{t:"I",cat:"god",m:"The first ‘I’ in the Bible is GOD’s: ‘I have given you…’ — the Creator speaks in first person to the creature.",en:"Old English ic — worn from ‘ik’ to ‘I’ (the shortest word, the biggest speaker).",syn:["me","myself"],rel:["given","you","have"],fun:"The alphabet’s shortest word carries the chapter’s longest reach: I → you, Creator → creature."},
+you:{t:"you",cat:"func",m:"The first ‘YOU’ in the Bible is US — humanity addressed at the table.",en:"Old English ēow — dative plural; ‘thou/you’ merged later.",syn:["ye","thee (old sing.)"],rel:["i","given","meat"],fun:"Every reader inherits this pronoun: the menu is addressed to you."},
+herb:{t:"herb",cat:"earth",heb:"עֵשֶׂב",tr:"esev",say:"EH-sev",st:"H6212",lit:"herb, plant, green",m:"Day 3’s plant-word becomes Day 6’s menu-word: every seed-herb, given.",org:"Esev = field plants (Day 3).",en:"Latin herba.",syn:["plant","green"],rel:["seed","bearing","green","meat"],fun:"The salad bar opens as a gift: esev moves from soil to table."},
+bearing:{t:"bearing",cat:"earth",heb:"זֹרֵעַ",tr:"zorea (zara)",say:"zoh-REH-ah",st:"H2232",lit:"sowing, seeding",m:"Day 3’s sow-verb (zara) as participle: herb BEARING seed = herb sowing seed.",org:"Zara = sow (Day 3 yielding).",en:"Old English beran — to carry (cousin of ‘bearable’!).",syn:["carrying","yielding"],rel:["seed","herb","yielding"],fun:"Bearing = carrying: the plants carry tomorrow in their pockets."},
+seed:{t:"seed",cat:"earth",heb:"זֶרַע",tr:"zera",say:"ZEH-rah",st:"H2233",lit:"seed, offspring",m:"Day 3’s lineage-word — now the menu’s guarantee: seed inside means harvest forever.",org:"Zera = seed/descendants.",en:"Old English sǣd.",syn:["grain","kernel"],rel:["bearing","yielding","herb","fruit"],fun:"Zera: biology and genealogy in one kernel — the meal includes the next meal."},
+which:{t:"which",cat:"func",m:"Points back at herbs and trees on the menu.",en:"Old English hwilc.",syn:["that"],rel:["herb","tree"],fun:"The detective word reads the menu aloud."},
+is:{t:"is",cat:"time",heb:"הָיָה",tr:"hayah (implied)",say:"hah-YAH",st:"H1961",lit:"to be (present)",m:"Present gear: ‘which IS upon the face…’",syn:["exists"],rel:["was","be"],fun:"Hayah’s present tense, serving dinner."},
+face:{t:"face",cat:"water",heb:"פָּנִים",tr:"panim",say:"pah-NEEM",st:"H6440",lit:"faces, surface",m:"Day 1’s idiom, sixth appearance: ‘the FACE of all the earth’ = the surface of all the earth.",org:"Panim = faces/surface.",en:"Latin facies.",syn:["surface"],ant:["back"],fig:["idiom"],fn:"Surface-idiom: from deep (Day 1) to vault (Day 5) to all-earth (Day 6).",rel:["upon","all","earth"],fun:"Panim’s grand tour: ocean surface, sky surface, planet surface. One idiom, three altitudes."},
+behold:{t:"behold",cat:"speech",heb:"הִנֵּה",tr:"hinneh",say:"hin-NAY",st:"H2009",lit:"behold! look! ta-da!",m:"HINNEH: the Bible’s attention-fireworks — ‘LOOK!’ Twice in the finale (v29 menu, v31 verdict).",org:"Hinneh = lo! (from hen, ‘lo’).",en:"Old English bihealdan — to hold in view.",syn:["look!","lo!","ta-da!"],ant:[],rel:["i","given","very","good"],fun:"Hinneh is God’s ta-da: the only interjection He uses in Genesis 1 — and He uses it twice, for dinner and for the verdict."},
+given:{t:"given",cat:"order",heb:"נָתַן",tr:"natan",say:"nah-TAHN",st:"H5414",lit:"given, placed, appointed",m:"Day 4’s set/give-verb (natan) becomes the table-verb: ‘I have GIVEN you every herb…’",org:"Natan = give/place/appoint.",en:"Old English giefan (cousin of ‘gift’!).",syn:["granted","handed"],ant:["withheld"],rel:["i","you","herb","green"],fun:"Natan’s arc: lamps given posts (Day 4), food given to faces (Day 6). Give is the verb of providence."},
+green:{t:"green",cat:"earth",heb:"יֶרֶק",tr:"yereq",say:"YEH-rek",st:"H3418",lit:"green, greenness",m:"YEREQ: the green-color word — ‘every GREEN herb’: the menu is color-coded.",org:"Yereq = greenness; modern Hebrew yarok = green.",en:"Old English grēne — from ‘grow’! (green and grow are cousins.)",syn:["verdant","leafy"],ant:["brown","sere"],rel:["herb","meat"],fun:"Green grows from ‘grow’: the color-word and the life-word are family. Day 6 paints the menu spring-green."},
+for:{t:"for",cat:"func",m:"Purpose: ‘FOR meat’ — the menu’s preposition.",en:"Old English for.",hp:["four / fore ⛳"],syn:["as","to be"],rel:["meat"],fun:"For/four/fore: the sixth-day homophone chorus, final verse."},
+meat:{t:"meat",cat:"earth",heb:"מַאֲכָל",tr:"ma’akal",say:"mah-ah-KAHL",st:"H402",lit:"food, eating",m:"KJV idiom alert: ‘MEAT’ = FOOD in general (ma’akal, from akal = to eat). No steak here: the menu is seed, fruit, and green.",org:"Ma’akal = food; akal = eat.",en:"Old English mete — FOOD of any kind (survives in ‘sweetmeats’, ‘meat and drink’).",syn:["food","fare","sustenance"],ant:["hunger"],fig:["idiom"],fn:"Old-English idiom: meat = food; the KJV pantry is vegetarian in Genesis 1.",rel:["herb","green","fruit","for"],fun:"Your ‘meat’ once meant any food — Genesis 1’s table is the proof: herbs, seeds, fruit… and KJV calls the whole spread ‘meat’."},
+to:{t:"to",cat:"func",m:"Direction: ‘TO you it shall be…’, ‘AND TO every beast…’ — the menu’s delivery addresses.",en:"Old English tō.",hp:["two / too"],syn:["unto","for"],rel:["you","beast","meat"],fun:"To/two/too: the triple homophone closes the chapter’s address list."},
+wherein:{t:"wherein",cat:"func",m:"‘In which’: wherein there is life — the creepers’ life-clause.",en:"where + in.",syn:["in which"],rel:["there","life","thing"],fun:"Wherein is a two-word weld: where+in, doing relative duty."},
+there:{t:"there",cat:"func",m:"‘WHEREIN THERE is life’ — existence inside the clause.",en:"Old English þær.",hp:["their / they’re"],syn:["in that place"],rel:["wherein","life"],fun:"The trio (there/their/they’re) haunts the final creepers."},
+life:{t:"life",cat:"water",heb:"חַיָּה",tr:"chayyah (nephesh chayyah)",say:"khah-YAH",st:"H2416",lit:"life, living",m:"Nephesh chayyah again: ‘wherein there is LIFE’ = wherein is a living throat.",org:"Ch-y-h root (l’chaim).",en:"Old English līf.",syn:["aliveness","breath"],ant:["death"],rel:["creature","living","beast"],fun:"L’chaim’s root finishes the chapter inside a creeper: even the smallest wiggle is a living throat."},
+had:{t:"had",cat:"func",m:"Past-perfect gear: ‘that he HAD made’ — the inventory tense.",en:"Old English hæfde.",syn:["had made","owned"],rel:["made","every"],fun:"Had + made: the retrospective perfect — looking back over six days of asah."},
+very:{t:"very",cat:"order",heb:"מְאֹד",tr:"meod",say:"meh-OHD",st:"H3966",lit:"exceedingly, very",m:"MEOD: exceedingly — the upgrade word. ‘Good’ becomes ‘VERY good’ (tov meod).",org:"Meod = exceedingly; also ‘might’: Deut 6:5 ‘with all thy MIGHT’ = meod!",en:"Old French verai — ‘truly’ (cousin of ‘verily’, ‘verdict’!).",syn:["exceedingly","utterly","mighty"],ant:["slightly"],rel:["good","saw"],fun:"Meod doubles as MIGHT: ‘love God with all thy might’ is ‘with all thy VERY’. The upgrade word is also the strength word — very good = might-good."},
+sixth:{t:"sixth",cat:"time",heb:"שִׁשִׁי",tr:"shishi",say:"shee-SHEE",st:"H8345",lit:"sixth",m:"Number six — from shesh (six). Modern Hebrew yom shishi = FRIDAY.",org:"Shesh = six.",en:"Proto-Germanic *sehs + order (cousin of ‘six’ and Latin sex- words).",syn:["6th","number six"],ant:["first"],rel:["day","evening","morning"],fun:"First=head, second=repeat, third…, fourth…, fifth=hand, sixth=? shesh sings of sixes everywhere — and yom shishi is Friday, the day the crown was set."},
+good:{t:"good",cat:"order",heb:"טוֹב",tr:"tov",say:"TOHV",st:"H2896",lit:"good, working as intended",m:"The verdict word, upgraded: TOV MEOD — VERY GOOD. Seven ‘goods’ march through Genesis 1; the last wears an intensifier.",org:"Root t-w-b.",en:"Old English gōd.",syn:["excellent","beautiful"],ant:["bad","evil"],rel:["saw","very","behold"],fun:"Tov’s tally: v4, v10, v12, v18, v21, v25, and v31’s tov MEOD — six goods and a crown, seven in all."},
+saw:{t:"saw",cat:"order",heb:"רָאָה",tr:"ra’ah",say:"rah-AH",st:"H7200",lit:"to see, inspect, approve",m:"The Inspector’s final rounds: beasts (v25), and EVERYTHING (v31) — with hinneh (behold!) as the exclamation.",org:"Root r-’-h.",en:"Old English seon.",hg:["saw (tool 🪚)"],syn:["inspected","reviewed"],fig:["anthropomorphism"],rel:["good","very","every","behold"],fun:"Seven reviews, one Inspector: the chapter ends with God looking at EVERYTHING — and the look includes a ‘behold’."},
+evening:{t:"evening",cat:"time",heb:"עֶרֶב",tr:"erev",say:"EH-rev",st:"H6153",lit:"evening, dusk",m:"The refrain’s first half, sixth and final encore.",org:"Root ‘-r-b.",en:"Old English æfen.",syn:["dusk"],ant:["morning"],fig:["merism"],rel:["morning","day","sixth"],fun:"Chorus, final take: ‘and the evening and the morning…’"},
+morning:{t:"morning",cat:"time",heb:"בֹּקֶר",tr:"boqer",say:"BOH-ker",st:"H1242",lit:"morning, dawn",m:"The bright half — dawn on the finished workshop.",org:"From baqar: inspect.",en:"Old English morgen.",syn:["dawn"],ant:["evening"],hp:["mourning 😢"],fig:["merism"],rel:["evening","day","sixth"],fun:"The homophone pair takes its sixth bow — and rests."},
+were:{t:"were",cat:"time",heb:"הָיָה",tr:"hayah",say:"hah-YAH",st:"H1961",lit:"to be (plural past)",m:"Refrain verb, sixth time: evening and morning WERE day six.",syn:["stood"],hp:["we’re"],rel:["was","be","sixth"],fun:"Were/we’re: the final encore of the sound-alike pair."},
+day:{t:"day",cat:"time",heb:"יוֹם",tr:"yom",say:"YOHM",st:"H3117",lit:"day",m:"The measure-word closes its six-pulse run — jersey #6, the crown day.",org:"Root y-w-m.",en:"Old English dæg.",syn:["daytime","era"],ant:["night"],rel:["sixth","evening","morning"],fun:"Six pulses of evening-morning. The seventh day gets no pulse at all — it gets rest. (See the roadmap: Day 7, the stretch goal.)"},
+their:{t:"their",cat:"func",m:"The crowd-possessive: ‘after THEIR kind’ — the cattle own their boundary.",en:"Old English þæra — ‘of those’.",hp:["there / they’re — the trio’s final lap!"],syn:["their own"],rel:["kind","after"],fun:"There/their/they’re: six days, zero confusions forgiven."},
+moveth:{t:"moveth",cat:"water",heb:"רָמַשׂ",tr:"ramas",say:"rah-MAHS",st:"H7430",lit:"moves, creeps",m:"Day 5’s stir-verb closes its tour: ‘every living thing that MOVETH upon the earth’.",org:"Ramas = creep/stir.",en:"Old English moveth — -eth ending.",syn:["stirs","creeps"],ant:["rests"],rel:["living","thing","upon"],fun:"The -eth ending and the wiggle-root take their final bow together."},
+tree:{t:"tree",cat:"earth",heb:"עֵץ",tr:"ets",say:"ETZ",st:"H6086",lit:"tree; wood",m:"Day 3’s tree — now the menu’s second course: ‘every tree… the fruit of a tree’.",org:"Ets = tree/wood.",en:"Proto-Germanic *trewam — cousin of ‘true’!",syn:["wood","timber"],ant:["stump"],rel:["fruit","yielding","seed"],fun:"Ets on the menu: material on Day 3, meal on Day 6."},
+fruit:{t:"fruit",cat:"earth",heb:"פְּרִי",tr:"peri",say:"peh-REE",st:"H6529",lit:"fruit, produce",m:"Day 3’s peri — menu course two: fruit of a tree yielding seed.",org:"Peri = fruit/outcome.",en:"Latin fructus.",syn:["produce","harvest"],ant:["barrenness"],rel:["tree","yielding","seed","meat"],fun:"Peri: harvest on the branch, outcome in a life, now on the plate."},
+yielding:{t:"yielding",cat:"earth",heb:"עֹשֶׂה",tr:"oseh (asah)",say:"oh-SEH",st:"H6213",lit:"making, yielding",m:"Day 3’s double-verb word returns: fruit-YIELDING = oseh (asah, ‘making’) fruit.",org:"Asah = make (Day 2).",en:"Old English gieldan — originally ‘to PAY’!",syn:["producing","bearing"],ant:["withholding"],rel:["fruit","seed","tree"],fun:"Yield’s two faces (produce / surrender) — Day 6 keeps the generous one."},
+he:{t:"he",cat:"func",m:"‘Created HE him’ — verb-first Hebrew order mirrored in KJV: the subject arrives after his verb.",en:"Old English hē.",rel:["created","him","god"],fun:"‘Created he him’ keeps Hebrew’s drumbeat (verb-subject-object) in English clothes — the same trick as Day 2’s ‘called he Seas’."},
+shall:{t:"shall",cat:"func",m:"Future gear: ‘it SHALL be for meat’ — promise tense.",en:"Old English sculan — ‘owe, must’ (cousin of ‘should’!).",syn:["will","must"],ant:[],rel:["be","meat"],fun:"‘Shall’ began as ‘owe’: obligation became futurity. The menu is a promise, not a prediction."},
+a:{t:"a",cat:"func",m:"The one-any article: ‘the fruit of A tree’ — any tree, every tree.",en:"Clipped ‘one’ (Old English ān).",syn:["one","any"],rel:["tree"],fun:"Every ‘a’ hides the number 1 — last appearance of the clipped one."}
+};
+
+const QUIZ=[
+ {q:"Adam (‘man’) is built from which word?",a:"adamah — ground/soil",w:["adom — red","or — light","yam — sea"]},
+ {q:"Tselem (‘image’) originally pictures…",a:"A carved statue / representative figure",w:["A mirror","A shadow","A painting"]},
+ {q:"‘Let US make’ — which is NOT a traditional reading?",a:"A scribal typo",w:["Plural of majesty","Address to the heavenly court","A Trinitarian hint"]},
+ {q:"How many times does ‘created’ (bara) fire in verse 27?",a:"Three times",w:["Once","Twice","Seven times"]},
+ {q:"KJV’s ‘replenish the earth’ really means…",a:"FILL the earth (mala)",w:["Refill after a flood","Re-people a ruined world","Plow the earth"]},
+ {q:"‘Male’ (zakhar) shares its root with which verb?",a:"To remember",w:["To sing","To build","To dream"]},
+ {q:"The first ‘I’ and the first ‘you’ in the Bible belong to…",a:"God speaking to humanity",w:["Adam and Eve","The serpent","The angels"]},
+ {q:"KJV ‘meat’ in vv29–30 means…",a:"Food in general",w:["Beef only","Bread only","Fish only"]},
+ {q:"‘Very’ (meod) doubles elsewhere as which word?",a:"might (‘with all thy might’)",w:["mercy","morning","mountain"]},
+ {q:"Yom shishi (sixth day) is which modern Hebrew weekday?",a:"Friday",w:["Thursday","Saturday","Sunday"]},
+ {q:"The chapter’s final verdict upgrades ‘good’ to…",a:"VERY good (tov meod)",w:["best good","most good","good enough"]},
+ {q:"‘Behold’ (hinneh) is the Bible’s…",a:"ta-da! / attention marker",w:["goodbye word","question mark","lullaby"]},
+ {q:"Which merism names ALL of humanity in v27?",a:"male and female",w:["east and west","young and old","high and low"]},
+ {q:"Dominion (radah) is best pictured as…",a:"Delegated stewardship under God",w:["Ownership without rules","Harsh conquest","Early retirement"]}];
+
+const ALEF_BET=[["א","aleph","silent / glottal stop",1],["ב","bet","v / b",2],["ג","gimel","g",3],["ד","dalet","d",4],["ה","hey","h",5],["ו","vav","v",6],["ז","zayin","z",7],["ח","chet","kh (scratchy!)",8],["ט","tet","t",9],["י","yod","y",10],["כ","kaf","k / kh",20],["ל","lamed","l",30],["מ","mem","m",40],["נ","nun","n",50],["ס","samekh","s",60],["ע","ayin","deep ‘ah’",70],["פ","pe","p / f",80],["צ","tsadi","ts",90],["ק","qof","q",100],["ר","resh","r",200],["ש","shin","sh / s",300],["ת","tav","t",400]];
+
+/* map layout */
+const POS={god:[1200,120],said:[1000,270],let:[880,350],earth:[760,420],bring:[660,490],forth:[570,560],living:[480,630],creature:[400,700],cattle:[330,700],creeping:[270,780],thing:[220,860],beast:[330,930],creepeth:[250,1000],moveth:[300,1100],after:[500,1000],his:[580,1060],kind:[660,1000],their:[740,1060],made:[900,300],us:[1000,380],make:[1100,340],man:[1200,400],in:[1300,340],our:[1400,390],image:[1500,340],likeness:[1600,400],them:[1700,350],have:[1800,410],dominion:[1900,350],over:[2000,410],fish:[2100,350],sea:[2200,410],fowl:[2150,480],air:[2050,540],created:[1300,520],own:[1400,570],him:[1500,520],he:[1440,470],male:[1600,570],female:[1700,520],blessed:[1800,570],unto:[1900,620],be:[2000,570],fruitful:[2100,620],multiply:[2200,570],replenish:[2150,680],subdue:[2050,740],i:[900,700],you:[1000,760],given:[1100,700],herb:[1200,760],bearing:[1300,700],seed:[1400,760],tree:[1500,700],fruit:[1600,760],yielding:[1700,700],green:[1800,760],meat:[1900,700],behold:[800,760],face:[700,820],wherein:[520,880],there:[450,940],life:[400,1080],every:[700,600],that:[760,660],which:[820,600],is:[880,660],all:[940,600],for:[1000,660],to:[1060,600],was:[1100,860],so:[1000,920],it:[900,860],and:[800,920],the:[700,980],of:[620,980],upon:[1200,920],colon:[1300,980],semicolon:[1400,920],comma:[1500,980],period:[1600,920],saw:[1700,980],good:[1800,920],very:[1900,980],had:[2000,920],evening:[2000,1100],morning:[2120,1160],were:[2040,1220],sixth:[2160,1100],day:[2240,1160],shall:[1150,820],a:[1550,640]};
+const ZONES=[["godz",1200,120,220,"rgba(255,255,255,.10)","ELOHIM · the Source"],["speechz",950,320,230,"rgba(234,79,168,.13)","SPEECH · let us"],["animalz",350,850,330,"rgba(122,199,79,.13)","ANIMALS · behemah & chayyah"],["humanz",1450,420,300,"rgba(255,209,102,.16)","HUMAN · adam & tselem"],["crownz",2000,560,300,"rgba(91,141,238,.14)","CROWN · radah & barakh"],["tablez",1300,730,330,"rgba(122,199,79,.12)","TABLE · yereq & ma’akal"],["kindz",580,1030,200,"rgba(255,209,102,.12)","REFRAIN · le-mino"],["verdictz",1850,950,260,"rgba(255,209,102,.15)","VERDICT · tov meod"],["timez",2120,1150,220,"rgba(255,159,67,.13)","TIME · erev · boqer"]];
+const LINES=[["god","said"],["god","made"],["god","created"],["god","blessed"],["said","let"],["let","earth"],["earth","bring"],["bring","forth"],["bring","living"],["living","creature"],["creature","cattle"],["cattle","creeping"],["creeping","thing"],["beast","creepeth"],["after","kind"],["his","kind"],["their","kind"],["made","man"],["us","make"],["our","image"],["image","likeness"],["created","man"],["created","him"],["created","he"],["created","them"],["male","female"],["blessed","them"],["blessed","unto"],["be","fruitful"],["fruitful","multiply"],["multiply","replenish"],["replenish","subdue"],["dominion","fish"],["dominion","fowl"],["over","sea"],["over","air"],["i","given"],["given","you"],["given","herb"],["herb","seed"],["bearing","seed"],["tree","fruit"],["yielding","seed"],["green","herb"],["for","meat"],["saw","good"],["very","good"],["saw","every"],["evening","morning"],["sixth","day"],["face","earth"],["wherein","life"],["there","life"],["had","made"]];
+const BUILD_TARGET=VERSES[3].tokens.map(t=>t[0]);
+const PALETTE=[["The Cast",["god","i"]],["Speech & crown",["said","let","make","us","our","blessed","unto","be","behold","shall"]],["Animals",["earth","bring","forth","living","creature","cattle","creeping","thing","beast","creepeth","moveth","fish","fowl","sea","air"]],["Human",["man","image","likeness","male","female","him","he","them","us","our","own"]],["Crown words",["have","dominion","over","replenish","subdue","multiply","fruitful"]],["The table",["given","you","herb","bearing","seed","tree","fruit","yielding","green","meat","for","to","a"]],["The refrain",["after","his","their","kind","every","all","which","that","wherein","there"]],["Glue & verdict",["and","the","of","in","upon","was","so","it","is","had","very","good","saw","made","created"]],["Time",["evening","morning","were","sixth","day","life"]],["Pauses",["comma","semicolon","colon","period"]]];
+
+/* ================= ENGINE ================= */
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const store={get(k,d){try{const v=localStorage.getItem("gei:"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("gei:"+k,JSON.stringify(v))}catch(e){}}};
+const state={seen:new Set(store.get("seen"+SUF,[])),theme:store.get("theme","dark"),sound:store.get("sound",false),best:store.get("best"+SUF,0),bsolved:store.get("bsolved"+SUF,false),device:null,sel:null,view:"read",audio:null,zoom:1};
+const UNIQ=Object.keys(W), TOTAL=UNIQ.length;
+const COUNTS={}; VERSES.forEach(v=>v.tokens.forEach(([i])=>COUNTS[i]=(COUNTS[i]||0)+1));
+
+function stars(){const c=$("#stars");if(!c||!c.getContext)return;const x=c.getContext("2d");if(!x)return;let Wd,Hd,P=[];
+ function sz(){Wd=c.width=innerWidth;Hd=c.height=innerHeight;P=Array.from({length:90},()=>({x:Math.random()*Wd,y:Math.random()*Hd,r:Math.random()*1.4+.3,p:Math.random()*6.28,s:.4+Math.random()*1.2}))}
+ sz();addEventListener("resize",sz);
+ (function tick(t){x.clearRect(0,0,Wd,Hd);for(const p of P){const a=.25+.6*Math.abs(Math.sin(t/1400*p.s+p.p));x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle="rgba(210,225,255,"+a.toFixed(2)+")";x.fill()}requestAnimationFrame(tick)})(0)}
+function beep(kind){if(!state.sound)return;try{state.audio=state.audio||new (window.AudioContext||window.webkitAudioContext)();const a=state.audio,o=a.createOscillator(),g=a.createGain();const seq=kind==="win"?[523,659,784,1047]:kind==="bad"?[220,174]:[660];o.connect(g);g.connect(a.destination);o.type="sine";let t=a.currentTime;seq.forEach((f,i)=>o.frequency.setValueAtTime(f,t+i*.09));g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.12,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+seq.length*.09+.18);o.start(t);o.stop(t+seq.length*.09+.25)}catch(e){}}
+const confetti=(()=>{let pieces=[],raf=null;function burst(n,x,y){const c=$("#confetti");if(!c||!c.getContext)return;const ctx=c.getContext("2d");if(!ctx)return;c.width=innerWidth;c.height=innerHeight;const cols=["#5b8dee","#17b0d8","#ea4fa8","#ffd166","#39d98a"];for(let i=0;i<n;i++)pieces.push({x:x??innerWidth/2,y:y??innerHeight/3,vx:(Math.random()-.5)*11,vy:-Math.random()*9-2,g:.32,r:Math.random()*7+3,rot:Math.random()*7,vr:(Math.random()-.5)*.3,col:cols[i%cols.length],life:110});if(!raf)raf=requestAnimationFrame(function step(){ctx.clearRect(0,0,c.width,c.height);pieces=pieces.filter(p=>p.life>0);for(const p of pieces){p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.rot+=p.vr;p.life--;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=Math.min(1,p.life/40);ctx.fillStyle=p.col;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*.62);ctx.restore()}if(pieces.length)raf=requestAnimationFrame(step);else{raf=null;ctx.clearRect(0,0,c.width,c.height)}})}return{burst}})();
+function say(t){try{const u=new SpeechSynthesisUtterance(t);u.rate=.88;u.pitch=1.05;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function progress(){const n=state.seen.size,p=n/TOTAL;const r=$("#ringFg");if(r){const C=2*Math.PI*18;r.style.strokeDasharray=C;r.style.strokeDashoffset=C*(1-p)}const t=$("#progTxt");if(t)t.innerHTML="<b>"+n+"/"+TOTAL+"</b>explored";const f=$("#statFill");if(f)f.style.width=(p*100)+"%";$$("#dayDots span").forEach((d,i)=>d.classList.toggle("done",i===DAY_INDEX&&n>0))}
+function refreshSeen(){$$(".tok").forEach(t=>t.classList.toggle("seen",state.seen.has(t.dataset.id)&&t.dataset.id!==state.sel));$$(".mtok").forEach(t=>t.classList.toggle("seen",state.seen.has(t.dataset.id)&&t.dataset.id!==state.sel))}
+
+/* READ */
+function renderRead(){const box=$("#verses");let html="",k=0;VERSES.forEach(v=>{html+='<p class="verse"><span class="vnum">'+v.n+"</span>";v.tokens.forEach(([id,txt])=>{const p=W[id].k==="p";html+='<span class="tok reveal'+(p?" punct":"")+'" data-id="'+id+'" tabindex="0" role="button" style="animation-delay:'+(k*20)+'ms">'+txt+"</span> ";k++});html+="</p>"});box.innerHTML=html;setTimeout(()=>{const l=document.querySelector('.tok[data-id="'+GLOW_ID+'"]');if(l)l.classList.add("glowburst")},k*20+500)}
+
+/* tooltip */
+const tip={el:null,t:null};
+function bindTips(){tip.el=$("#tip");
+ document.addEventListener("mouseover",e=>{const s=e.target.closest(".tok,.mtok");if(!s)return;const d=W[s.dataset.id];clearTimeout(tip.t);tip.t=setTimeout(()=>{tip.el.innerHTML="<span class='tt'>"+(d.name||d.t)+"</span>"+(d.heb?" <span class='th'>"+d.heb+"</span>":"")+(d.tr?" <i>("+d.tr+")</i>":"")+"<br>"+(d.lit||d.m).slice(0,90)+"…";const r=s.getBoundingClientRect();tip.el.style.left=Math.min(innerWidth-245,Math.max(6,r.left-40))+"px";tip.el.style.top=(r.bottom+10)+"px";tip.el.classList.add("show")},240)});
+ document.addEventListener("mouseout",e=>{if(e.target.closest(".tok,.mtok")){clearTimeout(tip.t);tip.el.classList.remove("show")}})}
+
+/* dossier */
+function chips(list,cls){if(!list||!list.length)return '<span style="color:var(--dim);font-size:10.5px">—</span>';return list.map(x=>'<button class="chip '+cls+'">'+x+"</button>").join("")}
+function acc(title,icon,body){return '<div class="acc"><button>'+icon+" "+title+'<span class="chev">▸</span></button><div class="body"><div class="inner">'+body+"</div></div></div>"}
+function select(id,pulse){const d=W[id];state.sel=id;
+ $$(".tok").forEach(t=>t.classList.toggle("sel",t.dataset.id===id));
+ $$(".mtok").forEach(t=>t.classList.toggle("sel",t.dataset.id===id));
+ const firstNew=!state.seen.has(id);state.seen.add(id);store.set("seen"+SUF,[...state.seen]);store.set("last"+SUF,id);progress();refreshSeen();
+ if(pulse)$$('.tok[data-id="'+id+'"]').forEach(t=>{t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop")});
+ if(d.glow)$$('.tok[data-id="'+id+'"],.mtok[data-id="'+id+'"]').forEach(t=>{t.classList.remove("glowburst");void t.offsetWidth;t.classList.add("glowburst")});
+ if(firstNew){beep("click");if(state.seen.size%10===0){confetti.burst(90);beep("win")}else if(state.seen.size===TOTAL){confetti.burst(220);beep("win")}}
+ const figs=(d.fig||[]).map(f=>{const D=DEVICES.find(x=>x.id===f);return '<span class="tag fg" data-dev="'+f+'">'+D.icon+" "+D.name+"</span>"}).join("");
+ $("#dossHead").innerHTML='<div id="dWord">'+(d.name||d.t)+(d.say?'<button class="saybtn" title="Hear it" data-say="'+d.say+'">🔊</button>':"")+"</div>"+(d.heb?'<div id="dHeb">'+d.heb+"</div>":"")+'<div id="dMeta">'+(d.tr?'<span class="tag tr">'+d.tr+"</span>":"")+(d.st?'<span class="tag st">Strong’s '+d.st+"</span>":"")+(XLINKS||[]).map(x=>x.ids.indexOf(id)>=0?'<a class="tag st" style="text-decoration:none" href="'+x.home+'?w='+id+'">↩ '+x.label+"</a>":"").join("")+figs+"</div>";
+ $("#dMean").textContent=d.m;
+ const body=[];
+ body.push(acc("Origin & Roots","🌱",(d.org?'<span class="lbl">Hebrew origin</span>'+d.org:"")+(d.en?'<span class="lbl">English origin</span>'+d.en:"")+(d.lit?'<span class="lbl">Literal sense</span>'+d.lit:"")));
+ body.push(acc("Syn · Ant · Sound-alikes","🔀",'<span class="lbl">Synonyms</span><div class="chips">'+chips(d.syn,"")+'</div><span class="lbl">Antonyms</span><div class="chips">'+chips(d.ant,"ant")+'</div><span class="lbl">Homophones / homographs</span><div class="chips">'+chips([...(d.hp||[]),...(d.hg||[])],"homo")+"</div>"));
+ body.push(acc("Figurative Language","🎭",(d.fig||[]).length?(d.fig||[]).map(f=>{const D=DEVICES.find(x=>x.id===f);return "<b>"+D.icon+" "+D.name+":</b> "+D.desc+"<br>"}).join("")+(d.fn?"<br><i>"+d.fn+"</i>":""):"This word plays it straight — literal duty in the sentence. (Check its relatives for figures of speech!)"));
+ body.push(acc("Linked Words in Day 1","🔗",'<div class="chips">'+(d.rel||[]).map(r=>'<button class="chip rel" data-rel="'+r+'">'+(W[r]?(W[r].name||W[r].t):r)+"</button>").join("")+"</div>"+'<span class="lbl">Why linked</span>These words share roots, rhymes, contrasts or grammar with “'+(d.name||d.t)+'” — click to hop!'));
+ $("#dossBody").innerHTML=body.join("")+'<div class="funbox"><span class="star">⭐</span><b>Fun fact:</b> '+d.fun+"</div>"+'<button id="popBtn">🪟 Pop-out deep dive</button>';
+ $$("#dossBody .acc>button").forEach(b=>b.addEventListener("click",()=>{const a=b.parentElement,open=a.classList.contains("open");$$("#dossBody .acc").forEach(x=>{x.classList.remove("open");x.querySelector(".body").style.maxHeight=0});if(!open){a.classList.add("open");const bd=a.querySelector(".body");bd.style.maxHeight=Math.min(bd.scrollHeight,340)+"px"}}));
+ const first=$("#dossBody .acc>button");if(first)first.click();
+ $$("[data-rel]").forEach(c=>c.addEventListener("click",()=>select(c.dataset.rel,true)));
+ $$("#dossHead .tag.fg").forEach(t=>t.addEventListener("click",()=>setDevice(t.dataset.dev)));
+ const sb=$("#dossHead .saybtn");if(sb)sb.addEventListener("click",()=>say(sb.dataset.say));
+ $("#popBtn").addEventListener("click",()=>popout(id))}
+
+/* device radar */
+function setDevice(id){state.device=state.device===id?null:id;$$(".devbtn").forEach(b=>b.classList.toggle("on",b.dataset.dev===state.device));const banner=$("#devBanner");
+ if(state.device){const D=DEVICES.find(x=>x.id===state.device);banner.innerHTML="<span>"+D.icon+"</span><div><b>"+D.name+" radar on.</b> Glowing items use this device — click them!<br><span style='color:var(--dim)'>"+D.desc+"</span></div><button title='clear'>✕</button>";banner.classList.add("show");banner.querySelector("button").addEventListener("click",()=>setDevice(state.device))}else banner.classList.remove("show");
+ $$(".tok,.mtok").forEach(t=>{const d=W[t.dataset.id];t.classList.toggle("hl",!!state.device&&(d.fig||[]).includes(state.device))})}
+
+/* modals */
+function openModal(html){$("#modalWrap").innerHTML=html;$("#modalWrap").classList.add("show");const x=$("#modalWrap .x");if(x)x.addEventListener("click",closeModal)}
+function closeModal(){$("#modalWrap").classList.remove("show")}
+function popout(id){const d=W[id];openModal('<div class="modal"><header><h3>🪟 Deep dive — '+(d.name||d.t)+'</h3><button class="x">✕</button></header><div class="mbody">'+(d.heb?'<p style="font-size:32px;color:var(--gold);direction:rtl;text-align:center;margin:4px 0">'+d.heb+'<br><span style="font-size:14px;color:var(--cyan);direction:ltr">'+d.tr+" · Strong’s "+d.st+"</span></p>":"")+"<p>"+d.m+"</p>"+(d.pop?"<p style='margin-top:10px'>"+d.pop+"</p>":"")+(d.org?"<p style='margin-top:10px'><b>🌱 Roots:</b> "+d.org+"</p>":"")+(d.en?"<p style='margin-top:8px'><b>🇬🇧 English journey:</b> "+d.en+"</p>":"")+"<p style='margin-top:10px'><b>⭐ Fun:</b> "+d.fun+"</p><p style='margin-top:12px;color:var(--dim);font-size:11px'>Engineered interpretation: every word is a part in the machine of the sentence — pull one out and see what it drives.</p></div></div>")}
+function alphaModal(){openModal('<div class="modal"><header><h3>🔤 The Alef-Bet — Hebrew’s 22 letters</h3><button class="x">✕</button></header><div class="mbody"><p style="margin-bottom:10px">Each letter doubles as a NUMBER (cyan value) — Hebrew loves letter-math! And <b style="color:var(--gold)">א</b> is silent: the alphabet starts with a whisper.</p><div class="alphaGrid">'+ALEF_BET.map(L=>'<div class="alphaCell"><div class="L">'+L[0]+'</div><div class="N">'+L[1]+'</div><div class="S">'+L[2]+'</div><div class="V">= '+L[3]+"</div></div>").join("")+"</div><p style='margin-top:12px;color:var(--dim);font-size:11px;'>"+ALPHA_NOTE+"</p></div></div>")}
+
+/* MAP */
+function buildMap(){const inner=$("#mapInner");let html='<svg id="mapLines" width="2400" height="1400">';
+ LINES.forEach(([a,b])=>{const[x1,y1]=POS[a],[x2,y2]=POS[b];const dash=(a==="beginning"||a==="light"||a==="heaven"||a==="evening"||a==="day"||a==="form")?' stroke-dasharray="7 6"':"";html+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="rgba(154,167,212,.4)" stroke-width="2"'+dash+"/>"});
+ html+="</svg>";
+ ZONES.forEach(z=>{html+='<div class="zone" style="left:'+(z[1]-z[3])+"px;top:"+(z[2]-z[3])+"px;width:"+(z[3]*2)+"px;height:"+(z[3]*2)+"px;background:radial-gradient(circle,"+z[4]+" 0%,transparent 70%)\"></div>";html+='<div class="zlabel" style="left:'+(z[1]-z[3]+20)+"px;top:"+(z[2]-z[3]+8)+'px">'+z[5]+"</div>"});
+ UNIQ.forEach(id=>{const d=W[id],[x,y]=POS[id];const n=COUNTS[id]||1;const size=11+Math.min(n,7)*1.6;const col=CATCOL[d.cat];
+  html+='<button class="mtok" data-id="'+id+'" tabindex="0" style="left:'+x+"px;top:"+y+"px;font-size:"+size+"px;color:"+col+";background:rgba(10,15,36,.55)"+(d.k==="p"?";border-radius:50%":"")+'">'+(d.name?d.name.split(" ")[0]:d.t)+(n>1?'<span class="ct">×'+n+"</span>":"")+"</button>"});
+ inner.innerHTML=html;
+ inner.querySelectorAll(".mtok").forEach(m=>{m.addEventListener("click",()=>select(m.dataset.id,true))});
+ const legend=$("#mapLegend");legend.innerHTML=ZONES.map(z=>'<button class="lchip" data-z="'+z[1]+","+z[2]+'">'+z[5].split(" · ")[0]+"</button>").join("")+'<span id="mapCtl"><button id="zIn">+</button><button id="zOut">−</button><button id="zRe">⌂</button></span>';
+ legend.querySelectorAll(".lchip").forEach(b=>b.addEventListener("click",()=>{const[x,y]=b.dataset.z.split(",").map(Number);const wr=$("#mapWrap");wr.scrollTo({left:x*state.zoom-wr.clientWidth/2,top:y*state.zoom-wr.clientHeight/2,behavior:"smooth"})}));
+ $("#zIn").addEventListener("click",()=>zoomMap(1.2));$("#zOut").addEventListener("click",()=>zoomMap(1/1.2));$("#zRe").addEventListener("click",()=>{state.zoom=1;applyZoom();$("#mapWrap").scrollTo({left:300,top:100})});
+ const wr=$("#mapWrap");let drag=null;
+ wr.addEventListener("mousedown",e=>{if(e.target.closest(".mtok"))return;drag={x:e.clientX,y:e.clientY,l:wr.scrollLeft,t:wr.scrollTop};wr.classList.add("drag")});
+ addEventListener("mouseup",()=>{drag=null;wr.classList.remove("drag")});
+ addEventListener("mousemove",e=>{if(!drag)return;wr.scrollLeft=drag.l-(e.clientX-drag.x);wr.scrollTop=drag.t-(e.clientY-drag.y)});
+ wr.addEventListener("wheel",e=>{e.preventDefault();zoomMap(e.deltaY<0?1.12:1/1.12)},{passive:false});
+ wr.scrollTo({left:300,top:80})}
+function applyZoom(){$("#mapInner").style.transform="scale("+state.zoom+")";const wr=$("#mapWrap");wr.style.setProperty("--z",state.zoom)}
+function zoomMap(f){const nz=Math.min(1.8,Math.max(.5,state.zoom*f));const wr=$("#mapWrap");const cx=wr.scrollLeft+wr.clientWidth/2,cy=wr.scrollTop+wr.clientHeight/2;state.zoom=nz;applyZoom();wr.scrollTo({left:cx*nz/f-wr.clientWidth/2,top:cy*nz/f-wr.clientHeight/2})}
+
+/* BUILD */
+let bseq=[];
+function renderPalette(){$("#buildPalette").innerHTML=PALETTE.map(([cat,ids])=>'<div class="pcat">'+cat+"</div>"+ids.map(id=>'<button class="pchip" data-id="'+id+'">'+W[id].t+"</button>").join("")).join("");
+ $$("#buildPalette .pchip").forEach(b=>b.addEventListener("click",()=>{bseq.push(b.dataset.id);beep("click");renderSeq()}))}
+function renderSeq(msg){const box=$("#buildSeq");box.innerHTML=bseq.map((id,i)=>'<button class="bslot" data-i="'+i+'">'+W[id].t+"</button>").join("");
+ $$("#buildSeq .bslot").forEach(b=>b.addEventListener("click",()=>{bseq.splice(+b.dataset.i,1);renderSeq()}));
+ if(msg!==undefined)$("#buildMsg").textContent=msg}
+function buildCheck(){if(!bseq.length){renderSeq("Lay some words first! Click the chips below.");return}
+ let ok=0;const slots=$$("#buildSeq .bslot");
+ bseq.forEach((id,i)=>{const good=id===BUILD_TARGET[i];slots[i].classList.add(good?"ok":"bad");if(good)ok++});
+ if(bseq.length===BUILD_TARGET.length&&ok===BUILD_TARGET.length){state.bsolved=true;store.set("bsolved"+SUF,true);confetti.burst(160);beep("win");BUILD_TARGET.forEach(t=>state.seen.add(t));store.set("seen"+SUF,[...state.seen]);progress();refreshSeen();
+  renderSeq("🏆 PERFECT BUILD! “"+BUILD_QUOTE+"” "+BUILD_WINNOTE);select(BUILD_REWARD,true)}
+ else{beep("bad");renderSeq(ok+" / "+BUILD_TARGET.length+" slots correct (green). Red slots are out of place — click them to remove, then rethink the order!")}
+}
+function buildHint(){if(bseq.length>=BUILD_TARGET.length){renderSeq("The verse is already full — check it or clear it!");return}
+ const need=BUILD_TARGET[bseq.length];bseq.push(need);renderSeq("💡 Placed “"+W[need].t+"” for you. Next slot is #"+(bseq.length+1)+".") }
+
+/* QUIZ (inline view) */
+function quizHome(){const b=$("#quizBox");b.innerHTML='<h3>🕹 '+DAY_TITLE+' Word Challenge</h3><p class="sub">8 questions pulled from the '+DAY_TITLE+' word dossiers. Beat your best score!</p><p style="font-size:13px;margin-bottom:14px">Personal best: <b style="color:var(--gold)">'+state.best+'/8</b>'+(state.bsolved?' · <b style="color:var(--green)">Build-a-Verse solved ✓</b>':"")+'</p><button class="btn grad" id="qStart">Start the challenge ▶</button>';
+ $("#qStart").addEventListener("click",quizRun)}
+function quizRun(){const pool=QUIZ.slice().sort(()=>Math.random()-.5).slice(0,8);let i=0,score=0,lock=false;const b=$("#quizBox");
+ function draw(){lock=false;const q=pool[i];const opts=[q.a,...q.w].sort(()=>Math.random()-.5);
+  b.innerHTML='<div class="qdots">'+pool.map((_,k)=>'<span class="'+(k<i?(results[k]?"ok":"no"):"")+'"></span>').join("")+'</div><div style="font-size:11px;color:var(--dim);margin-bottom:8px">Question '+(i+1)+" of 8 · score "+score+'</div><div id="qText">'+q.q+"</div>"+opts.map(o=>'<button class="qopt" data-o="'+o.replace(/"/g,"&quot;")+'">'+o+"</button>").join("");
+  b.querySelectorAll(".qopt").forEach(btn=>btn.addEventListener("click",()=>{if(lock)return;lock=true;const okk=btn.dataset.o===q.a;results[i]=okk;
+   if(okk){btn.classList.add("right");score++;beep("win");confetti.burst(40,innerWidth/2,innerHeight/2)}else{btn.classList.add("wrong");beep("bad");b.querySelectorAll(".qopt").forEach(x=>{if(x.dataset.o===q.a)x.classList.add("right")})}
+   setTimeout(()=>{i++;if(i<8)draw();else finish()},900)}))}
+ const results=[];
+ function finish(){if(score>state.best){state.best=score;store.set("best"+SUF,score)}
+  const msg=score===8?"PERFECT! Certified Day 1 Word Engineer! 🏆":score>=6?"Amazing — the words of Day 1 clearly know you. 🌟":score>=4?"Nice work — hover back over the verses and grab a few more secrets! 💪":"Every engineer starts somewhere — click some words and run it back! 🔧";
+  b.innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:52px">'+(score>=6?"🏆":score>=4?"🌟":"")+'</div><p style="font-size:26px;font-weight:800;margin:8px 0">'+score+" / 8</p><p style='margin-bottom:16px;color:var(--dim)'>"+msg+'</p><button class="btn grad" id="qAgain">Run again 🔁</button> <button class="btn ghost" id="qHome">Menu</button></div>';
+  if(score>=6)confetti.burst(150);
+  $("#qAgain").addEventListener("click",quizRun);$("#qHome").addEventListener("click",quizHome)}
+ draw()}
+
+/* views */
+function setView(v){state.view=v;$$(".vbtn").forEach(b=>b.classList.toggle("on",b.dataset.view===v));
+ ["read","map","build","quiz"].forEach(x=>$("#view"+x[0].toUpperCase()+x.slice(1)).classList.toggle("hidden",x!==v));
+ if(v==="quiz")quizHome()}
+
+/* boot */
+function applyTheme(){document.body.classList.toggle("light",state.theme==="light");const b=$("#themeBtn");if(b)b.querySelector("small").textContent=state.theme==="light"?"Day":"Night"}
+function applySound(){const b=$("#soundBtn");if(b)b.querySelector("small").textContent=state.sound?"On":"Off"}
+function init(){stars();renderRead();buildMap();renderPalette();renderSeq();bindTips();progress();applyTheme();applySound();
+ $("#devList").innerHTML=DEVICES.map(d=>'<button class="devbtn" data-dev="'+d.id+'"><span>'+d.icon+"</span><span>"+d.name+"</span></button>").join("");
+ $("#totalN").textContent=TOTAL;
+ $("#verses").addEventListener("click",e=>{const s=e.target.closest(".tok");if(s)select(s.dataset.id,true)});
+ $("#verses").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const s=e.target.closest(".tok");if(s){e.preventDefault();select(s.dataset.id,true)}}});
+ $$(".devbtn").forEach(b=>b.addEventListener("click",()=>setDevice(b.dataset.dev)));
+ $("#alphaBtn").addEventListener("click",alphaModal);
+ $("#themeBtn").addEventListener("click",()=>{state.theme=state.theme==="light"?"dark":"light";store.set("theme",state.theme);applyTheme()});
+ $("#soundBtn").addEventListener("click",()=>{state.sound=!state.sound;store.set("sound",state.sound);applySound();if(state.sound)beep("click")});
+ $("#resetBtn").addEventListener("click",()=>{state.seen.clear();store.set("seen"+SUF,[]);state.bsolved=false;store.set("bsolved"+SUF,false);progress();select(DEFAULT_ID,true);renderSeq("")});
+ $$(".vbtn").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+ $("#bCheck").addEventListener("click",buildCheck);
+ $("#bHint").addEventListener("click",buildHint);
+ $("#bShow").addEventListener("click",()=>{bseq=BUILD_TARGET.slice();renderSeq("👀 There it is — Genesis 1:3 in order. Now clear it and build it yourself!")});
+ $("#bClear").addEventListener("click",()=>{bseq=[];renderSeq("")});
+ $("#modalWrap").addEventListener("click",e=>{if(e.target.id==="modalWrap")closeModal()});
+ select(store.get("last"+SUF,DEFAULT_ID),false);refreshSeen();const qw=new URLSearchParams(location.search).get("w");if(qw&&W[qw])setTimeout(()=>select(qw,true),700);
+ if(state.bsolved)$("#buildGoal").innerHTML+=" <b style='color:var(--green)'>· solved ✓</b>"}
+document.addEventListener("DOMContentLoaded",init);
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a366c634dc55c8b3',t:'MTc4ODYyNzQ1OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a367b0c57bb3e47f',t:'MTc4ODYzNzA2Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
