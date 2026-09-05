@@ -1,50 +1,589 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day 3 · Coming Soon | Genesis Engineered Interpretations</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 3 — Land, Sea & Salad Bar · Genesis Engineered Interpretations</title>
+<meta name="description" content="Read it, map it, build it, beat it: four ways to play with every word of Genesis Day 3 (KJV) — the gathered seas, the named Earth, and the first garden.">
 <link rel="icon" type="image/png" href="assets/logo.png">
-<link rel="stylesheet" href="assets/app.css">
+<style>
+/* ============ GENESIS ENGINEERED INTERPRETATIONS · DAY 1 · 4-MODE LAB ============ */
+:root{
+  --bg:#0a0f24; --panel:#121b3d; --panel2:#182450;
+  --ink:#eef2ff; --dim:#9aa7d4; --line:#28356b;
+  --blue:#5b8dee; --cyan:#17b0d8; --pink:#ea4fa8; --gold:#ffd166; --green:#39d98a;
+  --grad:linear-gradient(90deg,var(--blue),var(--cyan) 45%,var(--pink));
+  --shadow:0 10px 30px rgba(0,0,0,.45); --radius:16px;
+}
+body.light{--bg:#f3efe4; --panel:#fffdf6; --panel2:#f6efdd; --ink:#20264a; --dim:#6a7194; --line:#d9d0b6; --shadow:0 10px 26px rgba(90,80,40,.18)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:"Segoe UI",system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:radial-gradient(1200px 700px at 75% -10%, #16224d 0%, var(--bg) 55%) fixed;
+  color:var(--ink); transition:background .5s,color .5s}
+body.light{background:radial-gradient(1200px 700px at 75% -10%, #fff8e2 0%, var(--bg) 55%) fixed}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none;transition:opacity .6s}
+body.light #stars{opacity:0}
+#confetti{position:fixed;inset:0;z-index:90;pointer-events:none}
+#app{position:relative;z-index:1;height:100vh;display:grid;grid-template-rows:auto 1fr auto;gap:10px;padding:10px 14px 8px}
+.hidden{display:none !important}
+
+/* header */
+header{display:flex;align-items:center;gap:14px;padding:4px 8px}
+.logo{height:36px;filter:drop-shadow(0 2px 6px rgba(234,79,168,.35));animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.titles h1{font-size:clamp(12px,1.2vw,16px);letter-spacing:.14em;font-weight:800;text-transform:uppercase}
+.titles h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.titles p{font-size:clamp(9.5px,.8vw,11.5px);color:var(--dim);letter-spacing:.06em}
+nav{margin-left:auto;display:flex;gap:6px;align-items:center}
+.pill{font-size:clamp(9.5px,.8vw,11.5px);font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--dim);text-decoration:none;background:var(--panel);transition:.2s;white-space:nowrap}
+.pill:hover{transform:translateY(-2px);color:var(--ink);border-color:var(--cyan)}
+.pill.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(23,176,216,.4)}
+.pill.soon{opacity:.55;font-style:italic}.pill.soon:hover{opacity:.85}
+#progWrap{display:flex;align-items:center;gap:7px}
+#ring{width:40px;height:40px;transform:rotate(-90deg)}
+#ringBg{stroke:var(--line)}#ringFg{stroke:url(#ringGrad);stroke-linecap:round;transition:stroke-dashoffset .6s}
+#progTxt{font-size:10px;font-weight:800;color:var(--dim);line-height:1.15}
+#progTxt b{display:block;font-size:12.5px;color:var(--ink)}
+
+/* main grid */
+main{display:grid;grid-template-columns:minmax(180px,17%) minmax(0,1fr) minmax(270px,28%);gap:12px;min-height:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.card>h2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:9px 13px 7px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.card>h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.pad{padding:9px 11px;overflow-y:auto;scrollbar-width:thin;flex:1;min-height:0}
+.pad::-webkit-scrollbar,#verses::-webkit-scrollbar,.mbody::-webkit-scrollbar,#dossBody::-webkit-scrollbar,#mapWrap::-webkit-scrollbar{width:6px;height:6px}
+.pad::-webkit-scrollbar-thumb,#verses::-webkit-scrollbar-thumb,.mbody::-webkit-scrollbar-thumb,#dossBody::-webkit-scrollbar-thumb,#mapWrap::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.toolbtn{display:flex;align-items:center;gap:8px;width:100%;text-align:left;font:inherit;font-size:12px;font-weight:700;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:7px 9px;margin-bottom:6px;cursor:pointer;transition:.18s}
+.toolbtn:hover{transform:translateX(3px);border-color:var(--cyan)}
+.toolbtn .ico{font-size:15px}
+.toolbtn small{margin-left:auto;color:var(--dim);font-weight:600}
+.sect{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:9px 2px 5px}
+.devbtn{display:flex;gap:7px;align-items:center;width:100%;font:inherit;font-size:11px;color:var(--dim);background:transparent;border:1px solid transparent;border-radius:9px;padding:5px 7px;margin-bottom:2px;cursor:pointer;text-align:left;transition:.18s}
+.devbtn:hover{color:var(--ink);background:var(--panel2)}
+.devbtn.on{color:var(--ink);border-color:var(--gold);background:rgba(255,209,102,.08)}
+#statBar{height:7px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);overflow:hidden;margin:5px 2px}
+#statFill{height:100%;width:0%;background:var(--grad);transition:width .6s}
+
+/* center stage + view switcher */
+#viewBar{display:flex;gap:6px;padding:8px 12px 0;flex-wrap:wrap}
+.vbtn{font:inherit;font-size:11.5px;font-weight:800;letter-spacing:.04em;color:var(--dim);background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;cursor:pointer;transition:.2s}
+.vbtn:hover{color:var(--ink);transform:translateY(-2px)}
+.vbtn.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(23,176,216,.35)}
+.view{flex:1;min-height:0;display:flex;flex-direction:column}
+#devBanner{display:none;align-items:center;gap:9px;margin:8px 14px 0;padding:7px 11px;border-radius:11px;background:rgba(255,209,102,.1);border:1px dashed var(--gold);font-size:11.5px}
+#devBanner.show{display:flex;animation:slideDown .3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+#devBanner b{color:var(--gold)}
+#devBanner button{margin-left:auto;background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px}
+
+/* READ view */
+#verses{flex:1;min-height:0;padding:12px 18px 10px;overflow-y:auto;scrollbar-width:thin;line-height:2.05;font-family:Georgia,"Times New Roman",serif;font-size:clamp(13.5px,1.3vw,18px)}
+.verse{margin-bottom:11px}
+.vnum{font-family:"Segoe UI",system-ui,sans-serif;font-size:.62em;font-weight:800;color:var(--cyan);vertical-align:super;margin-right:6px;user-select:none}
+.tok{cursor:pointer;border-radius:6px;padding:1px 3px;margin:0 1px;transition:background .15s,color .15s,transform .15s,box-shadow .15s;outline:none}
+.tok:hover,.tok:focus-visible{background:var(--panel2);color:var(--cyan);transform:translateY(-2px) scale(1.06);box-shadow:0 3px 10px rgba(23,176,216,.3)}
+.tok.punct{color:var(--pink);font-weight:700;border-radius:50%;padding:1px 4px}
+.tok.punct:hover{color:#fff;background:var(--pink)}
+.tok.sel{background:var(--grad);color:#fff !important;box-shadow:0 4px 16px rgba(234,79,168,.45)}
+.tok.seen{border-bottom:2px dotted var(--cyan)}
+.tok.hl{animation:goldPulse 1.1s ease-in-out infinite;background:rgba(255,209,102,.14)}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,209,102,.55)}50%{box-shadow:0 0 0 7px rgba(255,209,102,0)}}
+.tok.pop{animation:popIn .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes popIn{0%{transform:scale(1)}40%{transform:scale(1.35) rotate(-3deg)}100%{transform:scale(1)}}
+.tok.reveal{opacity:0;animation:riseIn .5s ease forwards}
+@keyframes riseIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.tok.glowburst{animation:burst 1s ease}
+@keyframes burst{0%{box-shadow:0 0 0 0 rgba(255,209,102,.9)}45%{box-shadow:0 0 34px 14px rgba(255,209,102,.55);background:rgba(255,209,102,.35)}100%{box-shadow:0 0 0 0 rgba(255,209,102,0)}}
+#hint{padding:7px 18px 10px;font-size:11px;color:var(--dim);border-top:1px dashed var(--line)}
+#hint b{color:var(--gold)}
+
+/* MAP view */
+#mapLegend{display:flex;gap:5px;flex-wrap:wrap;padding:8px 12px 4px}
+.lchip{font:inherit;font-size:10px;font-weight:800;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);color:var(--dim);cursor:pointer;transition:.15s}
+.lchip:hover{transform:scale(1.07);color:var(--ink)}
+#mapCtl{margin-left:auto;display:flex;gap:4px}
+#mapCtl button{font:inherit;font-size:11px;font-weight:800;width:24px;height:24px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
+#mapCtl button:hover{border-color:var(--cyan)}
+#mapWrap{flex:1;min-height:0;margin:4px 12px 10px;overflow:auto;scrollbar-width:thin;border:1px solid var(--line);border-radius:14px;background:radial-gradient(900px 500px at 50% 0%, rgba(91,141,238,.07), transparent),var(--panel2);cursor:grab;position:relative}
+#mapWrap.drag{cursor:grabbing}
+#mapInner{position:relative;width:2400px;height:1400px;transform-origin:0 0}
+.zone{position:absolute;border-radius:50%;pointer-events:none;filter:blur(6px)}
+.zlabel{position:absolute;font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--dim);opacity:.8;pointer-events:none;text-transform:uppercase}
+.mtok{position:absolute;transform:translate(-50%,-50%);cursor:pointer;font-weight:800;border-radius:10px;padding:4px 9px;white-space:nowrap;transition:transform .15s,box-shadow .15s;outline:none;border:1.5px solid transparent}
+.mtok:hover,.mtok:focus-visible{transform:translate(-50%,-50%) scale(1.18);z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.mtok.sel{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.25),0 6px 18px rgba(0,0,0,.4)}
+.mtok.seen{border-style:dotted;border-color:var(--cyan)}
+.mtok.hl{animation:goldPulse 1.1s ease-in-out infinite}
+.mtok .ct{font-size:9px;opacity:.75;vertical-align:super}
+#mapLines{position:absolute;inset:0;pointer-events:none}
+#mapHint{padding:0 14px 9px;font-size:10.5px;color:var(--dim)}
+
+/* BUILD view */
+#buildBox{flex:1;min-height:0;display:flex;flex-direction:column;padding:10px 14px}
+#buildGoal{font-size:12px;color:var(--dim);margin-bottom:8px}
+#buildGoal b{color:var(--ink)}
+#buildSeq{min-height:64px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;padding:9px;border:2px dashed var(--line);border-radius:14px;background:var(--panel2);margin-bottom:9px}
+#buildSeq:empty::before{content:"Drop your words here… click chips below ↓";color:var(--dim);font-size:11.5px;padding:8px}
+.bslot{font:inherit;font-size:13px;font-weight:800;font-family:Georgia,serif;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:9px;padding:5px 9px;cursor:pointer;position:relative;transition:.15s}
+.bslot:hover{border-color:var(--pink)}
+.bslot.ok{border-color:var(--green);background:rgba(57,217,138,.14)}
+.bslot.bad{border-color:var(--pink);background:rgba(234,79,168,.12);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+#buildBtns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+#buildBtns button{font:inherit;font-size:11.5px;font-weight:800;border-radius:999px;padding:7px 14px;cursor:pointer;transition:.2s;border:1px solid var(--line);background:var(--panel2);color:var(--ink)}
+#buildBtns button:hover{transform:translateY(-2px);border-color:var(--cyan)}
+#buildBtns .go{background:var(--grad);border-color:transparent;color:#fff}
+#buildPalette{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;border-top:1px dashed var(--line);padding-top:8px}
+.pcat{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:6px 0 4px}
+.pchip{font:inherit;font-size:12px;font-weight:700;font-family:Georgia,serif;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:4px 9px;margin:0 4px 5px 0;cursor:pointer;transition:.15s}
+.pchip:hover{transform:translateY(-2px) scale(1.06);border-color:var(--gold);box-shadow:0 4px 10px rgba(255,209,102,.25)}
+#buildMsg{min-height:20px;font-size:12px;font-weight:700;color:var(--gold);margin-top:6px}
+
+/* QUIZ view */
+#quizBox{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;padding:14px 18px}
+#quizBox h3{font-size:17px;margin-bottom:4px}
+#quizBox .sub{font-size:12px;color:var(--dim);margin-bottom:12px}
+.qdots{display:flex;gap:5px;margin-bottom:12px}
+.qdots span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.qdots span.ok{background:var(--green)}.qdots span.no{background:var(--pink)}
+#qText{font-size:15.5px;font-weight:700;line-height:1.45;margin-bottom:12px}
+.qopt{display:block;width:100%;text-align:left;font:inherit;font-size:13px;color:var(--ink);background:var(--panel2);border:1.5px solid var(--line);border-radius:11px;padding:9px 11px;margin-bottom:7px;cursor:pointer;transition:.15s}
+.qopt:hover{border-color:var(--cyan);transform:translateX(4px)}
+.qopt.right{border-color:var(--green);background:rgba(57,217,138,.15);animation:popIn .4s}
+.qopt.wrong{border-color:var(--pink);background:rgba(234,79,168,.12);animation:shake .4s}
+.btn{font:inherit;font-weight:800;font-size:13px;padding:10px 20px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;transition:.2s;display:inline-block}
+.btn.grad{background:var(--grad);color:#fff;box-shadow:0 6px 20px rgba(23,176,216,.4)}
+.btn.grad:hover{transform:translateY(-3px) scale(1.03)}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--dim)}
+.btn.ghost:hover{border-color:var(--cyan);color:var(--ink)}
+
+/* dossier */
+#dossHead{padding:11px 13px 9px;border-bottom:1px solid var(--line)}
+#dWord{font-size:clamp(20px,2vw,28px);font-weight:800;font-family:Georgia,serif;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#dWord .saybtn{font-size:14px;background:var(--panel2);border:1px solid var(--line);border-radius:50%;width:28px;height:28px;cursor:pointer;transition:.2s}
+#dWord .saybtn:hover{transform:scale(1.15) rotate(12deg);border-color:var(--cyan)}
+#dHeb{font-size:clamp(19px,1.8vw,25px);color:var(--gold);direction:rtl;font-family:"SBL Hebrew","Times New Roman",serif}
+#dMeta{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--dim)}
+.tag.tr{color:var(--cyan);border-color:var(--cyan)}
+.tag.st{color:var(--pink);border-color:var(--pink)}
+a.tag{text-decoration:none}
+.tag.fg{color:var(--gold);border-color:var(--gold);cursor:pointer}
+#dMean{padding:9px 13px 3px;font-size:12.5px;line-height:1.5}
+#dossBody{flex:1;min-height:0;padding:3px 9px 11px;overflow-y:auto;scrollbar-width:thin}
+.acc{border:1px solid var(--line);border-radius:11px;margin:5px 2px;overflow:hidden;background:var(--panel2)}
+.acc>button{width:100%;display:flex;align-items:center;gap:7px;font:inherit;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);background:transparent;border:none;padding:8px 11px;cursor:pointer;transition:.2s}
+.acc>button:hover{color:var(--ink)}
+.acc>button .chev{margin-left:auto;transition:transform .3s}
+.acc.open>button .chev{transform:rotate(90deg);color:var(--cyan)}
+.acc .body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.acc .inner{padding:2px 11px 10px;font-size:12px;line-height:1.55}
+.acc .inner .lbl{color:var(--dim);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;display:block;margin:6px 0 3px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.chip{font:inherit;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid var(--cyan);color:var(--cyan);background:transparent;cursor:pointer;transition:.15s}
+.chip:hover{background:var(--cyan);color:#04121f;transform:scale(1.07)}
+.chip.ant{border-color:var(--pink);color:var(--pink)}.chip.ant:hover{background:var(--pink);color:#fff}
+.chip.homo{border-color:var(--gold);color:var(--gold)}.chip.homo:hover{background:var(--gold);color:#241a02}
+.chip.rel{border-color:var(--blue);color:var(--blue)}.chip.rel:hover{background:var(--blue);color:#fff}
+.funbox{margin:7px 11px 10px;padding:8px 10px;border-radius:11px;background:linear-gradient(135deg,rgba(91,141,238,.14),rgba(234,79,168,.14));border:1px solid var(--line);font-size:11.5px;line-height:1.5}
+.funbox .star{font-size:13px;margin-right:4px;display:inline-block;animation:spinStar 3.4s linear infinite}
+@keyframes spinStar{0%{transform:rotate(0)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg)}}
+#popBtn{margin:0 11px 11px;font:inherit;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--grad);border:none;border-radius:10px;padding:8px;cursor:pointer;transition:.2s;box-shadow:0 4px 14px rgba(23,176,216,.35)}
+#popBtn:hover{transform:translateY(-2px)}
+
+/* footer, tooltip, modals */
+footer{display:flex;align-items:center;gap:9px;font-size:10px;color:var(--dim);padding:0 8px}
+footer .sep{opacity:.5}
+footer a{color:var(--cyan);text-decoration:none}footer a:hover{text-decoration:underline}
+#dayDots{margin-left:auto;display:flex;gap:5px}
+#dayDots span{width:9px;height:9px;border-radius:50%;background:var(--line);transition:.3s}
+#dayDots span.done{background:var(--grad)}
+#tip{position:fixed;z-index:60;max-width:230px;background:var(--panel2);border:1px solid var(--cyan);border-radius:10px;padding:7px 10px;font-size:11px;line-height:1.4;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .18s,transform .18s;box-shadow:var(--shadow)}
+#tip.show{opacity:1;transform:none}
+#tip .th{color:var(--gold);direction:rtl;font-size:13.5px}
+#tip .tt{color:var(--cyan);font-weight:800}
+#modalWrap{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(4,7,20,.66);backdrop-filter:blur(4px)}
+#modalWrap.show{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{width:min(560px,92vw);max-height:84vh;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:zoomIn .3s cubic-bezier(.2,1.4,.4,1)}
+@keyframes zoomIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal header{padding:13px 17px;border-bottom:1px solid var(--line)}
+.modal header h3{font-size:15px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.modal header .x{margin-left:auto;background:none;border:none;color:var(--dim);font-size:17px;cursor:pointer}
+.modal header .x:hover{color:var(--pink);transform:rotate(90deg)}
+.modal .mbody{padding:13px 17px;overflow-y:auto;font-size:12.5px;line-height:1.6;scrollbar-width:thin}
+.alphaGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:7px}
+.alphaCell{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:7px 5px;text-align:center;transition:.2s}
+.alphaCell:hover{transform:translateY(-3px) scale(1.05);border-color:var(--gold)}
+.alphaCell .L{font-size:24px;color:var(--gold);direction:rtl}
+.alphaCell .N{font-size:10.5px;font-weight:800}
+.alphaCell .S{font-size:9.5px;color:var(--dim)}
+.alphaCell .V{font-size:9px;color:var(--cyan)}
+@media (max-width:900px){main{grid-template-columns:1fr}html,body{overflow:auto}#app{height:auto;min-height:100vh}}
+</style>
 </head>
 <body>
 <canvas id="stars"></canvas>
-<div id="app" style="grid-template-rows:auto 1fr auto">
+<canvas id="confetti"></canvas>
+<div id="app">
   <header>
     <img class="logo" src="assets/logo.png" alt="yallToo logo">
-    <div class="titles"><h1>Genesis <b>Engineered</b> Interpretations</h1><p>The Day-by-Day clickable word lab</p></div>
+    <div class="titles">
+      <h1>Genesis <b>Engineered</b> Interpretations</h1>
+      <p>DAY 3 · read it · map it · build it · beat it</p>
+    </div>
     <nav>
       <a class="pill" href="index.html">Day 1</a>
-      <a class="pill soon" href="day2.html">Day 2</a><a class="pill active" href="day3.html">Day 3</a><a class="pill soon" href="day4.html">Day 4</a><a class="pill soon" href="day5.html">Day 5</a><a class="pill soon" href="day6.html">Day 6</a>
+      <a class="pill" href="day2.html">Day 2</a>
+      <a class="pill active" href="day3.html">Day 3</a>
+      <a class="pill soon" href="day4.html">Day 4</a>
+      <a class="pill soon" href="day5.html">Day 5</a>
+      <a class="pill soon" href="day6.html">Day 6</a>
       <a class="pill" href="about.html">About</a>
+      <div id="progWrap">
+        <svg id="ring" viewBox="0 0 44 44" aria-hidden="true">
+          <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5b8dee"/><stop offset=".5" stop-color="#17b0d8"/><stop offset="1" stop-color="#ea4fa8"/>
+          </linearGradient></defs>
+          <circle id="ringBg" cx="22" cy="22" r="18" fill="none" stroke-width="5"/>
+          <circle id="ringFg" cx="22" cy="22" r="18" fill="none" stroke-width="5"/>
+        </svg>
+        <span id="progTxt"><b>0/0</b>explored</span>
+      </div>
     </nav>
   </header>
-  <div class="hero" style="overflow-y:auto;padding-bottom:30px">
-    <div style="font-size:64px">🌱</div>
-    <div class="big">DAY 3</div>
-    <p><b style="color:var(--ink)">Land, Sea & Salad Bar</b> — Genesis 1:9–13<br>
-    This chamber of the engine is still under construction. Words being engineered:</p>
-    <div class="featGrid" style="margin-top:0">
-      <div class="feat"><div class="fi">🔩</div><h4>seas (yammim) get their name</h4><p>called by God</p></div><div class="feat"><div class="fi">🔩</div><h4>seed (zera) &amp; fruit (peri)</h4><p>plants with family plans</p></div><div class="feat"><div class="fi">🔩</div><h4>‘after his kind’</h4><p>the phrase everyone debates</p></div>
-    </div>
-    <div class="cta">
-      <button class="btn grad" id="notify">🔔 Ping me when it opens</button>
-      <a class="btn ghost" href="index.html">⬅ Back to Day 1</a>
-    </div>
-    <p id="msg" style="min-height:22px;color:var(--gold);font-weight:700"></p>
-  </div>
-  <footer><span>Text: King James Version (public domain)</span><span class="sep">•</span><span>yallToo · Genesis Engineered Interpretations</span></footer>
+
+  <main>
+    <section class="card">
+      <h2><span class="dot"></span>Explorer Tools</h2>
+      <div class="pad">
+        <button class="toolbtn" id="alphaBtn"><span class="ico">🔤</span>Hebrew Alphabet<small>pop-out</small></button>
+        <button class="toolbtn" id="themeBtn"><span class="ico">🌗</span>Theme<small>Night</small></button>
+        <button class="toolbtn" id="soundBtn"><span class="ico">🔊</span>Sound FX<small>Off</small></button>
+        <button class="toolbtn" id="resetBtn"><span class="ico">♻️</span>Reset progress<small></small></button>
+        <div class="sect">Figurative-language radar</div>
+        <div id="devList"></div>
+        <div class="sect">Discovery meter</div>
+        <div id="statBar"><div id="statFill"></div></div>
+        <p style="font-size:10px;color:var(--dim);line-height:1.5;padding:0 2px">Explore all <b id="totalN"></b> words &amp; marks across the four modes. Dotted = explored.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="dot"></span>Genesis 1:9–13 (KJV) · the playground</h2>
+      <div id="viewBar">
+        <button class="vbtn on" data-view="read">📖 Read</button>
+        <button class="vbtn" data-view="map">🗺 Word Map</button>
+        <button class="vbtn" data-view="build">🧱 Build-a-Verse</button>
+        <button class="vbtn" data-view="quiz">🕹 Quiz</button>
+      </div>
+      <div id="devBanner"></div>
+
+      <div class="view" id="viewRead">
+        <div id="verses" aria-label="Genesis 1 verses 9 to 13, clickable words"></div>
+        <div id="hint">👆 <b>Hover</b> for a peek · <b>click</b> any word or mark for its dossier · blue chips hop between <b>linked words</b>.</div>
+      </div>
+
+      <div class="view hidden" id="viewMap">
+        <div id="mapLegend"></div>
+        <div id="mapWrap"><div id="mapInner"></div></div>
+        <div id="mapHint">🖱 Drag to pan · scroll or +/− to zoom · click a node to open its dossier · lines = relationships (roots, contrasts, commands).</div>
+      </div>
+
+      <div class="view hidden" id="viewBuild">
+        <div id="buildBox">
+          <div id="buildGoal"> <b>Build-a-Verse challenge:</b> reconstruct <b>Genesis 1:10</b> — “And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good.” — word for word, mark for mark. Click chips to lay them; click a laid chip to remove it.</div>
+          <div id="buildSeq"></div>
+          <div id="buildBtns">
+            <button class="go" id="bCheck">▶ Check my verse</button>
+            <button id="bHint">💡 Hint</button>
+            <button id="bShow">👀 Show me</button>
+            <button id="bClear">♻ Clear</button>
+          </div>
+          <div id="buildMsg"></div>
+          <div id="buildPalette"></div>
+        </div>
+      </div>
+
+      <div class="view hidden" id="viewQuiz">
+        <div id="quizBox"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="dot"></span>Word Dossier</h2>
+      <div id="dossHead"></div>
+      <div id="dMean"></div>
+      <div id="dossBody"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Text: King James Version (public domain)</span><span class="sep">•</span>
+    <span>Built with ❤️ by <a href="about.html">yallToo</a></span><span class="sep">•</span>
+    <span>Hebrew: Strong’s refs</span>
+    <div id="dayDots" title="Days explored"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </footer>
 </div>
+<div id="tip"></div>
+<div id="modalWrap"></div>
+
 <script>
-(function(){
-  var c=document.getElementById('stars'),x=c.getContext('2d'),W,H,P=[];
-  function s(){W=c.width=innerWidth;H=c.height=innerHeight;P=[];for(var i=0;i<80;i++)P.push([Math.random()*W,Math.random()*H,Math.random()*1.4+.3,Math.random()*6.28]);}
-  s();addEventListener('resize',s);
-  (function t(k){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){var p=P[i],a=.25+.6*Math.abs(Math.sin(k/1300+p[3]));x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fillStyle='rgba(210,225,255,'+a+')';x.fill();}requestAnimationFrame(t);})(0);
-  document.getElementById('notify').addEventListener('click',function(){
-    document.getElementById('msg').textContent='Noted! Day 3 is on the build bench — meanwhile, Day 1 has ' + 43 + ' clickable secrets waiting. 🔧';
-  });
-})();
+/* ================= DATA (DAY 3 — Genesis 1:9–13 KJV) ================= */
+const DAY_INDEX=2, SUF="-d3", GLOW_ID="grass", DEFAULT_ID="grass", DAY_TITLE="Day 3";
+const BUILD_QUOTE="And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good.";
+const BUILD_WINNOTE="You just engineered Genesis 1:10 — the naming verse: Earth, Seas, and the return of ‘good’. Every slot green!";
+const BUILD_REWARD="grass";
+const ALPHA_NOTE='Day 3 cameos: <b style="color:var(--gold)">דֶּשֶׁא</b> (deshe, grass) starts with dalet — the DOOR letter: sprouts door out of the ground · <b style="color:var(--gold)">זֶרַע</b> (zera, seed) starts with zayin — the spark letter!';
+const XLINKS=[
+ {home:"index.html",label:"also on Day 1",ids:["and","god","said","let","the","waters","under","heaven","be","colon","it","was","so","period","called","earth","semicolon","of","he","saw","that","good","in","upon","evening","morning","were","day"]},
+ {home:"day2.html",label:"also on Day 2",ids:["and","god","said","let","the","waters","under","heaven","be","colon","it","was","so","period","called","of","in","he","evening","morning","were","day"]}];
+
+const DEVICES=[
+ {id:"personification",icon:"🌱",name:"Personification",desc:"‘Let the EARTH bring forth…’ — the land plays gardener and mother, sending green guests out of its doors."},
+ {id:"refrain",icon:"🔁",name:"Refrain",desc:"‘After his kind’ drums three times in two verses — repetition as rhythm and as a boundary: like makes like."},
+ {id:"merism",icon:"🪞",name:"Merism",desc:"Third episode of ‘evening and morning’ — the whole day told by its two ends."},
+ {id:"anthropomorphism",icon:"🧍",name:"Anthropomorphism",desc:"God says, calls and sees — human-shaped verbs for divine action."},
+ {id:"contrast",icon:"⚖️",name:"Contrast Pair",desc:"Dry land vs gathered seas: Day 3’s boundary line, drawn with water on one side and dust on the other."}];
+
+const VERSES=[
+ {n:9,tokens:[["and","And"],["god","God"],["said","said"],["comma",","],["let","Let"],["the","the"],["waters","waters"],["under","under"],["the","the"],["heaven","heaven"],["be","be"],["gathered","gathered"],["together","together"],["unto","unto"],["one","one"],["place","place"],["comma",","],["and","and"],["let","let"],["the","the"],["dry","dry"],["land","land"],["appear","appear"],["colon",":"],["and","and"],["it","it"],["was","was"],["so","so"],["period","."]]},
+ {n:10,tokens:[["and","And"],["god","God"],["called","called"],["the","the"],["dry","dry"],["land","land"],["earth","Earth"],["semicolon",";"],["and","and"],["the","the"],["gathering","gathering"],["together","together"],["of","of"],["the","the"],["waters","waters"],["called","called"],["he","he"],["seas","Seas"],["colon",":"],["and","and"],["god","God"],["saw","saw"],["that","that"],["it","it"],["was","was"],["good","good"],["period","."]]},
+ {n:11,tokens:[["and","And"],["god","God"],["said","said"],["comma",","],["let","Let"],["the","the"],["earth","earth"],["bring","bring"],["forth","forth"],["grass","grass"],["comma",","],["the","the"],["herb","herb"],["yielding","yielding"],["seed","seed"],["comma",","],["and","and"],["the","the"],["fruit","fruit"],["tree","tree"],["yielding","yielding"],["fruit","fruit"],["after","after"],["his","his"],["kind","kind"],["comma",","],["whose","whose"],["seed","seed"],["is","is"],["in","in"],["itself","itself"],["comma",","],["upon","upon"],["the","the"],["earth","earth"],["colon",":"],["and","and"],["it","it"],["was","was"],["so","so"],["period","."]]},
+ {n:12,tokens:[["and","And"],["the","the"],["earth","earth"],["brought","brought"],["forth","forth"],["grass","grass"],["comma",","],["and","and"],["herb","herb"],["yielding","yielding"],["seed","seed"],["after","after"],["his","his"],["kind","kind"],["comma",","],["and","and"],["the","the"],["tree","tree"],["yielding","yielding"],["fruit","fruit"],["comma",","],["whose","whose"],["seed","seed"],["was","was"],["in","in"],["itself","itself"],["comma",","],["after","after"],["his","his"],["kind","kind"],["colon",":"],["and","and"],["god","God"],["saw","saw"],["that","that"],["it","it"],["was","was"],["good","good"],["period","."]]},
+ {n:13,tokens:[["and","And"],["the","the"],["evening","evening"],["and","and"],["the","the"],["morning","morning"],["were","were"],["the","the"],["third","third"],["day","day"],["period","."]]}];
+
+const CATCOL={god:"#ffd166",speech:"#ea4fa8",light:"#fff3c4",dark:"#8a63d2",water:"#17b0d8",earth:"#7ac74f",time:"#ff9f43",order:"#5b8dee",chaos:"#c0392b",func:"#8892b8",punct:"#ff6b9d"};
+
+const W={
+and:{t:"and",cat:"func",m:"The glue word chaining the story forward — Day 3 uses it 12 times in five verses.",en:"Old English ‘and/ond’, from Proto-Germanic *andi.",syn:["plus","also","along with"],rel:["said"],fun:"Hebrew’s vav (‘and’) keeps the river-sentence flowing — Day 3 is one long current of ‘and… and… and…’."},
+god:{t:"God",cat:"god",heb:"אֱלֹהִים",tr:"Elohim",say:"eh-lo-HEEM",st:"H430",lit:"God, gods (plural form)",m:"The Creator — plural-shaped word, singular action.",org:"Plural of eloah; kin to El, ‘mighty one’.",en:"Old English ‘god’, from Proto-Germanic *gudą.",syn:["Creator","Almighty","Maker","Deity"],hg:["god (any worshiped being) vs God (the One)"],fig:["anthropomorphism"],fn:"God says, calls and sees like a person — human verbs for divine action.",rel:["said","called","saw","earth"],fun:"On Day 3 God hands the land a job: ‘Let the EARTH bring forth…’ — the Creator delegates to creation."},
+said:{t:"said",cat:"speech",heb:"אָמַר",tr:"amar",say:"ah-MAR",st:"H559",lit:"to say, speak, command",m:"Speech #3 and #4 of the ten: the waters’ muster-order and the garden’s commission.",org:"Root ’-m-r.",en:"Old English secgan → ‘say’.",syn:["spoke","declared","commanded"],fig:["anthropomorphism"],rel:["let","god","called"],fun:"Two commands in one day: gather, and green. Words remain God’s first tool."},
+comma:{t:",",k:"p",cat:"punct",name:"Comma ( , )",m:"A tiny pause — Day 3’s long garden list is comma country: grass, herb, tree…",en:"From Greek komma — ‘a piece cut off’.",rel:[],fun:"Verses 11–12 carry eight commas between them — lists love commas the way gardens love rain."},
+let:{t:"Let",cat:"speech",heb:"יְהִי",tr:"yehi",say:"YEH-hee",st:"H1961",lit:"let it be! may it happen!",m:"The command-flavor verb — but watch: verse 11’s ‘Let the earth bring forth’ is a jussive too: ‘Earth: SEND GREEN!’",org:"Jussive form of hayah, ‘to be’.",en:"Old English lætan.",hg:["let (allow) vs let (tennis 🎾)"],syn:["allow","command","may"],rel:["be","gathered","bring","said"],fun:"Day 3’s ‘let’ doesn’t just summon things — it hires the earth as gardener."},
+the:{t:"the",cat:"func",m:"The spotlight word — now pointing at seas, land and trees like a botanist’s label.",en:"Old English þē, family of ‘that’.",hp:["thee (old-style ‘you’ 🎭)"],syn:["that particular"],rel:["seas","earth","tree"],fun:"Fourteen ‘the’s in five verses — Day 3 is showing off its collection."},
+waters:{t:"waters",cat:"water",heb:"מַיִם",tr:"mayim",say:"MAH-yim",st:"H4325",lit:"waters (always plural)",m:"The crowd of water — on Day 3 it gets marched into one place so land can breathe.",org:"‘-ayim’ plural ending.",en:"Old English wæter.",syn:["seas","oceans","floods"],rel:["seas","gathered","under","gathering"],fun:"Day 1: waters hover. Day 2: waters split. Day 3: waters muster. Same cast, three acts."},
+under:{t:"under",cat:"water",heb:"תַּחַת",tr:"tachat",say:"TAH-khat",st:"H8478",lit:"under, beneath, instead of",m:"Beneath the heaven: the below-stairs waters about to get an address.",org:"Also ‘instead of’ — a substitute stands under your place.",en:"Old English under.",syn:["beneath","below"],ant:["above","over"],fig:["contrast"],rel:["heaven","waters","seas"],fun:"Under/above started on Day 2; Day 3 keeps the below-team and gives it coastline."},
+heaven:{t:"heaven",cat:"earth",heb:"שָׁמַיִם",tr:"shamayim",say:"shah-MY-im",st:"H8064",lit:"the heavens, sky, space",m:"The named vault (Day 2) — now the ceiling line above the gathering waters.",org:"sham + mayim, ‘there-waters’, in folk etymology.",en:"Old English heofon.",syn:["sky","space","the heights"],ant:["earth"],rel:["under","waters","earth"],fun:"Heaven was named yesterday; today it works as a landmark: ‘waters UNDER the heaven’."},
+be:{t:"be",cat:"speech",heb:"הָיָה",tr:"hayah",say:"hah-YAH",st:"H1961",lit:"to be, become, happen",m:"‘Be gathered’ — the being-verb in passive gear: the waters don’t gather themselves; they ARE gathered.",syn:["exist","become","happen"],hp:["bee 🐝"],rel:["gathered","was","is","were"],fun:"Hayah shows up again in verse 11 as ‘is’ (‘whose seed IS in itself’) — one verb, every gear."},
+gathered:{t:"gathered",cat:"water",heb:"יִקָּווּ",tr:"yiqqawu (qawah)",say:"yee-KAH-voo",st:"H6960",lit:"be collected, be gathered",m:"The muster-call: waters collected into one place. The root qawah ALSO means ‘to hope / wait’ — gathering and hoping share a root.",org:"Qawah I = wait, hope; Qawah II = collect. Miqweh (v10) is its noun.",en:"‘Gather’ is from Old English gæderian — kin to ‘together’ and ‘good’ (!).",syn:["collected","assembled","mustered"],ant:["scattered","spread"],rel:["together","gathering","waters","seas"],fun:"Same letters, two meanings: qawah = gather AND hope. Hebrew hears waiting and gathering as cousins — like waters waiting to be called Seas."},
+together:{t:"together",cat:"func",m:"The with-word: waters gathered TOGETHER — and ‘gathering together’ (v10) becomes a noun, miqweh.",en:"Old English tōgædere — literally ‘to-gather’! The word contains its own verb.",syn:["with","jointly","collectively"],ant:["apart","separately"],rel:["gathered","gathering"],fun:"Look inside ‘together’: TO + GATHER. English hid the verb in the adverb — and Day 3 hides the adverb in a Hebrew noun."},
+unto:{t:"unto",cat:"func",m:"Archaic ‘to/toward’: the waters march UNTO one place — direction with a dress coat on.",en:"Middle English: un (‘on’) + to. Survives mostly in Bibles and fairy tales.",syn:["to","toward","up to"],ant:["from","away"],rel:["one","place","gathered"],fun:"‘Unto’ is ‘to’ in Sunday best — modern English retired it, but the KJV keeps it for solemn directions."},
+one:{t:"one",cat:"order",heb:"אֶחָד",tr:"echad",say:"eh-KHAD",st:"H259",lit:"one, a united one",m:"ONE place — echad, the united-one word of the Shema (‘the LORD is ONE’): oneness that bundles, not just counts.",org:"Echad can describe a cluster: one bunch of grapes, one people.",en:"Old English ān — the same ‘one’ that wore down into ‘a’ and ‘an’!",syn:["single","united","sole"],ant:["many","several"],rel:["place","gathered"],fun:"Echo check: Day 2’s ‘A firmament’ hides ān = one; Day 3’s ‘ONE place’ shouts it. And echad’s fame line is the Shema: Hear O Israel, the LORD is one."},
+place:{t:"place",cat:"order",heb:"מָקוֹם",tr:"maqom",say:"mah-KOME",st:"H4725",lit:"place, space, standing-room",m:"An address: the ocean’s first zip code. Maqom is also a holy-word elsewhere — ‘the Place’ can mean God’s presence.",org:"From qum, ‘to rise, stand’ — a place is where things stand up.",en:"From Latin platea — a broad street (cousin of ‘plaza’ and ‘place’!).",syn:["spot","site","location"],ant:["nowhere"],rel:["one","gathered","waters"],fun:"Maqom = ‘standing-room’. The waters stood up and stood together — geography begins."},
+dry:{t:"dry",cat:"earth",heb:"יַבָּשָׁה",tr:"yabbashah",say:"yah-bah-SHAH",st:"H3004",lit:"dry land, the dryness",m:"The dryness — land you can stand on. One Hebrew word for what English needs two (‘dry land’).",org:"From yabesh, ‘to be dry’ (H3001) — drought-language turned address.",en:"Old English dryge.",syn:["arid","drained","land-dry"],ant:["wet","soaked"],fig:["contrast"],fn:"Dry vs soaked is the day’s material contrast: dust on one side, sea on the other.",rel:["land","earth","seas"],fun:"Hebrew packs ‘dry land’ into ONE word: yabbashah. Say it like a splash ending: yah-bah-SHAH."},
+land:{t:"land",cat:"earth",m:"Half of English ‘dry land’ — Hebrew says it in one word (yabbashah); English needs a pair.",en:"Old English land — ground, soil, country.",syn:["ground","soil","country"],ant:["sea"],rel:["dry","earth","seas"],fun:"English: two words (dry land). Hebrew: one (yabbashah). Translation math: 2 → 1."},
+appear:{t:"appear",cat:"earth",heb:"רָאָה",tr:"ra’ah (niphal)",say:"rah-AH",st:"H7200",lit:"be seen, appear",m:"The passive of DAY 1’s ‘saw’! Ra’ah means see; in this gear it means BE SEEN — the land lets itself be seen.",org:"Same root as saw (Day 1) — the verb flips from active to passive.",en:"From Latin apparere — ‘to come in sight’ (cousin of ‘appear’, ‘apparent’, ‘apparition’ 👻).",syn:["show up","emerge","surface"],ant:["hide","vanish"],rel:["saw","dry","land","earth"],fun:"Root reunion: Day 1 God SAW (ra’ah); Day 3 the land APPEARS (ra’ah, passive). Same verb, new direction — seeing becomes showing."},
+colon:{t:":",k:"p",cat:"punct",name:"Colon ( : )",m:"Drumroll mark — three of them in Day 3, each introducing ‘and it was so’ or the review.",en:"From Greek kolon — ‘a limb or section’.",rel:["so","good"],fun:"Day 3’s colons are result-drums: command : ‘and it was so’. Command : review ‘it was good’."},
+it:{t:"it",cat:"func",m:"The stand-in — doubling for the muster (‘it was so’) and the garden (‘it was good’).",en:"Old English ‘hit’ — the ‘h’ wore off.",rel:["was","good","so"],fun:"Stunt-double pronoun, third appearance this week."},
+was:{t:"was",cat:"time",heb:"הָיָה",tr:"hayah",say:"hah-YAH",st:"H1961",lit:"to be, become, happen",m:"Past of ‘be’ — holding up both refrains: ‘it WAS so’, ‘it WAS good’.",syn:["existed","stood","happened"],hp:["wuz! (that’s how fast speech says it)"],rel:["be","were","is","so"],fun:"Hayah again — the being-verb is the chapter’s load-bearing wall."},
+so:{t:"so",cat:"order",heb:"כֵּן",tr:"ken",say:"KANE",st:"H3651",lit:"thus, so; YES",m:"The done-deal word, twice on Day 3: muster confirmed, garden confirmed.",org:"Ken = thus / yes in Hebrew.",en:"Old English swā.",syn:["thus","done","exactly"],fig:["idiom"],fn:"‘And it was so’ = the idiom of completion: word and world match.",rel:["was","said"],fun:"Ken = ‘so’ AND ‘yes’. Creation keeps saying yes."},
+period:{t:".",k:"p",cat:"punct",name:"Period ( . )",m:"Full stop — five of them close Day 3’s five verses.",en:"From Greek periodos — ‘a complete circuit’.",rel:[],fun:"Verse 13’s period ends the day; verse 10’s period ends the first ‘good’ in two days. Periods pace the poetry."},
+called:{t:"called",cat:"speech",heb:"קָרָא",tr:"qara",say:"kah-RAH",st:"H7121",lit:"to call, name, proclaim",m:"The naming verb, twice in verse 10: Earth! Seas! The naming ceremony from Days 1–2 continues.",org:"Root q-r-’.",en:"Old English ceallian.",hg:["called (named) vs called (phoned ☎️)"],syn:["named","dubbed","labeled"],fig:["anthropomorphism"],rel:["earth","seas","god","said"],fun:"Naming = authority + affection. God names the land and the sea like a parent names twins."},
+earth:{t:"Earth",cat:"earth",heb:"אֶרֶץ",tr:"erets",say:"EH-rets",st:"H776",lit:"land, ground, the whole earth",m:"Name tag day: the dry land is CALLED Earth — Day 1’s merism partner finally gets its own name (Day 2 named Heaven).",org:"Kin to Akkadian erṣetu.",en:"Old English eorþe.",syn:["land","ground","world","globe"],ant:["heaven"],rel:["dry","land","seas","bring","brought"],fun:"Now BOTH halves of ‘heaven and earth’ wear name tags — the merism is official. And this named Earth gets employees: grass, herb, tree."},
+semicolon:{t:";",k:"p",cat:"punct",name:"Semicolon ( ; )",m:"The hinge-pause returns! Verse 10: Earth named ; Seas named — two namings hinged in one verse.",en:"Invented 1494 by Aldus Manutius.",rel:["called","seas","earth"],fun:"The semicolon’s Day 1 job was hinging chaos; its Day 3 job is hinging names. Punctuation with a résumé."},
+gathering:{t:"gathering",cat:"water",heb:"מִקְוֶה",tr:"miqweh",say:"mik-VEH",st:"H4723",lit:"gathering, assembly, pool",m:"A TRIPLE-meaning noun: (1) a gathering/assembly, (2) a pool of water — the ritual bath mikveh!, (3) HOPE (Jer 17:13, ‘miqweh Yisrael’ = Hope of Israel).",org:"Noun of qawah (gather/hope) — the root’s whole family in one word.",en:"‘Gather’ + ‘-ing’; Old English gæderian.",syn:["assembly","pool","collection"],ant:["scattering"],rel:["gathered","waters","seas"],fun:"Miqweh is Hebrew’s pun-star: the Seas are a ‘gathering’, a ‘pool’ (mikveh), and — same letters — a ‘HOPE’. The ocean as assembly, bath, and hope at once."},
+of:{t:"of",cat:"func",m:"Belonging-word: ‘the gathering OF the waters’ — the pool belongs to the water crowd.",en:"Worn-down cousin of ‘off’.",syn:["belonging to","from"],rel:["gathering","waters"],fun:"Of/off: one ancestor, two jobs."},
+he:{t:"he",cat:"func",m:"‘Called HE Seas’ — KJV flips the order to mirror Hebrew’s verb-first style: called-he = va-yiqra.",en:"Old English hē.",rel:["called","seas"],fun:"Word-order Easter egg: ‘called he Seas’ keeps Hebrew’s drumbeat (verb-subject) in English clothes."},
+seas:{t:"Seas",cat:"water",heb:"יָם",tr:"yam",say:"YAHM",st:"H3220",lit:"sea (Hebrew singular!)",m:"Named in verse 10 — and Hebrew says YAM, singular: ‘the Sea’. KJV pluralizes; Hebrew hears one great Sea wearing many coasts.",org:"Yam also means WEST in Hebrew — the seaward direction!",en:"Old English sǣ — sea, lake.",syn:["oceans","deeps","main"],ant:["land"],fig:["contrast"],fn:"Seas vs dry land: Day 3’s boundary contrast, named and notarized.",rel:["waters","gathering","earth","dry","under"],fun:"In Hebrew the sea faces west so literally that ‘yam’ means BOTH ‘sea’ and ‘west’. Navigate by vocabulary!"},
+saw:{t:"saw",cat:"order",heb:"רָאָה",tr:"ra’ah",say:"rah-AH",st:"H7200",lit:"to see, inspect, approve",m:"The review verb returns — twice on Day 3 (vv10, 12), after Day 2’s silence.",org:"Root r-’-h.",en:"Old English seon; ‘saw’ = its past tense.",hg:["saw (the cutting tool 🪚)"],syn:["viewed","inspected","approved"],fig:["anthropomorphism"],rel:["good","that","appear","god"],fun:"Homograph standby: the verb, not the tool. And note its passive twin ‘appear’ two verses earlier — same root, flipped."},
+that:{t:"that",cat:"func",m:"Connector: ‘saw THAT it was good’ — hooks the review to its verdict.",en:"Old English þæt.",rel:["good","it"],fun:"Swiss-army pointer word."},
+good:{t:"good",cat:"order",heb:"טוֹב",tr:"tov",say:"TOHV",st:"H2896",lit:"good, pleasant, working as intended",m:"The verdict returns WITH INTEREST: twice on Day 3 (vv10, 12) after being skipped on Day 2.",org:"Root t-w-b.",en:"Old English gōd.",syn:["fine","beautiful","excellent"],ant:["bad","broken"],rel:["saw","that","god"],fun:"Day 2: no ‘good’. Day 3: ‘good’ twice, like double rations after a fast. (Day 3 ends 2–0; the chapter will finish 7–0 with ‘very good’.)"},
+bring:{t:"bring",cat:"earth",heb:"יוֹצֵא",tr:"yotse (yatsa)",say:"yoh-TSEH",st:"H3318",lit:"bring out, send out, go out",m:"‘Let the earth BRING FORTH’ — literally ‘cause to GO OUT’. The land doesn’t manufacture green; it sends green out like a host sending guests.",org:"Yatsa is THE Exodus verb: ‘when Israel went OUT of Egypt’.",en:"Old English bringan.",syn:["produce","send out","bear"],ant:["withhold","hide"],fig:["personification"],fn:"The earth as host/mother: personification — land ‘sends out’ life like a person sends out family.",rel:["forth","brought","earth","grass"],fun:"Same verb family as the Exodus: yatsa = go out. Creation’s garden and Israel’s rescue run on the same verb."},
+brought:{t:"brought",cat:"earth",heb:"הוֹצִיאָה",tr:"hotsi’ah (yatsa)",say:"ho-tsee-AH",st:"H3318",lit:"brought out, sent out",m:"Past gear of the send-out verb: the earth SENT OUT grass — the host kept its promise.",org:"Hiphil (causative) of yatsa, ‘to go out’ — the Exodus verb.",en:"Old English bringan → ‘brought’ with its -ought ending.",syn:["produced","sent out","delivered"],ant:["withheld"],fig:["personification"],rel:["bring","forth","grass","earth"],fun:"Command in v11, compliance report in v12: ‘let the earth bring forth…’ → ‘and the earth brought forth…’ — the fastest paperwork in history."},
+forth:{t:"forth",cat:"func",m:"Forward-and-out: the direction word of ‘bring forth’.",en:"Old English forþ — cousin of ‘forward’… and a homophone of ‘fourth’!",syn:["out","forward","onward"],ant:["back","in"],hp:["fourth (number 4!)"],rel:["bring","brought"],fun:"Forth vs fourth: same sound, different spelling — Day 3’s homophone pair (the day itself is THIRD, not fourth!)."},
+grass:{t:"grass",cat:"earth",heb:"דֶּשֶׁא",tr:"deshe",say:"DEH-sheh",st:"H1877",lit:"fresh green, sprouting grass",m:"The first green: deshe — fresh, dewy sprout-color. The word paints youngness, not just lawn.",org:"Deshe keeps its dewiness in poetry (Ps 18:16 ‘green places’).",en:"Old English gærs — grass (cousin of ‘green’ and ‘grow’!).",syn:["turf","sod","greens","sprouts"],ant:["bareness"],rel:["herb","seed","tree","bring","brought"],fun:"Deshe is color-language: think ‘spring-green’ as a noun. The first paint God puts on land is fresh green.",glow:true},
+herb:{t:"herb",cat:"earth",heb:"עֵשֶׂב",tr:"esev",say:"EH-sev",st:"H6212",lit:"herb, plant, vegetation",m:"The plant-word: esev covers herbs, greens, crops — anything leafy that isn’t a tree.",org:"Esev is field-crop language (Deut 11:15 ‘grass for your cattle’ uses it).",en:"From Latin herba — plant, green crop (cousin of ‘herb’ and, via French, ‘herbage’).",syn:["plant","green","crop"],ant:["barrenness"],rel:["grass","seed","yielding"],fun:"British says ‘herb’ with an h; Americans drop it — one plant, two pronunciations, zero confusion in the garden."},
+yielding:{t:"yielding",cat:"earth",heb:"זרע / עשה",tr:"mazria (zara) · oseh (asah)",say:"maz-REE-ah · oh-SEH",st:"H2232 · H6213",lit:"seeding (zara) · making (asah)",m:"One English word, TWO Hebrew verbs: seed-yielding = mazria (from zara, ‘to SOW’); fruit-yielding = oseh (from asah, ‘to MAKE’ — Day 2’s craftsman verb!).",org:"Zara = sow seed; asah = make/fashion (Day 2).",en:"Old English gieldan — originally ‘to PAY’! Yield still means both ‘produce’ and ‘surrender’.",syn:["producing","bearing","giving"],ant:["withholding"],rel:["seed","fruit","herb","tree"],fun:"English ‘yield’ is a two-faced word: crops yield fruit AND armies yield (surrender). Day 3 uses the generous face."},
+seed:{t:"seed",cat:"earth",heb:"זֶרַע",tr:"zera",say:"ZEH-rah",st:"H2233",lit:"seed, offspring, lineage",m:"Seed AND descendants: zera is biology and family tree at once — ‘the seed of Abraham’ means his great-great-grandchildren.",org:"Zera runs through the whole Bible as the lineage word (Gen 12:7; 15:5).",en:"Old English sǣd — from ‘to sow’ (cousin of ‘sow’ and ‘season’!).",syn:["grain","kernel","offspring","lineage"],ant:["sterility"],rel:["yielding","herb","fruit","itself","kind"],fun:"‘In itself’ + ‘after his kind’: every seed is a time capsule carrying tomorrow’s plant inside today’s fruit. Zera = the Bible’s family-album word."},
+fruit:{t:"fruit",cat:"earth",heb:"פְּרִי",tr:"peri",say:"peh-REE",st:"H6529",lit:"fruit, produce, outcome",m:"Peri: fruit on the tree and outcome of a life — the word doubles for harvest and results.",org:"Peri of the land, peri of the lips, peri of the womb — all ‘fruit’ in Hebrew.",en:"From Latin fructus — ‘enjoyed produce’ (cousin of ‘fruits’, ‘frugal’, ‘fruition’!).",syn:["produce","harvest","crop"],ant:["barrenness"],rel:["tree","yielding","seed"],fun:"Hebrew calls children ‘fruit of the womb’ with the SAME peri as apple-on-branch. Harvest language, family meaning."},
+tree:{t:"tree",cat:"earth",heb:"עֵץ",tr:"ets",say:"ETZ",st:"H6086",lit:"tree; also WOOD / timber",m:"One word, two states: the living tree AND the wood it becomes — ets on the stump is ets on the workbench.",org:"Ets = tree, timber, plank, even idols of wood in prophetic sarcasm.",en:"From Proto-Germanic *trewam — tree AND ‘true’! (Trees were truth-timers: trusty oaks.)",syn:["wood","timber","tree-plant"],ant:["stump"],rel:["fruit","yielding","grass"],fun:"Etz means tree AND wood — Hebrew never lets the material forget the living thing it was. (And English ‘tree’ is cousin to ‘true’ — trusty as an oak.)"},
+after:{t:"after",cat:"func",m:"‘AFTER his kind’ = Hebrew le-mino: ‘to-its-kind’ — one prefixed word where English needs two.",en:"Old English æfter — ‘behind, following’.",syn:["following","per","according to"],ant:["before","against"],rel:["kind","his"],fun:"Hebrew says ‘to-its-kind’ in ONE word (lemino). The refrain is a single drumbeat, three times."},
+his:{t:"his",cat:"func",m:"The plant’s possessive: each green thing owns its kind.",en:"Old English his — ‘of him’.",rel:["kind","whose"],fun:"Hebrew packs ‘his’ into the end of le-mino (‘to-KIND-his’). Possession by suffix!"},
+kind:{t:"kind",cat:"order",heb:"מִין",tr:"min",say:"MEEN",st:"H4327",lit:"kind, species, category",m:"The boundary word: min = species-box. Rare and precise — about 31 uses in the whole Hebrew Bible, most in these food/animal lists.",org:"Min appears in Leviticus’ clean/unclean lists and Deut 22:9’s vineyard rule.",en:"Old English (ge)cynd — ‘nature, birth’ — cousin of ‘kin’ and ‘genus’-thoughts… and of KINDNESS!",syn:["species","type","family","sort"],ant:["mixture"],fig:["refrain"],fn:"‘After his kind’ ×3 in two verses: the refrain that draws living boundaries — like makes like.",rel:["after","his","seed","herb","tree"],fun:"‘Kind’ and ‘kin’ are siblings: your kind is your kin-category. And ‘kindness’ = acting kin-like to strangers. Boundary word with a heart."},
+whose:{t:"whose",cat:"func",m:"The possessive relative: ‘WHOSE seed is in itself’ — points back and owns forward.",en:"Old English hwæs — genitive of who (‘of whom’).",syn:["of which","with its"],rel:["seed","itself"],fun:"‘Whose’ is ‘who’ doing ownership — grammar’s pocket landlord."},
+is:{t:"is",cat:"time",heb:"הָיָה",tr:"hayah",say:"hah-YAH",st:"H1961",lit:"to be (present here)",m:"Present gear of the being-verb: the seed IS in itself — location as existence.",syn:["exists","stands"],rel:["was","were","be"],fun:"Hayah’s third gear this day: be / was / is. One verb, whole transmission."},
+in:{t:"in",cat:"func",m:"Inside: the seed rides INSIDE the fruit — nature’s backpack.",en:"Old English in, PIE *en.",syn:["inside","within"],ant:["out","outside"],hp:["inn 🏨"],rel:["itself","seed"],fun:"The homophone inn again: seeds check in, sprouts check out."},
+itself:{t:"itself",cat:"func",m:"Hebrew does it with two letters: vo = ‘in HIM/it’ — ‘in itself’ is a suffix on the seed’s sentence.",org:"The v- + -o ending = ‘in him/it’.",en:"It + self: Old English self = ‘own person’.",syn:["on its own","solo"],ant:["others"],rel:["in","seed"],fun:"English: two words (in itself). Hebrew: one suffix (-vo). Efficiency championship, round two."},
+upon:{t:"upon",cat:"func",m:"On-top-of: the garden grows UPON the named Earth.",en:"up + on, stacked.",syn:["on","over"],ant:["under","beneath"],rel:["earth","grass"],fun:"Up+on: the preposition that climbed."},
+evening:{t:"evening",cat:"time",heb:"עֶרֶב",tr:"erev",say:"EH-rev",st:"H6153",lit:"evening, dusk",m:"The refrain’s first half, third episode.",org:"Root ‘-r-b: to blend.",en:"Old English æfen.",syn:["dusk","sunset"],ant:["morning"],fig:["merism"],rel:["morning","day","third"],fun:"Chorus, take three: ‘and the evening and the morning were…’"},
+morning:{t:"morning",cat:"time",heb:"בֹּקֶר",tr:"boqer",say:"BOH-ker",st:"H1242",lit:"morning, dawn",m:"The refrain’s second half — daybreak, when kinds become distinguishable.",org:"From baqar: to inspect.",en:"Old English morgen.",syn:["dawn","daybreak"],ant:["evening"],hp:["mourning 😢"],fig:["merism"],rel:["evening","day","third"],fun:"Morning/mourning homophones, third encore."},
+were:{t:"were",cat:"time",heb:"הָיָה",tr:"hayah",say:"hah-YAH",st:"H1961",lit:"to be (plural past)",m:"Refrain verb: evening and morning WERE one numbered day.",syn:["stood","existed"],hp:["we’re!"],rel:["was","be","third"],fun:"Were/we’re: the sound-alike pair that trips every homophone quiz."},
+third:{t:"third",cat:"time",heb:"שְׁלִישִׁי",tr:"shelishi",say:"shlee-SHEE",st:"H7992",lit:"third",m:"Number three — from shalosh (three). Modern Hebrew yom shelishi = TUESDAY.",org:"Shalosh = three; shelishi = third-ified.",en:"From Proto-Germanic *thridiz — ‘three’ + order suffix (cousin of ‘three’!).",syn:["number three","3rd"],ant:["first"],rel:["day","evening","morning"],fun:"Day 1 first (head), Day 2 second (repeat), Day 3 third — and yom shelishi is still Tuesday on Israeli calendars."},
+day:{t:"day",cat:"time",heb:"יוֹם",tr:"yom",say:"YOHM",st:"H3117",lit:"day",m:"The measure-word, now wearing jersey #3 — the first day to hear ‘good’ twice.",org:"Root y-w-m.",en:"Old English dæg.",syn:["daytime","era","age"],ant:["night"],rel:["third","evening","morning"],fun:"Yom’s heartbeat: evening-morning, evening-morning, evening-morning. Three pulses, one week-building rhythm."}
+};
+
+const QUIZ=[
+ {q:"Miqweh (‘the gathering’ of the waters) secretly means which two other things?",a:"A pool (mikveh) and hope",w:["A storm and a wave","A river and a well","A fish and a net"]},
+ {q:"The root qawah (‘gathered’) doubles as which other meaning?",a:"To hope / wait",w:["To sing","To flee","To shine"]},
+ {q:"A kibbutz — a gathered community — comes from which Day 3 root family?",a:"qabats / qawah — to gather",w:["shalom — peace","yatsa — to go out","min — kind"]},
+ {q:"‘Let the earth bring forth’ uses yatsa — famous as which other Bible verb?",a:"The Exodus ‘go out’ verb",w:["The sleeping verb","The eating verb","The climbing verb"]},
+ {q:"Hebrew ‘ets’ means tree and what else?",a:"Wood / timber",w:["Leaf","Root","Forest"]},
+ {q:"How many times does ‘after his kind’ drum through verses 11–12?",a:"Three times",w:["Once","Twice","Seven times"]},
+ {q:"The word ‘kind’ (min) is special because…",a:"It’s a rare, precise ‘species’ word",w:["It means family dinner","It only describes animals","It is a Greek loanword"]},
+ {q:"Day 3 gives the dry land which name?",a:"Earth",w:["Ground","Soil","Field"]},
+ {q:"‘Appear’ is the same Hebrew root as which Day 1 word?",a:"saw — here in passive: ‘be seen’",w:["light","good","called"]},
+ {q:"The English word ‘together’ literally hides which verb?",a:"gather (to-gather)",w:["get","go","give"]},
+ {q:"Which homophone pair belongs to Day 3?",a:"forth / fourth",w:["seed / sea","grass / glass","tree / three"]},
+ {q:"How many times is ‘good’ pronounced on Day 3?",a:"Twice (vv10 & 12)",w:["None — Day 2’s silence continues","Once","Three times"]},
+ {q:"Shelishi (‘third’) names which modern Hebrew weekday?",a:"Tuesday (yom shelishi)",w:["Monday","Wednesday","Thursday"]},
+ {q:"Echad (‘one’) is famous from which prayer line?",a:"The Shema — ‘the LORD is one’",w:["The Kaddish","The Amidah","Grace after meals"]}];
+
+const ALEF_BET=[["א","aleph","silent / glottal stop",1],["ב","bet","v / b",2],["ג","gimel","g",3],["ד","dalet","d",4],["ה","hey","h",5],["ו","vav","v",6],["ז","zayin","z",7],["ח","chet","kh (scratchy!)",8],["ט","tet","t",9],["י","yod","y",10],["כ","kaf","k / kh",20],["ל","lamed","l",30],["מ","mem","m",40],["נ","nun","n",50],["ס","samekh","s",60],["ע","ayin","deep ‘ah’",70],["פ","pe","p / f",80],["צ","tsadi","ts",90],["ק","qof","q",100],["ר","resh","r",200],["ש","shin","sh / s",300],["ת","tav","t",400]];
+
+/* map layout */
+const POS={god:[1200,140],said:[1000,300],let:[880,380],be:[760,450],gathered:[640,520],together:[520,590],unto:[420,660],one:[330,730],place:[250,800],waters:[700,640],under:[820,560],heaven:[940,480],dry:[1050,560],land:[1150,640],appear:[1250,560],earth:[1200,720],called:[1400,420],he:[1500,500],seas:[560,760],gathering:[450,760],of:[500,700],saw:[1600,420],that:[1680,500],good:[1760,430],bring:[1300,860],brought:[1180,930],forth:[1400,930],grass:[1520,870],herb:[1640,930],yielding:[1760,870],seed:[1880,930],fruit:[2000,870],tree:[2120,930],after:[1700,1050],his:[1800,1100],kind:[1900,1050],whose:[2000,1100],is:[2100,1050],itself:[2200,1100],in:[2150,980],upon:[1450,1050],was:[1250,980],so:[1150,1050],it:[1050,980],and:[900,700],the:[1000,640],evening:[1950,500],morning:[2080,560],were:[1980,640],third:[2100,700],day:[2200,640],comma:[800,1150],semicolon:[950,1200],colon:[1100,1250],period:[1250,1300]};
+const ZONES=[["godz",1200,140,240,"rgba(255,255,255,.10)","ELOHIM · the Source"],["speechz",950,380,260,"rgba(234,79,168,.13)","SPEECH · yehi"],["seasz",520,700,320,"rgba(23,176,216,.15)","SEAS · yam & miqweh"],["landz",1180,640,280,"rgba(122,199,79,.14)","LAND · yabbashah"],["gardenz",1800,900,340,"rgba(122,199,79,.12)","GARDEN · deshe & esev"],["kindz",1950,1070,200,"rgba(255,209,102,.14)","REFRAIN · le-mino"],["timez",2080,580,240,"rgba(255,159,67,.13)","TIME · erev · boqer"]];
+const LINES=[["god","said"],["god","called"],["god","saw"],["said","let"],["let","gathered"],["let","appear"],["gathered","waters"],["gathered","together"],["together","gathering"],["gathering","seas"],["called","earth"],["called","seas"],["seas","waters"],["dry","land"],["land","earth"],["appear","saw"],["bring","earth"],["bring","grass"],["bring","brought"],["herb","seed"],["tree","fruit"],["yielding","seed"],["yielding","fruit"],["after","kind"],["his","kind"],["whose","seed"],["evening","morning"],["third","day"],["saw","good"],["waters","under"]];
+const BUILD_TARGET=VERSES[1].tokens.map(t=>t[0]);
+const PALETTE=[["The Cast",["god"]],["Speech & seeing",["said","let","called","saw","be","appear"]],["Waters & seas",["waters","gathered","together","gathering","seas","under","heaven","unto","one","place"]],["Land",["dry","land","earth"]],["The garden",["bring","brought","forth","grass","herb","yielding","seed","fruit","tree"]],["The refrain",["after","his","kind","whose","is","itself"]],["God’s review",["good","that"]],["Glue words",["and","the","of","he","it","in","upon","was","so"]],["Time",["evening","morning","were","third","day"]],["Pauses",["comma","semicolon","colon","period"]]];
+
+/* ================= ENGINE ================= */
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const store={get(k,d){try{const v=localStorage.getItem("gei:"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("gei:"+k,JSON.stringify(v))}catch(e){}}};
+const state={seen:new Set(store.get("seen"+SUF,[])),theme:store.get("theme","dark"),sound:store.get("sound",false),best:store.get("best"+SUF,0),bsolved:store.get("bsolved"+SUF,false),device:null,sel:null,view:"read",audio:null,zoom:1};
+const UNIQ=Object.keys(W), TOTAL=UNIQ.length;
+const COUNTS={}; VERSES.forEach(v=>v.tokens.forEach(([i])=>COUNTS[i]=(COUNTS[i]||0)+1));
+
+function stars(){const c=$("#stars");if(!c||!c.getContext)return;const x=c.getContext("2d");if(!x)return;let Wd,Hd,P=[];
+ function sz(){Wd=c.width=innerWidth;Hd=c.height=innerHeight;P=Array.from({length:90},()=>({x:Math.random()*Wd,y:Math.random()*Hd,r:Math.random()*1.4+.3,p:Math.random()*6.28,s:.4+Math.random()*1.2}))}
+ sz();addEventListener("resize",sz);
+ (function tick(t){x.clearRect(0,0,Wd,Hd);for(const p of P){const a=.25+.6*Math.abs(Math.sin(t/1400*p.s+p.p));x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle="rgba(210,225,255,"+a.toFixed(2)+")";x.fill()}requestAnimationFrame(tick)})(0)}
+function beep(kind){if(!state.sound)return;try{state.audio=state.audio||new (window.AudioContext||window.webkitAudioContext)();const a=state.audio,o=a.createOscillator(),g=a.createGain();const seq=kind==="win"?[523,659,784,1047]:kind==="bad"?[220,174]:[660];o.connect(g);g.connect(a.destination);o.type="sine";let t=a.currentTime;seq.forEach((f,i)=>o.frequency.setValueAtTime(f,t+i*.09));g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.12,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+seq.length*.09+.18);o.start(t);o.stop(t+seq.length*.09+.25)}catch(e){}}
+const confetti=(()=>{let pieces=[],raf=null;function burst(n,x,y){const c=$("#confetti");if(!c||!c.getContext)return;const ctx=c.getContext("2d");if(!ctx)return;c.width=innerWidth;c.height=innerHeight;const cols=["#5b8dee","#17b0d8","#ea4fa8","#ffd166","#39d98a"];for(let i=0;i<n;i++)pieces.push({x:x??innerWidth/2,y:y??innerHeight/3,vx:(Math.random()-.5)*11,vy:-Math.random()*9-2,g:.32,r:Math.random()*7+3,rot:Math.random()*7,vr:(Math.random()-.5)*.3,col:cols[i%cols.length],life:110});if(!raf)raf=requestAnimationFrame(function step(){ctx.clearRect(0,0,c.width,c.height);pieces=pieces.filter(p=>p.life>0);for(const p of pieces){p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.rot+=p.vr;p.life--;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=Math.min(1,p.life/40);ctx.fillStyle=p.col;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*.62);ctx.restore()}if(pieces.length)raf=requestAnimationFrame(step);else{raf=null;ctx.clearRect(0,0,c.width,c.height)}})}return{burst}})();
+function say(t){try{const u=new SpeechSynthesisUtterance(t);u.rate=.88;u.pitch=1.05;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function progress(){const n=state.seen.size,p=n/TOTAL;const r=$("#ringFg");if(r){const C=2*Math.PI*18;r.style.strokeDasharray=C;r.style.strokeDashoffset=C*(1-p)}const t=$("#progTxt");if(t)t.innerHTML="<b>"+n+"/"+TOTAL+"</b>explored";const f=$("#statFill");if(f)f.style.width=(p*100)+"%";$$("#dayDots span").forEach((d,i)=>d.classList.toggle("done",i===DAY_INDEX&&n>0))}
+function refreshSeen(){$$(".tok").forEach(t=>t.classList.toggle("seen",state.seen.has(t.dataset.id)&&t.dataset.id!==state.sel));$$(".mtok").forEach(t=>t.classList.toggle("seen",state.seen.has(t.dataset.id)&&t.dataset.id!==state.sel))}
+
+/* READ */
+function renderRead(){const box=$("#verses");let html="",k=0;VERSES.forEach(v=>{html+='<p class="verse"><span class="vnum">'+v.n+"</span>";v.tokens.forEach(([id,txt])=>{const p=W[id].k==="p";html+='<span class="tok reveal'+(p?" punct":"")+'" data-id="'+id+'" tabindex="0" role="button" style="animation-delay:'+(k*20)+'ms">'+txt+"</span> ";k++});html+="</p>"});box.innerHTML=html;setTimeout(()=>{const l=document.querySelector('.tok[data-id="'+GLOW_ID+'"]');if(l)l.classList.add("glowburst")},k*20+500)}
+
+/* tooltip */
+const tip={el:null,t:null};
+function bindTips(){tip.el=$("#tip");
+ document.addEventListener("mouseover",e=>{const s=e.target.closest(".tok,.mtok");if(!s)return;const d=W[s.dataset.id];clearTimeout(tip.t);tip.t=setTimeout(()=>{tip.el.innerHTML="<span class='tt'>"+(d.name||d.t)+"</span>"+(d.heb?" <span class='th'>"+d.heb+"</span>":"")+(d.tr?" <i>("+d.tr+")</i>":"")+"<br>"+(d.lit||d.m).slice(0,90)+"…";const r=s.getBoundingClientRect();tip.el.style.left=Math.min(innerWidth-245,Math.max(6,r.left-40))+"px";tip.el.style.top=(r.bottom+10)+"px";tip.el.classList.add("show")},240)});
+ document.addEventListener("mouseout",e=>{if(e.target.closest(".tok,.mtok")){clearTimeout(tip.t);tip.el.classList.remove("show")}})}
+
+/* dossier */
+function chips(list,cls){if(!list||!list.length)return '<span style="color:var(--dim);font-size:10.5px">—</span>';return list.map(x=>'<button class="chip '+cls+'">'+x+"</button>").join("")}
+function acc(title,icon,body){return '<div class="acc"><button>'+icon+" "+title+'<span class="chev">▸</span></button><div class="body"><div class="inner">'+body+"</div></div></div>"}
+function select(id,pulse){const d=W[id];state.sel=id;
+ $$(".tok").forEach(t=>t.classList.toggle("sel",t.dataset.id===id));
+ $$(".mtok").forEach(t=>t.classList.toggle("sel",t.dataset.id===id));
+ const firstNew=!state.seen.has(id);state.seen.add(id);store.set("seen"+SUF,[...state.seen]);store.set("last"+SUF,id);progress();refreshSeen();
+ if(pulse)$$('.tok[data-id="'+id+'"]').forEach(t=>{t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop")});
+ if(d.glow)$$('.tok[data-id="'+id+'"],.mtok[data-id="'+id+'"]').forEach(t=>{t.classList.remove("glowburst");void t.offsetWidth;t.classList.add("glowburst")});
+ if(firstNew){beep("click");if(state.seen.size%10===0){confetti.burst(90);beep("win")}else if(state.seen.size===TOTAL){confetti.burst(220);beep("win")}}
+ const figs=(d.fig||[]).map(f=>{const D=DEVICES.find(x=>x.id===f);return '<span class="tag fg" data-dev="'+f+'">'+D.icon+" "+D.name+"</span>"}).join("");
+ $("#dossHead").innerHTML='<div id="dWord">'+(d.name||d.t)+(d.say?'<button class="saybtn" title="Hear it" data-say="'+d.say+'">🔊</button>':"")+"</div>"+(d.heb?'<div id="dHeb">'+d.heb+"</div>":"")+'<div id="dMeta">'+(d.tr?'<span class="tag tr">'+d.tr+"</span>":"")+(d.st?'<span class="tag st">Strong’s '+d.st+"</span>":"")+(XLINKS||[]).map(x=>x.ids.indexOf(id)>=0?'<a class="tag st" style="text-decoration:none" href="'+x.home+'?w='+id+'">↩ '+x.label+"</a>":"").join("")+figs+"</div>";
+ $("#dMean").textContent=d.m;
+ const body=[];
+ body.push(acc("Origin & Roots","🌱",(d.org?'<span class="lbl">Hebrew origin</span>'+d.org:"")+(d.en?'<span class="lbl">English origin</span>'+d.en:"")+(d.lit?'<span class="lbl">Literal sense</span>'+d.lit:"")));
+ body.push(acc("Syn · Ant · Sound-alikes","🔀",'<span class="lbl">Synonyms</span><div class="chips">'+chips(d.syn,"")+'</div><span class="lbl">Antonyms</span><div class="chips">'+chips(d.ant,"ant")+'</div><span class="lbl">Homophones / homographs</span><div class="chips">'+chips([...(d.hp||[]),...(d.hg||[])],"homo")+"</div>"));
+ body.push(acc("Figurative Language","🎭",(d.fig||[]).length?(d.fig||[]).map(f=>{const D=DEVICES.find(x=>x.id===f);return "<b>"+D.icon+" "+D.name+":</b> "+D.desc+"<br>"}).join("")+(d.fn?"<br><i>"+d.fn+"</i>":""):"This word plays it straight — literal duty in the sentence. (Check its relatives for figures of speech!)"));
+ body.push(acc("Linked Words in Day 1","🔗",'<div class="chips">'+(d.rel||[]).map(r=>'<button class="chip rel" data-rel="'+r+'">'+(W[r]?(W[r].name||W[r].t):r)+"</button>").join("")+"</div>"+'<span class="lbl">Why linked</span>These words share roots, rhymes, contrasts or grammar with “'+(d.name||d.t)+'” — click to hop!'));
+ $("#dossBody").innerHTML=body.join("")+'<div class="funbox"><span class="star">⭐</span><b>Fun fact:</b> '+d.fun+"</div>"+'<button id="popBtn">🪟 Pop-out deep dive</button>';
+ $$("#dossBody .acc>button").forEach(b=>b.addEventListener("click",()=>{const a=b.parentElement,open=a.classList.contains("open");$$("#dossBody .acc").forEach(x=>{x.classList.remove("open");x.querySelector(".body").style.maxHeight=0});if(!open){a.classList.add("open");const bd=a.querySelector(".body");bd.style.maxHeight=Math.min(bd.scrollHeight,340)+"px"}}));
+ const first=$("#dossBody .acc>button");if(first)first.click();
+ $$("[data-rel]").forEach(c=>c.addEventListener("click",()=>select(c.dataset.rel,true)));
+ $$("#dossHead .tag.fg").forEach(t=>t.addEventListener("click",()=>setDevice(t.dataset.dev)));
+ const sb=$("#dossHead .saybtn");if(sb)sb.addEventListener("click",()=>say(sb.dataset.say));
+ $("#popBtn").addEventListener("click",()=>popout(id))}
+
+/* device radar */
+function setDevice(id){state.device=state.device===id?null:id;$$(".devbtn").forEach(b=>b.classList.toggle("on",b.dataset.dev===state.device));const banner=$("#devBanner");
+ if(state.device){const D=DEVICES.find(x=>x.id===state.device);banner.innerHTML="<span>"+D.icon+"</span><div><b>"+D.name+" radar on.</b> Glowing items use this device — click them!<br><span style='color:var(--dim)'>"+D.desc+"</span></div><button title='clear'>✕</button>";banner.classList.add("show");banner.querySelector("button").addEventListener("click",()=>setDevice(state.device))}else banner.classList.remove("show");
+ $$(".tok,.mtok").forEach(t=>{const d=W[t.dataset.id];t.classList.toggle("hl",!!state.device&&(d.fig||[]).includes(state.device))})}
+
+/* modals */
+function openModal(html){$("#modalWrap").innerHTML=html;$("#modalWrap").classList.add("show");const x=$("#modalWrap .x");if(x)x.addEventListener("click",closeModal)}
+function closeModal(){$("#modalWrap").classList.remove("show")}
+function popout(id){const d=W[id];openModal('<div class="modal"><header><h3>🪟 Deep dive — '+(d.name||d.t)+'</h3><button class="x">✕</button></header><div class="mbody">'+(d.heb?'<p style="font-size:32px;color:var(--gold);direction:rtl;text-align:center;margin:4px 0">'+d.heb+'<br><span style="font-size:14px;color:var(--cyan);direction:ltr">'+d.tr+" · Strong’s "+d.st+"</span></p>":"")+"<p>"+d.m+"</p>"+(d.pop?"<p style='margin-top:10px'>"+d.pop+"</p>":"")+(d.org?"<p style='margin-top:10px'><b>🌱 Roots:</b> "+d.org+"</p>":"")+(d.en?"<p style='margin-top:8px'><b>🇬🇧 English journey:</b> "+d.en+"</p>":"")+"<p style='margin-top:10px'><b>⭐ Fun:</b> "+d.fun+"</p><p style='margin-top:12px;color:var(--dim);font-size:11px'>Engineered interpretation: every word is a part in the machine of the sentence — pull one out and see what it drives.</p></div></div>")}
+function alphaModal(){openModal('<div class="modal"><header><h3>🔤 The Alef-Bet — Hebrew’s 22 letters</h3><button class="x">✕</button></header><div class="mbody"><p style="margin-bottom:10px">Each letter doubles as a NUMBER (cyan value) — Hebrew loves letter-math! And <b style="color:var(--gold)">א</b> is silent: the alphabet starts with a whisper.</p><div class="alphaGrid">'+ALEF_BET.map(L=>'<div class="alphaCell"><div class="L">'+L[0]+'</div><div class="N">'+L[1]+'</div><div class="S">'+L[2]+'</div><div class="V">= '+L[3]+"</div></div>").join("")+"</div><p style='margin-top:12px;color:var(--dim);font-size:11px;'>"+ALPHA_NOTE+"</p></div></div>")}
+
+/* MAP */
+function buildMap(){const inner=$("#mapInner");let html='<svg id="mapLines" width="2400" height="1400">';
+ LINES.forEach(([a,b])=>{const[x1,y1]=POS[a],[x2,y2]=POS[b];const dash=(a==="beginning"||a==="light"||a==="heaven"||a==="evening"||a==="day"||a==="form")?' stroke-dasharray="7 6"':"";html+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="rgba(154,167,212,.4)" stroke-width="2"'+dash+"/>"});
+ html+="</svg>";
+ ZONES.forEach(z=>{html+='<div class="zone" style="left:'+(z[1]-z[3])+"px;top:"+(z[2]-z[3])+"px;width:"+(z[3]*2)+"px;height:"+(z[3]*2)+"px;background:radial-gradient(circle,"+z[4]+" 0%,transparent 70%)\"></div>";html+='<div class="zlabel" style="left:'+(z[1]-z[3]+20)+"px;top:"+(z[2]-z[3]+8)+'px">'+z[5]+"</div>"});
+ UNIQ.forEach(id=>{const d=W[id],[x,y]=POS[id];const n=COUNTS[id]||1;const size=11+Math.min(n,7)*1.6;const col=CATCOL[d.cat];
+  html+='<button class="mtok" data-id="'+id+'" tabindex="0" style="left:'+x+"px;top:"+y+"px;font-size:"+size+"px;color:"+col+";background:rgba(10,15,36,.55)"+(d.k==="p"?";border-radius:50%":"")+'">'+(d.name?d.name.split(" ")[0]:d.t)+(n>1?'<span class="ct">×'+n+"</span>":"")+"</button>"});
+ inner.innerHTML=html;
+ inner.querySelectorAll(".mtok").forEach(m=>{m.addEventListener("click",()=>select(m.dataset.id,true))});
+ const legend=$("#mapLegend");legend.innerHTML=ZONES.map(z=>'<button class="lchip" data-z="'+z[1]+","+z[2]+'">'+z[5].split(" · ")[0]+"</button>").join("")+'<span id="mapCtl"><button id="zIn">+</button><button id="zOut">−</button><button id="zRe">⌂</button></span>';
+ legend.querySelectorAll(".lchip").forEach(b=>b.addEventListener("click",()=>{const[x,y]=b.dataset.z.split(",").map(Number);const wr=$("#mapWrap");wr.scrollTo({left:x*state.zoom-wr.clientWidth/2,top:y*state.zoom-wr.clientHeight/2,behavior:"smooth"})}));
+ $("#zIn").addEventListener("click",()=>zoomMap(1.2));$("#zOut").addEventListener("click",()=>zoomMap(1/1.2));$("#zRe").addEventListener("click",()=>{state.zoom=1;applyZoom();$("#mapWrap").scrollTo({left:300,top:100})});
+ const wr=$("#mapWrap");let drag=null;
+ wr.addEventListener("mousedown",e=>{if(e.target.closest(".mtok"))return;drag={x:e.clientX,y:e.clientY,l:wr.scrollLeft,t:wr.scrollTop};wr.classList.add("drag")});
+ addEventListener("mouseup",()=>{drag=null;wr.classList.remove("drag")});
+ addEventListener("mousemove",e=>{if(!drag)return;wr.scrollLeft=drag.l-(e.clientX-drag.x);wr.scrollTop=drag.t-(e.clientY-drag.y)});
+ wr.addEventListener("wheel",e=>{e.preventDefault();zoomMap(e.deltaY<0?1.12:1/1.12)},{passive:false});
+ wr.scrollTo({left:300,top:80})}
+function applyZoom(){$("#mapInner").style.transform="scale("+state.zoom+")";const wr=$("#mapWrap");wr.style.setProperty("--z",state.zoom)}
+function zoomMap(f){const nz=Math.min(1.8,Math.max(.5,state.zoom*f));const wr=$("#mapWrap");const cx=wr.scrollLeft+wr.clientWidth/2,cy=wr.scrollTop+wr.clientHeight/2;state.zoom=nz;applyZoom();wr.scrollTo({left:cx*nz/f-wr.clientWidth/2,top:cy*nz/f-wr.clientHeight/2})}
+
+/* BUILD */
+let bseq=[];
+function renderPalette(){$("#buildPalette").innerHTML=PALETTE.map(([cat,ids])=>'<div class="pcat">'+cat+"</div>"+ids.map(id=>'<button class="pchip" data-id="'+id+'">'+W[id].t+"</button>").join("")).join("");
+ $$("#buildPalette .pchip").forEach(b=>b.addEventListener("click",()=>{bseq.push(b.dataset.id);beep("click");renderSeq()}))}
+function renderSeq(msg){const box=$("#buildSeq");box.innerHTML=bseq.map((id,i)=>'<button class="bslot" data-i="'+i+'">'+W[id].t+"</button>").join("");
+ $$("#buildSeq .bslot").forEach(b=>b.addEventListener("click",()=>{bseq.splice(+b.dataset.i,1);renderSeq()}));
+ if(msg!==undefined)$("#buildMsg").textContent=msg}
+function buildCheck(){if(!bseq.length){renderSeq("Lay some words first! Click the chips below.");return}
+ let ok=0;const slots=$$("#buildSeq .bslot");
+ bseq.forEach((id,i)=>{const good=id===BUILD_TARGET[i];slots[i].classList.add(good?"ok":"bad");if(good)ok++});
+ if(bseq.length===BUILD_TARGET.length&&ok===BUILD_TARGET.length){state.bsolved=true;store.set("bsolved"+SUF,true);confetti.burst(160);beep("win");BUILD_TARGET.forEach(t=>state.seen.add(t));store.set("seen"+SUF,[...state.seen]);progress();refreshSeen();
+  renderSeq("🏆 PERFECT BUILD! “"+BUILD_QUOTE+"” "+BUILD_WINNOTE);select(BUILD_REWARD,true)}
+ else{beep("bad");renderSeq(ok+" / "+BUILD_TARGET.length+" slots correct (green). Red slots are out of place — click them to remove, then rethink the order!")}
+}
+function buildHint(){if(bseq.length>=BUILD_TARGET.length){renderSeq("The verse is already full — check it or clear it!");return}
+ const need=BUILD_TARGET[bseq.length];bseq.push(need);renderSeq("💡 Placed “"+W[need].t+"” for you. Next slot is #"+(bseq.length+1)+".") }
+
+/* QUIZ (inline view) */
+function quizHome(){const b=$("#quizBox");b.innerHTML='<h3>🕹 '+DAY_TITLE+' Word Challenge</h3><p class="sub">8 questions pulled from the '+DAY_TITLE+' word dossiers. Beat your best score!</p><p style="font-size:13px;margin-bottom:14px">Personal best: <b style="color:var(--gold)">'+state.best+'/8</b>'+(state.bsolved?' · <b style="color:var(--green)">Build-a-Verse solved ✓</b>':"")+'</p><button class="btn grad" id="qStart">Start the challenge ▶</button>';
+ $("#qStart").addEventListener("click",quizRun)}
+function quizRun(){const pool=QUIZ.slice().sort(()=>Math.random()-.5).slice(0,8);let i=0,score=0,lock=false;const b=$("#quizBox");
+ function draw(){lock=false;const q=pool[i];const opts=[q.a,...q.w].sort(()=>Math.random()-.5);
+  b.innerHTML='<div class="qdots">'+pool.map((_,k)=>'<span class="'+(k<i?(results[k]?"ok":"no"):"")+'"></span>').join("")+'</div><div style="font-size:11px;color:var(--dim);margin-bottom:8px">Question '+(i+1)+" of 8 · score "+score+'</div><div id="qText">'+q.q+"</div>"+opts.map(o=>'<button class="qopt" data-o="'+o.replace(/"/g,"&quot;")+'">'+o+"</button>").join("");
+  b.querySelectorAll(".qopt").forEach(btn=>btn.addEventListener("click",()=>{if(lock)return;lock=true;const okk=btn.dataset.o===q.a;results[i]=okk;
+   if(okk){btn.classList.add("right");score++;beep("win");confetti.burst(40,innerWidth/2,innerHeight/2)}else{btn.classList.add("wrong");beep("bad");b.querySelectorAll(".qopt").forEach(x=>{if(x.dataset.o===q.a)x.classList.add("right")})}
+   setTimeout(()=>{i++;if(i<8)draw();else finish()},900)}))}
+ const results=[];
+ function finish(){if(score>state.best){state.best=score;store.set("best"+SUF,score)}
+  const msg=score===8?"PERFECT! Certified Day 1 Word Engineer! 🏆":score>=6?"Amazing — the words of Day 1 clearly know you. 🌟":score>=4?"Nice work — hover back over the verses and grab a few more secrets! 💪":"Every engineer starts somewhere — click some words and run it back! 🔧";
+  b.innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:52px">'+(score>=6?"🏆":score>=4?"🌟":"")+'</div><p style="font-size:26px;font-weight:800;margin:8px 0">'+score+" / 8</p><p style='margin-bottom:16px;color:var(--dim)'>"+msg+'</p><button class="btn grad" id="qAgain">Run again 🔁</button> <button class="btn ghost" id="qHome">Menu</button></div>';
+  if(score>=6)confetti.burst(150);
+  $("#qAgain").addEventListener("click",quizRun);$("#qHome").addEventListener("click",quizHome)}
+ draw()}
+
+/* views */
+function setView(v){state.view=v;$$(".vbtn").forEach(b=>b.classList.toggle("on",b.dataset.view===v));
+ ["read","map","build","quiz"].forEach(x=>$("#view"+x[0].toUpperCase()+x.slice(1)).classList.toggle("hidden",x!==v));
+ if(v==="quiz")quizHome()}
+
+/* boot */
+function applyTheme(){document.body.classList.toggle("light",state.theme==="light");const b=$("#themeBtn");if(b)b.querySelector("small").textContent=state.theme==="light"?"Day":"Night"}
+function applySound(){const b=$("#soundBtn");if(b)b.querySelector("small").textContent=state.sound?"On":"Off"}
+function init(){stars();renderRead();buildMap();renderPalette();renderSeq();bindTips();progress();applyTheme();applySound();
+ $("#devList").innerHTML=DEVICES.map(d=>'<button class="devbtn" data-dev="'+d.id+'"><span>'+d.icon+"</span><span>"+d.name+"</span></button>").join("");
+ $("#totalN").textContent=TOTAL;
+ $("#verses").addEventListener("click",e=>{const s=e.target.closest(".tok");if(s)select(s.dataset.id,true)});
+ $("#verses").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const s=e.target.closest(".tok");if(s){e.preventDefault();select(s.dataset.id,true)}}});
+ $$(".devbtn").forEach(b=>b.addEventListener("click",()=>setDevice(b.dataset.dev)));
+ $("#alphaBtn").addEventListener("click",alphaModal);
+ $("#themeBtn").addEventListener("click",()=>{state.theme=state.theme==="light"?"dark":"light";store.set("theme",state.theme);applyTheme()});
+ $("#soundBtn").addEventListener("click",()=>{state.sound=!state.sound;store.set("sound",state.sound);applySound();if(state.sound)beep("click")});
+ $("#resetBtn").addEventListener("click",()=>{state.seen.clear();store.set("seen"+SUF,[]);state.bsolved=false;store.set("bsolved"+SUF,false);progress();select(DEFAULT_ID,true);renderSeq("")});
+ $$(".vbtn").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+ $("#bCheck").addEventListener("click",buildCheck);
+ $("#bHint").addEventListener("click",buildHint);
+ $("#bShow").addEventListener("click",()=>{bseq=BUILD_TARGET.slice();renderSeq("👀 There it is — Genesis 1:3 in order. Now clear it and build it yourself!")});
+ $("#bClear").addEventListener("click",()=>{bseq=[];renderSeq("")});
+ $("#modalWrap").addEventListener("click",e=>{if(e.target.id==="modalWrap")closeModal()});
+ select(store.get("last"+SUF,DEFAULT_ID),false);refreshSeen();const qw=new URLSearchParams(location.search).get("w");if(qw&&W[qw])setTimeout(()=>select(qw,true),700);
+ if(state.bsolved)$("#buildGoal").innerHTML+=" <b style='color:var(--green)'>· solved ✓</b>"}
+document.addEventListener("DOMContentLoaded",init);
 </script>
 </body>
 </html>
