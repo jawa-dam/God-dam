@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About · Genesis Engineered Interpretations | yallToo</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div id="app" style="grid-template-rows:auto 1fr auto; overflow-y:auto">
+  <header>
+    <img class="logo" src="assets/logo.png" alt="yallToo logo">
+    <div class="titles"><h1>Genesis <b>Engineered</b> Interpretations</h1><p>About the project</p></div>
+    <nav>
+      <a class="pill" href="index.html">Day 1</a>
+      <a class="pill soon" href="day2.html">Day 2</a>
+      <a class="pill soon" href="day3.html">Day 3</a>
+      <a class="pill soon" href="day4.html">Day 4</a>
+      <a class="pill soon" href="day5.html">Day 5</a>
+      <a class="pill soon" href="day6.html">Day 6</a>
+      <a class="pill active" href="about.html">About</a>
+    </nav>
+  </header>
+
+  <div style="overflow-y:auto; padding-bottom:30px">
+    <div class="hero" style="margin-top:3vh">
+      <div class="big">ENGINEERED<br>INTERPRETATIONS</div>
+      <p>An engineer doesn’t just admire a machine — she opens it, pulls out each part, and asks:
+      <b style="color:var(--ink)">what does this drive?</b> We do that with the words of Genesis 1.
+      Every word and every punctuation mark is a clickable part: Hebrew roots, figurative language,
+      homophones, synonyms, antonyms, origins and cross-links — built for curious 5th graders
+      and the grown-ups who love them.</p>
+      <div class="cta"><a class="btn grad" href="index.html">▶ Open the Day 1 lab</a></div>
+    </div>
+
+    <div class="featGrid">
+      <div class="feat"><div class="fi">👆</div><h4>Everything clicks</h4><p>43 clickable words &amp; punctuation marks, each with a full dossier: meaning, Hebrew + Strong’s #, roots, and English origin.</p></div>
+      <div class="feat"><div class="fi">🎭</div><h4>Figurative radar</h4><p>Merism, simile, idiom, anthropomorphism, contrast pairs — toggle a device and watch every word using it glow.</p></div>
+      <div class="feat"><div class="fi">🔗</div><h4>Word-to-word links</h4><p>Blue chips hop you across the verse: beginning ↔ first (same Hebrew root!), light ↔ darkness, evening ↔ morning.</p></div>
+      <div class="feat"><div class="fi">🕹️</div><h4>Four play modes</h4><p>📖 Read the text, 🗺 fly the Word Map, 🧱 rebuild verse 3 in Build-a-Verse, 🕹 beat the 8-question Quiz — with confetti, sound FX and a best-score record.</p></div>
+      <div class="feat"><div class="fi">🌗</div><h4>Day / Night themes</h4><p>A cosmic night lab or a parchment day mode — because Day 1 invented both.</p></div>
+      <div class="feat"><div class="fi">🔊</div><h4>Hear the Hebrew</h4><p>One tap speaks the transliteration aloud (reshith! bara! ruach!) so the words land in the ear, not just the eye.</p></div>
+    </div>
+
+    <div class="roadmap">
+      <h3 style="color:var(--ink);margin-bottom:10px">🗺️ Build roadmap</h3>
+      <table>
+        <tr><th>Day</th><th>Text</th><th>Theme</th><th>Status</th></tr>
+        <tr><td>1</td><td>Gen 1:1–5</td><td>Light &amp; darkness — the word lab</td><td>✅ LIVE</td></tr>
+        <tr><td>2</td><td>Gen 1:6–8</td><td>The vault of the sky (raqia)</td><td> building</td></tr>
+        <tr><td>3</td><td>Gen 1:9–13</td><td>Land, seas &amp; seed</td><td>🔧 building</td></tr>
+        <tr><td>4</td><td>Gen 1:14–19</td><td>Lamps for the sky</td><td>🔧 building</td></tr>
+        <tr><td>5</td><td>Gen 1:20–23</td><td>Splash &amp; song</td><td>🔧 building</td></tr>
+        <tr><td>6</td><td>Gen 1:24–31</td><td>Stomp, stalk &amp; soul</td><td>🔧 building</td></tr>
+        <tr><td>7</td><td>Gen 2:1–3</td><td>Rest — the stretch goal 🌅</td><td>💭 dreaming</td></tr>
+      </table>
+      <p style="margin-top:12px">Planned upgrades: printable classroom cards, a “word of the day” spotlight,
+      family discussion prompts per verse, a cross-day concordance (watch <i>badal / divided</i> reappear on Day 2!),
+      and teacher mode with answer keys. All static HTML/CSS/JS — hosted free on GitHub Pages.</p>
+    </div>
+  </div>
+
+  <footer><span>Text: King James Version (public domain)</span><span class="sep">•</span><span>Hebrew: Strong’s concordance references</span><span class="sep">•</span><span>© yallToo</span></footer>
+</div>
+<script>
+(function(){
+  var c=document.getElementById('stars'),x=c.getContext('2d'),W,H,P=[];
+  function s(){W=c.width=innerWidth;H=c.height=innerHeight;P=[];for(var i=0;i<80;i++)P.push([Math.random()*W,Math.random()*H,Math.random()*1.4+.3,Math.random()*6.28]);}
+  s();addEventListener('resize',s);
+  (function t(k){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){var p=P[i],a=.25+.6*Math.abs(Math.sin(k/1300+p[3]));x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fillStyle='rgba(210,225,255,'+a+')';x.fill();}requestAnimationFrame(t);})(0);
+})();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a366c8832f56e886',t:'MTc4ODYyNzU1Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

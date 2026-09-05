@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 · Coming Soon | Genesis Engineered Interpretations</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div id="app" style="grid-template-rows:auto 1fr auto">
+  <header>
+    <img class="logo" src="assets/logo.png" alt="yallToo logo">
+    <div class="titles"><h1>Genesis <b>Engineered</b> Interpretations</h1><p>The Day-by-Day clickable word lab</p></div>
+    <nav>
+      <a class="pill" href="index.html">Day 1</a>
+      <a class="pill active" href="day2.html">Day 2</a><a class="pill soon" href="day3.html">Day 3</a><a class="pill soon" href="day4.html">Day 4</a><a class="pill soon" href="day5.html">Day 5</a><a class="pill soon" href="day6.html">Day 6</a>
+      <a class="pill" href="about.html">About</a>
+    </nav>
+  </header>
+  <div class="hero" style="overflow-y:auto;padding-bottom:30px">
+    <div style="font-size:64px">🌊</div>
+    <div class="big">DAY 2</div>
+    <p><b style="color:var(--ink)">The Vault of the Sky</b> — Genesis 1:6–8<br>
+    This chamber of the engine is still under construction. Words being engineered:</p>
+    <div class="featGrid" style="margin-top:0">
+      <div class="feat"><div class="fi">🔩</div><h4>firmament (raqia, H7549)</h4><p>the hammered-out sky-dome</p></div><div class="feat"><div class="fi">🔩</div><h4>divided (badal) returns</h4><p>waters split above &amp; below</p></div><div class="feat"><div class="fi">🔩</div><h4>waters above? windows of heaven? come find out</h4><p></p></div>
+    </div>
+    <div class="cta">
+      <button class="btn grad" id="notify">🔔 Ping me when it opens</button>
+      <a class="btn ghost" href="index.html">⬅ Back to Day 1</a>
+    </div>
+    <p id="msg" style="min-height:22px;color:var(--gold);font-weight:700"></p>
+  </div>
+  <footer><span>Text: King James Version (public domain)</span><span class="sep">•</span><span>yallToo · Genesis Engineered Interpretations</span></footer>
+</div>
+<script>
+(function(){
+  var c=document.getElementById('stars'),x=c.getContext('2d'),W,H,P=[];
+  function s(){W=c.width=innerWidth;H=c.height=innerHeight;P=[];for(var i=0;i<80;i++)P.push([Math.random()*W,Math.random()*H,Math.random()*1.4+.3,Math.random()*6.28]);}
+  s();addEventListener('resize',s);
+  (function t(k){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){var p=P[i],a=.25+.6*Math.abs(Math.sin(k/1300+p[3]));x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fillStyle='rgba(210,225,255,'+a+')';x.fill();}requestAnimationFrame(t);})(0);
+  document.getElementById('notify').addEventListener('click',function(){
+    document.getElementById('msg').textContent='Noted! Day 2 is on the build bench — meanwhile, Day 1 has ' + 43 + ' clickable secrets waiting. 🔧';
+  });
+})();
+</script>
+</body>
+</html>
